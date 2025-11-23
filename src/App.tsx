@@ -17,6 +17,7 @@ import FasilitasAdmin from "./pages/admin/FasilitasAdmin";
 import KegiatanAdmin from "./pages/admin/KegiatanAdmin";
 import DokumentasiAdmin from "./pages/admin/DokumentasiAdmin";
 import PengumumanAdmin from "./pages/admin/PengumumanAdmin";
+import MediaAdmin from "./pages/admin/MediaAdmin";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -42,6 +43,7 @@ const App = () => (
           <Route path="/admin/kegiatan" element={<KegiatanAdmin />} />
           <Route path="/admin/dokumentasi" element={<DokumentasiAdmin />} />
           <Route path="/admin/pengumuman" element={<PengumumanAdmin />} />
+          <Route path="/admin/media" element={<MediaAdmin />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
