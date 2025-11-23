@@ -8,6 +8,7 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 import { ArrowLeft, Plus, Pencil, Trash2 } from "lucide-react";
+import { FileUpload } from "@/components/FileUpload";
 
 interface FasilitasData {
   id: string;
@@ -128,14 +129,11 @@ export default function FasilitasAdmin() {
                     rows={6}
                   />
                 </div>
-                <div>
-                  <Label htmlFor="foto_url">URL Foto (Opsional)</Label>
-                  <Input
-                    id="foto_url"
-                    value={formData.foto_url}
-                    onChange={(e) => setFormData({ ...formData, foto_url: e.target.value })}
-                  />
-                </div>
+                <FileUpload
+                  label="Foto Fasilitas (Opsional)"
+                  currentUrl={formData.foto_url}
+                  onUploadComplete={(url) => setFormData({ ...formData, foto_url: url })}
+                />
                 <div className="flex gap-2">
                   <Button type="submit" className="gradient-primary text-primary-foreground">
                     <Plus className="h-4 w-4 mr-2" />
