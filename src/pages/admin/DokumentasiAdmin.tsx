@@ -9,6 +9,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 import { ArrowLeft, Plus, Pencil, Trash2 } from "lucide-react";
+import { FileUpload } from "@/components/FileUpload";
 
 interface DokumentasiData {
   id: string;
@@ -166,15 +167,12 @@ export default function DokumentasiAdmin() {
                     </SelectContent>
                   </Select>
                 </div>
-                <div>
-                  <Label htmlFor="media_url">URL Media</Label>
-                  <Input
-                    id="media_url"
-                    value={formData.media_url}
-                    onChange={(e) => setFormData({ ...formData, media_url: e.target.value })}
-                    required
-                  />
-                </div>
+                <FileUpload
+                  label="Upload Media"
+                  currentUrl={formData.media_url}
+                  onUploadComplete={(url) => setFormData({ ...formData, media_url: url })}
+                  accept={formData.jenis_media === "video" ? "video/*" : "image/*"}
+                />
                 <div>
                   <Label htmlFor="deskripsi">Deskripsi (Opsional)</Label>
                   <Textarea

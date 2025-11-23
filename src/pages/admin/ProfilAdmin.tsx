@@ -8,6 +8,7 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 import { ArrowLeft, Plus, Pencil, Trash2 } from "lucide-react";
+import { FileUpload } from "@/components/FileUpload";
 
 interface ProfilData {
   id: string;
@@ -128,14 +129,11 @@ export default function ProfilAdmin() {
                     rows={8}
                   />
                 </div>
-                <div>
-                  <Label htmlFor="foto_profil_url">URL Foto (Opsional)</Label>
-                  <Input
-                    id="foto_profil_url"
-                    value={formData.foto_profil_url}
-                    onChange={(e) => setFormData({ ...formData, foto_profil_url: e.target.value })}
-                  />
-                </div>
+                <FileUpload
+                  label="Foto Profil (Opsional)"
+                  currentUrl={formData.foto_profil_url}
+                  onUploadComplete={(url) => setFormData({ ...formData, foto_profil_url: url })}
+                />
                 <div className="flex gap-2">
                   <Button type="submit" className="gradient-primary text-primary-foreground">
                     <Plus className="h-4 w-4 mr-2" />
