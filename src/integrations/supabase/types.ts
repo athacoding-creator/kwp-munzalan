@@ -14,7 +14,176 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      dokumentasi: {
+        Row: {
+          created_at: string
+          deskripsi: string | null
+          id: string
+          jenis_media: string
+          kegiatan_id: string | null
+          media_url: string
+        }
+        Insert: {
+          created_at?: string
+          deskripsi?: string | null
+          id?: string
+          jenis_media: string
+          kegiatan_id?: string | null
+          media_url: string
+        }
+        Update: {
+          created_at?: string
+          deskripsi?: string | null
+          id?: string
+          jenis_media?: string
+          kegiatan_id?: string | null
+          media_url?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "dokumentasi_kegiatan_id_fkey"
+            columns: ["kegiatan_id"]
+            isOneToOne: false
+            referencedRelation: "kegiatan"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      fasilitas: {
+        Row: {
+          created_at: string
+          deskripsi: string
+          foto_url: string | null
+          id: string
+          nama: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          deskripsi: string
+          foto_url?: string | null
+          id?: string
+          nama: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          deskripsi?: string
+          foto_url?: string | null
+          id?: string
+          nama?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      kegiatan: {
+        Row: {
+          created_at: string
+          deskripsi: string
+          id: string
+          lokasi: string | null
+          nama_kegiatan: string
+          tanggal: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          deskripsi: string
+          id?: string
+          lokasi?: string | null
+          nama_kegiatan: string
+          tanggal: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          deskripsi?: string
+          id?: string
+          lokasi?: string | null
+          nama_kegiatan?: string
+          tanggal?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      pengumuman: {
+        Row: {
+          admin_id: string | null
+          created_at: string
+          id: string
+          isi: string
+          judul: string
+          tanggal: string
+          updated_at: string
+        }
+        Insert: {
+          admin_id?: string | null
+          created_at?: string
+          id?: string
+          isi: string
+          judul: string
+          tanggal?: string
+          updated_at?: string
+        }
+        Update: {
+          admin_id?: string | null
+          created_at?: string
+          id?: string
+          isi?: string
+          judul?: string
+          tanggal?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      profil: {
+        Row: {
+          created_at: string
+          foto_profil_url: string | null
+          id: string
+          judul: string
+          konten: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          foto_profil_url?: string | null
+          id?: string
+          judul: string
+          konten: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          foto_profil_url?: string | null
+          id?: string
+          judul?: string
+          konten?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          created_at: string
+          full_name: string | null
+          id: string
+          username: string
+        }
+        Insert: {
+          created_at?: string
+          full_name?: string | null
+          id: string
+          username: string
+        }
+        Update: {
+          created_at?: string
+          full_name?: string | null
+          id?: string
+          username?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
