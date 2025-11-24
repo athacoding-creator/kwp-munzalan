@@ -7,7 +7,6 @@ import { Badge } from "@/components/ui/badge";
 import { ArrowLeft, RefreshCw, Filter, Home } from "lucide-react";
 import { format } from "date-fns";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { useAdminAuth } from "@/hooks/useAdminAuth";
 import { useAdminLogs } from "@/hooks/useAdminLogs";
 import { Skeleton } from "@/components/ui/skeleton";
 
@@ -15,19 +14,7 @@ export default function ActivityLogAdmin() {
   const [filterAction, setFilterAction] = useState<string>("ALL");
   const [filterTable, setFilterTable] = useState<string>("ALL");
   const navigate = useNavigate();
-  const { isLoading: authLoading, isAuthorized } = useAdminAuth();
   const { data: logs = [], isLoading, refetch } = useAdminLogs();
-
-  if (authLoading || !isAuthorized) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-background via-background to-primary/5 p-8">
-        <div className="max-w-7xl mx-auto space-y-8">
-          <Skeleton className="h-12 w-64" />
-          <Skeleton className="h-96 w-full" />
-        </div>
-      </div>
-    );
-  }
 
   const getActionBadge = (action: string) => {
     const variants: Record<string, "default" | "destructive" | "secondary" | "outline"> = {
