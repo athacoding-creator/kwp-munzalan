@@ -22,6 +22,7 @@ const DokumentasiAdmin = lazy(() => import("./pages/admin/DokumentasiAdmin"));
 const PengumumanAdmin = lazy(() => import("./pages/admin/PengumumanAdmin"));
 const MediaAdmin = lazy(() => import("./pages/admin/MediaAdmin"));
 const MonitoringAdmin = lazy(() => import("./pages/admin/MonitoringAdmin"));
+const ActivityLogAdmin = lazy(() => import("./pages/admin/ActivityLogAdmin"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
 const queryClient = new QueryClient();
@@ -54,6 +55,7 @@ const App = () => (
             <Route path="/admin/pengumuman" element={<PengumumanAdmin />} />
             <Route path="/admin/media" element={<MediaAdmin />} />
             <Route path="/admin/monitoring" element={<MonitoringAdmin />} />
+            <Route path="/admin/activity-log" element={<ActivityLogAdmin />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
