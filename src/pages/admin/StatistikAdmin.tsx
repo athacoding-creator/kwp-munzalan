@@ -1,20 +1,14 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { ArrowLeft, RefreshCw, TrendingUp, Activity, Calendar } from "lucide-react";
-import { useToast } from "@/hooks/use-toast";
-import { format, subDays, startOfDay, endOfDay } from "date-fns";
+import { format, subDays } from "date-fns";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell, LineChart, Line } from "recharts";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-
-interface AdminLog {
-  id: string;
-  created_at: string;
-  action: string;
-  table_name: string;
-}
+import { useAdminAuth } from "@/hooks/useAdminAuth";
+import { useAdminLogStats } from "@/hooks/useAdminLogs";
+import { Skeleton } from "@/components/ui/skeleton";
 
 interface DailyActivity {
   date: string;
@@ -34,48 +28,21 @@ interface TableStats {
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884d8', '#82ca9d'];
 
 export default function StatistikAdmin() {
-  const [logs, setLogs] = useState<AdminLog[]>([]);
-  const [loading, setLoading] = useState(true);
   const [timeRange, setTimeRange] = useState<'7' | '30'>('7');
   const navigate = useNavigate();
-  const { toast } = useToast();
+  const { isLoading: authLoading, isAuthorized } = useAdminAuth();
+  const { data: logs = [], isLoading, refetch } = useAdminLogStats(timeRange);
 
-  useEffect(() => {
-    checkAuth();
-    fetchLogs();
-  }, [timeRange]);
-
-  const checkAuth = async () => {
-    const { data: { session } } = await supabase.auth.getSession();
-    if (!session) {
-      navigate("/admin");
-    }
-  };
-
-  const fetchLogs = async () => {
-    setLoading(true);
-    try {
-      const daysAgo = parseInt(timeRange);
-      const startDate = startOfDay(subDays(new Date(), daysAgo));
-
-      const { data, error } = await supabase
-        .from("admin_logs")
-        .select("id, created_at, action, table_name")
-        .gte("created_at", startDate.toISOString())
-        .order("created_at", { ascending: true });
-
-      if (error) throw error;
-      setLogs(data || []);
-    } catch (error: any) {
-      toast({
-        title: "Error",
-        description: error.message,
-        variant: "destructive",
-      });
-    } finally {
-      setLoading(false);
-    }
-  };
+  if (authLoading || !isAuthorized) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-background via-background to-primary/5 p-8">
+        <div className="max-w-7xl mx-auto space-y-8">
+          <Skeleton className="h-12 w-64" />
+          <Skeleton className="h-96 w-full" />
+        </div>
+      </div>
+    );
+  }
 
   const getDailyActivity = (): DailyActivity[] => {
     const daysAgo = parseInt(timeRange);
@@ -146,8 +113,8 @@ export default function StatistikAdmin() {
               Analisis aktivitas admin dalam periode waktu tertentu
             </p>
           </div>
-          <Button onClick={fetchLogs} disabled={loading}>
-            <RefreshCw className={`mr-2 h-4 w-4 ${loading ? "animate-spin" : ""}`} />
+          <Button onClick={() => refetch()} disabled={isLoading}>
+            <RefreshCw className={`mr-2 h-4 w-4 ${isLoading ? "animate-spin" : ""}`} />
             Refresh
           </Button>
         </div>
@@ -214,8 +181,10 @@ export default function StatistikAdmin() {
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                {loading ? (
-                  <div className="text-center py-8">Memuat data...</div>
+                {isLoading ? (
+                  <div className="space-y-4">
+                    <Skeleton className="h-64 w-full" />
+                  </div>
                 ) : (
                   <div className="overflow-x-auto -mx-6 px-6">
                     <ResponsiveContainer width="100%" height={300} minWidth={300}>
@@ -249,8 +218,10 @@ export default function StatistikAdmin() {
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  {loading ? (
-                    <div className="text-center py-8">Memuat data...</div>
+                  {isLoading ? (
+                    <div className="space-y-4">
+                      <Skeleton className="h-64 w-full" />
+                    </div>
                   ) : actionStats.length === 0 ? (
                     <div className="text-center py-8 text-muted-foreground">
                       Belum ada data
@@ -289,8 +260,10 @@ export default function StatistikAdmin() {
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  {loading ? (
-                    <div className="text-center py-8">Memuat data...</div>
+                  {isLoading ? (
+                    <div className="space-y-4">
+                      <Skeleton className="h-64 w-full" />
+                    </div>
                   ) : tableStats.length === 0 ? (
                     <div className="text-center py-8 text-muted-foreground">
                       Belum ada data

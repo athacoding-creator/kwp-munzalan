@@ -27,7 +27,16 @@ const ActivityLogAdmin = lazy(() => import("./pages/admin/ActivityLogAdmin"));
 const StatistikAdmin = lazy(() => import("./pages/admin/StatistikAdmin"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 5 * 60 * 1000, // 5 minutes
+      gcTime: 10 * 60 * 1000, // 10 minutes (formerly cacheTime)
+      refetchOnWindowFocus: false,
+      retry: 1,
+    },
+  },
+});
 
 const App = () => (
   <ErrorBoundary>
