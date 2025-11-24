@@ -1,10 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { supabase } from "@/integrations/supabase/client";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
-import { Image as ImageIcon, Video } from "lucide-react";
+import { Image as ImageIcon, Video, Maximize2 } from "lucide-react";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 
 interface DokumentasiData {
   id: string;
@@ -16,6 +17,46 @@ interface DokumentasiData {
     nama_kegiatan: string;
   };
 }
+
+const LazyVideo = ({ src, alt }: { src: string; alt: string }) => {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setIsVisible(true);
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    if (videoRef.current) {
+      observer.observe(videoRef.current);
+    }
+
+    return () => {
+      if (videoRef.current) {
+        observer.unobserve(videoRef.current);
+      }
+    };
+  }, []);
+
+  return (
+    <video
+      ref={videoRef}
+      src={isVisible ? src : undefined}
+      controls
+      className="w-full h-auto object-contain bg-black"
+      preload="none"
+      aria-label={alt}
+    />
+  );
+};
 
 export default function Dokumentasi() {
   const [dokumentasi, setDokumentasi] = useState<DokumentasiData[]>([]);
@@ -94,20 +135,38 @@ export default function Dokumentasi() {
           <div className="container mx-auto px-4">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {filteredData.map((item) => (
-                <Card key={item.id} className="shadow-soft border-0 overflow-hidden hover:shadow-elegant transition-smooth">
-                  {item.jenis_media === "foto" ? (
-                    <img
-                      src={item.media_url}
-                      alt={item.deskripsi || "Dokumentasi"}
-                      className="w-full h-64 object-cover"
-                    />
-                  ) : (
-                    <video
-                      src={item.media_url}
-                      controls
-                      className="w-full h-64 object-cover bg-black"
-                    />
-                  )}
+                <Card key={item.id} className="group shadow-soft border-0 overflow-hidden hover:shadow-elegant transition-smooth">
+                  <div className="relative">
+                    {item.jenis_media === "foto" ? (
+                      <Dialog>
+                        <DialogTrigger asChild>
+                          <div className="relative cursor-pointer">
+                            <img
+                              src={item.media_url}
+                              alt={item.deskripsi || "Dokumentasi"}
+                              loading="lazy"
+                              className="w-full h-auto object-contain bg-muted"
+                            />
+                            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-all flex items-center justify-center opacity-0 group-hover:opacity-100">
+                              <Maximize2 className="h-8 w-8 text-white" />
+                            </div>
+                          </div>
+                        </DialogTrigger>
+                        <DialogContent className="max-w-screen-lg w-full p-0">
+                          <img
+                            src={item.media_url}
+                            alt={item.deskripsi || "Dokumentasi"}
+                            className="w-full h-auto object-contain"
+                          />
+                        </DialogContent>
+                      </Dialog>
+                    ) : (
+                      <LazyVideo 
+                        src={item.media_url}
+                        alt={item.deskripsi || "Video dokumentasi"}
+                      />
+                    )}
+                  </div>
                   <CardContent className="p-4">
                     {item.kegiatan && (
                       <Badge variant="outline" className="mb-2">
