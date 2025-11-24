@@ -3,7 +3,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { LogOut, FileText, Image, Calendar, Megaphone, HardDrive, Activity, ScrollText } from "lucide-react";
+import { LogOut, FileText, Image, Calendar, Megaphone, HardDrive, Activity, ScrollText, BarChart3 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { logAdminActivity } from "@/lib/adminLogger";
 
@@ -48,6 +48,7 @@ export default function Dashboard() {
     { title: "Media Storage", icon: HardDrive, link: "/admin/media", color: "from-cyan-500 to-cyan-600" },
     { title: "Monitoring", icon: Activity, link: "/admin/monitoring", color: "from-indigo-500 to-indigo-600" },
     { title: "Log Aktivitas", icon: ScrollText, link: "/admin/activity-log", color: "from-pink-500 to-pink-600" },
+    { title: "Statistik", icon: BarChart3, link: "/admin/statistik", color: "from-violet-500 to-violet-600" },
   ];
 
   return (
