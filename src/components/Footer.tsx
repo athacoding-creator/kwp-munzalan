@@ -14,7 +14,7 @@ export const Footer = () => {
               <span className="font-bold text-xl">KWP Munzalan</span>
             </div>
             <p className="text-muted-foreground text-sm">
-              Lembaga pendidikan Islam yang berkomitmen membentuk generasi Qurani dan berakhlak mulia.
+              Lembaga Islam yang berkomitmen pada Pusat kegiatan keagamaan, sosial, dan ekonomi yang terintegrasi dengan manajemen masjid yang profesional. 
             </p>
           </div>
 
@@ -49,11 +49,11 @@ export const Footer = () => {
             <ul className="space-y-3 text-sm">
               <li className="flex items-start space-x-2">
                 <MapPin className="h-5 w-5 text-primary flex-shrink-0" />
-                <span className="text-muted-foreground">Munzalan, Indonesia</span>
+                <span className="text-muted-foreground">Daerah Istimewa Yogyakarta, Indonesia</span>
               </li>
               <li className="flex items-center space-x-2">
                 <Phone className="h-5 w-5 text-primary" />
-                <span className="text-muted-foreground">+62 xxx xxxx xxxx</span>
+                <span className="text-muted-foreground">+62 811-2999-211</span>
               </li>
               <li className="flex items-center space-x-2">
                 <Mail className="h-5 w-5 text-primary" />
@@ -64,7 +64,7 @@ export const Footer = () => {
         </div>
 
         <div className="mt-8 pt-8 border-t border-border text-center text-sm text-muted-foreground">
-          <p>&copy; {new Date().getFullYear()} KWP Munzalan. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} KWP Munzalan Indonesian. All rights reserved.</p>
         </div>
       </div>
     </footer>
