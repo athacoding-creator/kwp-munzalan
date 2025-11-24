@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useToast } from "@/hooks/use-toast";
-import { ArrowLeft, Trash2, RefreshCw, Image as ImageIcon } from "lucide-react";
+import { ArrowLeft, Trash2, RefreshCw, Image as ImageIcon, Home } from "lucide-react";
 
 interface MediaFile {
   name: string;
@@ -127,6 +127,10 @@ export default function MediaAdmin() {
             <h1 className="text-2xl font-bold">Kelola Media Storage</h1>
           </div>
           <div className="flex items-center gap-2">
+            <Button variant="outline" size="sm" onClick={() => navigate("/")}>
+              <Home className="h-4 w-4 mr-2" />
+              Ke Website
+            </Button>
             <Button variant="outline" size="sm" onClick={fetchFiles} disabled={loading}>
               <RefreshCw className={`h-4 w-4 mr-2 ${loading ? "animate-spin" : ""}`} />
               Refresh

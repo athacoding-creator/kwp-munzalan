@@ -7,7 +7,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
-import { ArrowLeft, Plus, Pencil, Trash2 } from "lucide-react";
+import { ArrowLeft, Plus, Pencil, Trash2, Home } from "lucide-react";
 import { FileUpload } from "@/components/FileUpload";
 import { logAdminActivity } from "@/lib/adminLogger";
 
@@ -124,12 +124,18 @@ export default function FasilitasAdmin() {
   return (
     <div className="min-h-screen bg-muted/30">
       <nav className="bg-card border-b border-border shadow-soft">
-        <div className="container mx-auto px-4 py-4 flex items-center gap-4">
-          <Button variant="ghost" size="sm" onClick={() => navigate("/admin/dashboard")}>
-            <ArrowLeft className="h-4 w-4 mr-2" />
-            Kembali
+        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
+          <div className="flex items-center gap-4">
+            <Button variant="ghost" size="sm" onClick={() => navigate("/admin/dashboard")}>
+              <ArrowLeft className="h-4 w-4 mr-2" />
+              Kembali
+            </Button>
+            <h1 className="text-2xl font-bold">Kelola Fasilitas</h1>
+          </div>
+          <Button variant="outline" size="sm" onClick={() => navigate("/")}>
+            <Home className="h-4 w-4 mr-2" />
+            Ke Website
           </Button>
-          <h1 className="text-2xl font-bold">Kelola Fasilitas</h1>
         </div>
       </nav>
 

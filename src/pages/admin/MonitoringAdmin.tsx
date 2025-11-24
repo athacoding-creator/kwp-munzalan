@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { RefreshCw, Activity, CheckCircle2, XCircle } from "lucide-react";
+import { RefreshCw, Activity, CheckCircle2, XCircle, Home, ArrowLeft } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { format } from "date-fns";
 
@@ -16,6 +17,7 @@ interface KeepAliveLog {
 }
 
 const MonitoringAdmin = () => {
+  const navigate = useNavigate();
   const [logs, setLogs] = useState<KeepAliveLog[]>([]);
   const [loading, setLoading] = useState(true);
   const [triggering, setTriggering] = useState(false);
@@ -81,12 +83,25 @@ const MonitoringAdmin = () => {
     <div className="container mx-auto p-6 space-y-6">
       <div className="flex justify-between items-center">
         <div>
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => navigate("/admin/dashboard")}
+            className="mb-2"
+          >
+            <ArrowLeft className="mr-2 h-4 w-4" />
+            Kembali ke Dashboard
+          </Button>
           <h1 className="text-3xl font-bold">Keep-Alive Monitoring</h1>
           <p className="text-muted-foreground mt-1">
             Monitor database keep-alive status and history
           </p>
         </div>
         <div className="flex gap-2">
+          <Button variant="outline" size="sm" onClick={() => navigate("/")}>
+            <Home className="h-4 w-4 mr-2" />
+            Ke Website
+          </Button>
           <Button onClick={triggerKeepAlive} disabled={triggering}>
             <Activity className="mr-2 h-4 w-4" />
             {triggering ? "Triggering..." : "Trigger Now"}
