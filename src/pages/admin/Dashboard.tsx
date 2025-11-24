@@ -3,7 +3,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { LogOut, FileText, Image, Calendar, Megaphone, HardDrive, Activity, ScrollText, BarChart3 } from "lucide-react";
+import { LogOut, FileText, Image, Calendar, Megaphone, HardDrive, Activity, ScrollText, BarChart3, Home } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { logAdminActivity } from "@/lib/adminLogger";
 
@@ -56,10 +56,16 @@ export default function Dashboard() {
       <nav className="bg-card border-b border-border shadow-soft">
         <div className="container mx-auto px-4 py-4 flex justify-between items-center">
           <h1 className="text-2xl font-bold">Dashboard Admin</h1>
-          <Button onClick={handleLogout} variant="outline" size="sm">
-            <LogOut className="h-4 w-4 mr-2" />
-            Logout
-          </Button>
+          <div className="flex gap-2">
+            <Button onClick={() => navigate("/")} variant="outline" size="sm">
+              <Home className="h-4 w-4 mr-2" />
+              Ke Website
+            </Button>
+            <Button onClick={handleLogout} variant="outline" size="sm">
+              <LogOut className="h-4 w-4 mr-2" />
+              Logout
+            </Button>
+          </div>
         </div>
       </nav>
 

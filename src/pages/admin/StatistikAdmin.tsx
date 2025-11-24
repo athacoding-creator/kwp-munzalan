@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { ArrowLeft, RefreshCw, TrendingUp, Activity, Calendar } from "lucide-react";
+import { ArrowLeft, RefreshCw, TrendingUp, Activity, Calendar, Home } from "lucide-react";
 import { format, subDays } from "date-fns";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell, LineChart, Line } from "recharts";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -113,10 +113,16 @@ export default function StatistikAdmin() {
               Analisis aktivitas admin dalam periode waktu tertentu
             </p>
           </div>
-          <Button onClick={() => refetch()} disabled={isLoading}>
-            <RefreshCw className={`mr-2 h-4 w-4 ${isLoading ? "animate-spin" : ""}`} />
-            Refresh
-          </Button>
+          <div className="flex gap-2">
+            <Button variant="outline" size="sm" onClick={() => navigate("/")}>
+              <Home className="h-4 w-4 mr-2" />
+              Ke Website
+            </Button>
+            <Button onClick={() => refetch()} disabled={isLoading}>
+              <RefreshCw className={`mr-2 h-4 w-4 ${isLoading ? "animate-spin" : ""}`} />
+              Refresh
+            </Button>
+          </div>
         </div>
 
         <Tabs value={timeRange} onValueChange={(v) => setTimeRange(v as '7' | '30')}>
