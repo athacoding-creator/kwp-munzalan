@@ -76,6 +76,30 @@ export type Database = {
         }
         Relationships: []
       }
+      keep_alive_logs: {
+        Row: {
+          created_at: string
+          id: string
+          message: string | null
+          status: string
+          timestamp: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          message?: string | null
+          status: string
+          timestamp?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          message?: string | null
+          status?: string
+          timestamp?: string
+        }
+        Relationships: []
+      }
       kegiatan: {
         Row: {
           created_at: string

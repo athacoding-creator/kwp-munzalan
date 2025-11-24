@@ -22,19 +22,40 @@ Deno.serve(async (req) => {
       .select('id')
       .limit(1)
 
+    const logTimestamp = new Date().toISOString()
+
     if (error) {
       console.error('Keep-alive query error:', error)
+      
+      // Log the failure
+      await supabase
+        .from('keep_alive_logs')
+        .insert({
+          status: 'error',
+          message: error.message,
+          timestamp: logTimestamp
+        })
+
       return new Response(
         JSON.stringify({ 
           success: false, 
           error: error.message,
-          timestamp: new Date().toISOString()
+          timestamp: logTimestamp
         }),
         { headers: { ...corsHeaders, 'Content-Type': 'application/json' }, status: 500 }
       )
     }
 
-    console.log('Keep-alive successful:', new Date().toISOString())
+    // Log the success
+    await supabase
+      .from('keep_alive_logs')
+      .insert({
+        status: 'success',
+        message: 'Database keep-alive ping successful',
+        timestamp: logTimestamp
+      })
+
+    console.log('Keep-alive successful:', logTimestamp)
     
     return new Response(
       JSON.stringify({ 

@@ -3,7 +3,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { LogOut, FileText, Image, Calendar, Megaphone, HardDrive } from "lucide-react";
+import { LogOut, FileText, Image, Calendar, Megaphone, HardDrive, Activity } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 export default function Dashboard() {
@@ -37,6 +37,7 @@ export default function Dashboard() {
     { title: "Dokumentasi", icon: Image, link: "/admin/dokumentasi", color: "from-orange-500 to-orange-600" },
     { title: "Pengumuman", icon: Megaphone, link: "/admin/pengumuman", color: "from-red-500 to-red-600" },
     { title: "Media Storage", icon: HardDrive, link: "/admin/media", color: "from-cyan-500 to-cyan-600" },
+    { title: "Monitoring", icon: Activity, link: "/admin/monitoring", color: "from-indigo-500 to-indigo-600" },
   ];
 
   return (
