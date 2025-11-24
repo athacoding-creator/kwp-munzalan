@@ -56,9 +56,9 @@ export default function Kontak() {
                       <div>
                         <h3 className="font-semibold mb-2">Alamat</h3>
                         <p className="text-muted-foreground">
-                          Jl. Raya Munzalan No. 123<br />
-                          Munzalan, Kecamatan Munzalan<br />
-                          Kabupaten, Provinsi, 12345
+                          Kebun Lor, Argomulyo<br />
+                          Kabupaten Sleman<br />
+                          Daerah Istimewa Yogyakarta 55583
                         </p>
                       </div>
                     </div>
@@ -74,8 +74,8 @@ export default function Kontak() {
                       <div>
                         <h3 className="font-semibold mb-2">Telepon</h3>
                         <p className="text-muted-foreground">
-                          +62 xxx xxxx xxxx<br />
-                          +62 xxx xxxx xxxx
+                          +62 811-2999-211<br />
+                          +62 822-4159-0417
                         </p>
                       </div>
                     </div>
