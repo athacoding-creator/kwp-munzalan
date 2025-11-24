@@ -6,7 +6,6 @@ import { ArrowLeft, RefreshCw, TrendingUp, Activity, Calendar, Home } from "luci
 import { format, subDays } from "date-fns";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell, LineChart, Line } from "recharts";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { useAdminAuth } from "@/hooks/useAdminAuth";
 import { useAdminLogStats } from "@/hooks/useAdminLogs";
 import { Skeleton } from "@/components/ui/skeleton";
 
@@ -30,19 +29,7 @@ const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884d8', '#82ca9d'
 export default function StatistikAdmin() {
   const [timeRange, setTimeRange] = useState<'7' | '30'>('7');
   const navigate = useNavigate();
-  const { isLoading: authLoading, isAuthorized } = useAdminAuth();
   const { data: logs = [], isLoading, refetch } = useAdminLogStats(timeRange);
-
-  if (authLoading || !isAuthorized) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-background via-background to-primary/5 p-8">
-        <div className="max-w-7xl mx-auto space-y-8">
-          <Skeleton className="h-12 w-64" />
-          <Skeleton className="h-96 w-full" />
-        </div>
-      </div>
-    );
-  }
 
   const getDailyActivity = (): DailyActivity[] => {
     const daysAgo = parseInt(timeRange);
