@@ -4,6 +4,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { lazy, Suspense } from "react";
+import ErrorBoundary from "@/components/ErrorBoundary";
 
 // Lazy load pages
 const Home = lazy(() => import("./pages/Home"));
@@ -29,42 +30,44 @@ const NotFound = lazy(() => import("./pages/NotFound"));
 const queryClient = new QueryClient();
 
 const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <Suspense fallback={
-          <div className="flex items-center justify-center min-h-screen">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
-          </div>
-        }>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/profil" element={<Profil />} />
-            <Route path="/fasilitas" element={<Fasilitas />} />
-            <Route path="/kegiatan" element={<Kegiatan />} />
-            <Route path="/dokumentasi" element={<Dokumentasi />} />
-            <Route path="/pengumuman" element={<Pengumuman />} />
-            <Route path="/kontak" element={<Kontak />} />
-            <Route path="/admin" element={<Auth />} />
-            <Route path="/admin/dashboard" element={<Dashboard />} />
-            <Route path="/admin/profil" element={<ProfilAdmin />} />
-            <Route path="/admin/fasilitas" element={<FasilitasAdmin />} />
-            <Route path="/admin/kegiatan" element={<KegiatanAdmin />} />
-            <Route path="/admin/dokumentasi" element={<DokumentasiAdmin />} />
-            <Route path="/admin/pengumuman" element={<PengumumanAdmin />} />
-            <Route path="/admin/media" element={<MediaAdmin />} />
-            <Route path="/admin/monitoring" element={<MonitoringAdmin />} />
-            <Route path="/admin/activity-log" element={<ActivityLogAdmin />} />
-            <Route path="/admin/statistik" element={<StatistikAdmin />} />
-            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </Suspense>
-      </BrowserRouter>
-    </TooltipProvider>
-  </QueryClientProvider>
+  <ErrorBoundary>
+    <QueryClientProvider client={queryClient}>
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
+          <Suspense fallback={
+            <div className="flex items-center justify-center min-h-screen">
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
+            </div>
+          }>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/profil" element={<Profil />} />
+              <Route path="/fasilitas" element={<Fasilitas />} />
+              <Route path="/kegiatan" element={<Kegiatan />} />
+              <Route path="/dokumentasi" element={<Dokumentasi />} />
+              <Route path="/pengumuman" element={<Pengumuman />} />
+              <Route path="/kontak" element={<Kontak />} />
+              <Route path="/admin" element={<Auth />} />
+              <Route path="/admin/dashboard" element={<Dashboard />} />
+              <Route path="/admin/profil" element={<ProfilAdmin />} />
+              <Route path="/admin/fasilitas" element={<FasilitasAdmin />} />
+              <Route path="/admin/kegiatan" element={<KegiatanAdmin />} />
+              <Route path="/admin/dokumentasi" element={<DokumentasiAdmin />} />
+              <Route path="/admin/pengumuman" element={<PengumumanAdmin />} />
+              <Route path="/admin/media" element={<MediaAdmin />} />
+              <Route path="/admin/monitoring" element={<MonitoringAdmin />} />
+              <Route path="/admin/activity-log" element={<ActivityLogAdmin />} />
+              <Route path="/admin/statistik" element={<StatistikAdmin />} />
+              {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </Suspense>
+        </BrowserRouter>
+      </TooltipProvider>
+    </QueryClientProvider>
+  </ErrorBoundary>
 );
 
 export default App;
