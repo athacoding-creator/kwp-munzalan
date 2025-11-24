@@ -7,6 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 import { Navbar } from "@/components/Navbar";
+import { logAdminActivity } from "@/lib/adminLogger";
 
 const ADMIN_EMAIL = "athacoding@gmail.com";
 
@@ -50,6 +51,13 @@ export default function Auth() {
     try {
       const { error } = await supabase.auth.signInWithPassword({ email, password });
       if (error) throw error;
+      
+      await logAdminActivity({
+        action: "LOGIN",
+        tableName: "auth",
+        description: `Admin login: ${email}`,
+      });
+      
       toast({ title: "Login berhasil!", description: "Selamat datang kembali." });
     } catch (error: any) {
       toast({

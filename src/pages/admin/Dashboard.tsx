@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { LogOut, FileText, Image, Calendar, Megaphone, HardDrive, Activity, ScrollText } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { logAdminActivity } from "@/lib/adminLogger";
 
 export default function Dashboard() {
   const navigate = useNavigate();
@@ -25,6 +26,14 @@ export default function Dashboard() {
   };
 
   const handleLogout = async () => {
+    const { data: { user } } = await supabase.auth.getUser();
+    
+    await logAdminActivity({
+      action: "LOGOUT",
+      tableName: "auth",
+      description: `Admin logout: ${user?.email}`,
+    });
+    
     await supabase.auth.signOut();
     toast({ title: "Logout berhasil" });
     navigate("/admin");

@@ -9,6 +9,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 import { ArrowLeft, Plus, Pencil, Trash2 } from "lucide-react";
 import { FileUpload } from "@/components/FileUpload";
+import { logAdminActivity } from "@/lib/adminLogger";
 
 interface FasilitasData {
   id: string;
@@ -48,15 +49,35 @@ export default function FasilitasAdmin() {
     e.preventDefault();
     try {
       if (editingId) {
+        const oldData = fasilitas.find(f => f.id === editingId);
         const { error } = await supabase
           .from("fasilitas")
           .update(formData)
           .eq("id", editingId);
         if (error) throw error;
+        
+        await logAdminActivity({
+          action: "UPDATE",
+          tableName: "fasilitas",
+          recordId: editingId,
+          oldData,
+          newData: formData,
+          description: `Update fasilitas: ${formData.nama}`,
+        });
+        
         toast({ title: "Fasilitas berhasil diupdate!" });
       } else {
-        const { error } = await supabase.from("fasilitas").insert([formData]);
+        const { data, error } = await supabase.from("fasilitas").insert([formData]).select();
         if (error) throw error;
+        
+        await logAdminActivity({
+          action: "CREATE",
+          tableName: "fasilitas",
+          recordId: data?.[0]?.id,
+          newData: formData,
+          description: `Tambah fasilitas baru: ${formData.nama}`,
+        });
+        
         toast({ title: "Fasilitas berhasil ditambahkan!" });
       }
       setFormData({ nama: "", deskripsi: "", foto_url: "" });
@@ -81,8 +102,18 @@ export default function FasilitasAdmin() {
   const handleDelete = async (id: string) => {
     if (!confirm("Yakin ingin menghapus?")) return;
     try {
+      const deletedItem = fasilitas.find(f => f.id === id);
       const { error } = await supabase.from("fasilitas").delete().eq("id", id);
       if (error) throw error;
+      
+      await logAdminActivity({
+        action: "DELETE",
+        tableName: "fasilitas",
+        recordId: id,
+        oldData: deletedItem,
+        description: `Hapus fasilitas: ${deletedItem?.nama}`,
+      });
+      
       toast({ title: "Fasilitas berhasil dihapus!" });
       fetchFasilitas();
     } catch (error: any) {

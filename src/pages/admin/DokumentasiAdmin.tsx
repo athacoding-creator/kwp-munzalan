@@ -10,6 +10,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 import { ArrowLeft, Plus, Pencil, Trash2 } from "lucide-react";
 import { FileUpload } from "@/components/FileUpload";
+import { logAdminActivity } from "@/lib/adminLogger";
 
 interface DokumentasiData {
   id: string;
@@ -70,15 +71,35 @@ export default function DokumentasiAdmin() {
       };
 
       if (editingId) {
+        const oldData = dokumentasi.find(d => d.id === editingId);
         const { error } = await supabase
           .from("dokumentasi")
           .update(dataToSubmit)
           .eq("id", editingId);
         if (error) throw error;
+        
+        await logAdminActivity({
+          action: "UPDATE",
+          tableName: "dokumentasi",
+          recordId: editingId,
+          oldData,
+          newData: dataToSubmit,
+          description: `Update dokumentasi: ${formData.jenis_media}`,
+        });
+        
         toast({ title: "Dokumentasi berhasil diupdate!" });
       } else {
-        const { error } = await supabase.from("dokumentasi").insert([dataToSubmit]);
+        const { data, error } = await supabase.from("dokumentasi").insert([dataToSubmit]).select();
         if (error) throw error;
+        
+        await logAdminActivity({
+          action: "CREATE",
+          tableName: "dokumentasi",
+          recordId: data?.[0]?.id,
+          newData: dataToSubmit,
+          description: `Tambah dokumentasi baru: ${formData.jenis_media}`,
+        });
+        
         toast({ title: "Dokumentasi berhasil ditambahkan!" });
       }
       setFormData({ jenis_media: "foto", media_url: "", deskripsi: "", kegiatan_id: "" });
@@ -104,8 +125,18 @@ export default function DokumentasiAdmin() {
   const handleDelete = async (id: string) => {
     if (!confirm("Yakin ingin menghapus?")) return;
     try {
+      const deletedItem = dokumentasi.find(d => d.id === id);
       const { error } = await supabase.from("dokumentasi").delete().eq("id", id);
       if (error) throw error;
+      
+      await logAdminActivity({
+        action: "DELETE",
+        tableName: "dokumentasi",
+        recordId: id,
+        oldData: deletedItem,
+        description: `Hapus dokumentasi: ${deletedItem?.jenis_media}`,
+      });
+      
       toast({ title: "Dokumentasi berhasil dihapus!" });
       fetchData();
     } catch (error: any) {
