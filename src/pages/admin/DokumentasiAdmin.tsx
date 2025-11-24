@@ -145,31 +145,33 @@ export default function DokumentasiAdmin() {
   };
 
   return (
-    <div className="min-h-screen bg-muted/30">
-      <nav className="bg-card border-b border-border shadow-soft">
-        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <Button variant="ghost" size="sm" onClick={() => navigate("/admin/dashboard")}>
-              <ArrowLeft className="h-4 w-4 mr-2" />
-              Kembali
+    <div className="min-h-screen bg-muted/30 overflow-x-hidden">
+      <nav className="bg-card border-b border-border shadow-soft sticky top-0 z-50">
+        <div className="w-full max-w-7xl mx-auto px-3 sm:px-4 py-3 sm:py-4">
+          <div className="flex items-center justify-between gap-2">
+            <div className="flex items-center gap-2 sm:gap-4 min-w-0 flex-1">
+              <Button variant="ghost" size="sm" onClick={() => navigate("/admin/dashboard")} className="h-8 sm:h-9 px-2 sm:px-3 flex-shrink-0">
+                <ArrowLeft className="h-3.5 w-3.5 sm:h-4 sm:w-4 sm:mr-2" />
+                <span className="hidden sm:inline">Kembali</span>
+              </Button>
+              <h1 className="text-base sm:text-lg md:text-2xl font-bold truncate">Kelola Dokumentasi</h1>
+            </div>
+            <Button variant="outline" size="sm" onClick={() => navigate("/")} className="h-8 sm:h-9 px-2 sm:px-3 flex-shrink-0">
+              <Home className="h-3.5 w-3.5 sm:h-4 sm:w-4 sm:mr-2" />
+              <span className="hidden sm:inline">Website</span>
             </Button>
-            <h1 className="text-2xl font-bold">Kelola Dokumentasi</h1>
           </div>
-          <Button variant="outline" size="sm" onClick={() => navigate("/")}>
-            <Home className="h-4 w-4 mr-2" />
-            Ke Website
-          </Button>
         </div>
       </nav>
 
-      <div className="container mx-auto px-4 py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          <Card className="shadow-soft border-0">
-            <CardHeader>
-              <CardTitle>{isEditing ? "Edit Dokumentasi" : "Tambah Dokumentasi Baru"}</CardTitle>
+      <div className="w-full max-w-7xl mx-auto px-3 sm:px-4 py-4 sm:py-6 md:py-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 md:gap-8">
+          <Card className="shadow-soft border hover:shadow-elegant transition-smooth">
+            <CardHeader className="pb-3 sm:pb-6">
+              <CardTitle className="text-base sm:text-lg">{isEditing ? "Edit Dokumentasi" : "Tambah Dokumentasi Baru"}</CardTitle>
             </CardHeader>
             <CardContent>
-              <form onSubmit={handleSubmit} className="space-y-4">
+              <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4">
                 <div>
                   <Label htmlFor="jenis_media">Jenis Media</Label>
                   <Select
@@ -219,8 +221,8 @@ export default function DokumentasiAdmin() {
                     rows={4}
                   />
                 </div>
-                <div className="flex gap-2">
-                  <Button type="submit" className="gradient-primary text-primary-foreground">
+                <div className="flex flex-col sm:flex-row gap-2">
+                  <Button type="submit" className="gradient-primary text-primary-foreground w-full sm:w-auto">
                     <Plus className="h-4 w-4 mr-2" />
                     {isEditing ? "Update" : "Tambah"}
                   </Button>
@@ -228,6 +230,7 @@ export default function DokumentasiAdmin() {
                     <Button
                       type="button"
                       variant="outline"
+                      className="w-full sm:w-auto"
                       onClick={() => {
                         setIsEditing(false);
                         setEditingId(null);
@@ -242,29 +245,29 @@ export default function DokumentasiAdmin() {
             </CardContent>
           </Card>
 
-          <div className="space-y-4">
+          <div className="space-y-3 sm:space-y-4">
             {dokumentasi.map((item) => (
-              <Card key={item.id} className="shadow-soft border-0">
-                <CardContent className="p-6">
-                  <div className="flex gap-4">
+              <Card key={item.id} className="shadow-soft border hover:shadow-elegant transition-smooth">
+                <CardContent className="p-3 sm:p-4 md:p-6">
+                  <div className="flex gap-3 sm:gap-4">
                     {item.jenis_media === "foto" ? (
-                      <img src={item.media_url} alt="" className="w-24 h-24 object-cover rounded" />
+                      <img src={item.media_url} alt="" className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 object-cover rounded flex-shrink-0" />
                     ) : (
-                      <video src={item.media_url} className="w-24 h-24 object-cover rounded bg-black" />
+                      <video src={item.media_url} className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 object-cover rounded bg-black flex-shrink-0" />
                     )}
-                    <div className="flex-1">
-                      <p className="text-sm text-primary mb-1">{item.jenis_media}</p>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-xs sm:text-sm text-primary mb-1 capitalize">{item.jenis_media}</p>
                       {item.kegiatan && (
-                        <p className="text-sm font-medium mb-1">{item.kegiatan.nama_kegiatan}</p>
+                        <p className="text-xs sm:text-sm font-medium mb-1 truncate">{item.kegiatan.nama_kegiatan}</p>
                       )}
                       {item.deskripsi && (
-                        <p className="text-sm text-muted-foreground mb-2 line-clamp-2">{item.deskripsi}</p>
+                        <p className="text-xs sm:text-sm text-muted-foreground mb-2 line-clamp-2">{item.deskripsi}</p>
                       )}
                       <div className="flex gap-2">
-                        <Button size="sm" variant="outline" onClick={() => handleEdit(item)}>
+                        <Button size="sm" variant="outline" onClick={() => handleEdit(item)} className="h-7 sm:h-8 px-2 sm:px-3">
                           <Pencil className="h-3 w-3" />
                         </Button>
-                        <Button size="sm" variant="destructive" onClick={() => handleDelete(item.id)}>
+                        <Button size="sm" variant="destructive" onClick={() => handleDelete(item.id)} className="h-7 sm:h-8 px-2 sm:px-3">
                           <Trash2 className="h-3 w-3" />
                         </Button>
                       </div>

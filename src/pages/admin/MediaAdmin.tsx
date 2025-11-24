@@ -116,43 +116,48 @@ export default function MediaAdmin() {
   };
 
   return (
-    <div className="min-h-screen bg-muted/30">
-      <nav className="bg-card border-b border-border shadow-soft">
-        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <Button variant="ghost" size="sm" onClick={() => navigate("/admin/dashboard")}>
-              <ArrowLeft className="h-4 w-4 mr-2" />
-              Kembali
-            </Button>
-            <h1 className="text-2xl font-bold">Kelola Media Storage</h1>
-          </div>
-          <div className="flex items-center gap-2">
-            <Button variant="outline" size="sm" onClick={() => navigate("/")}>
-              <Home className="h-4 w-4 mr-2" />
-              Ke Website
-            </Button>
-            <Button variant="outline" size="sm" onClick={fetchFiles} disabled={loading}>
-              <RefreshCw className={`h-4 w-4 mr-2 ${loading ? "animate-spin" : ""}`} />
-              Refresh
-            </Button>
-            <Button
-              variant="destructive"
-              size="sm"
-              onClick={handleBulkDelete}
-              disabled={selectedFiles.size === 0 || deleting}
-            >
-              <Trash2 className="h-4 w-4 mr-2" />
-              Hapus ({selectedFiles.size})
-            </Button>
+    <div className="min-h-screen bg-muted/30 overflow-x-hidden">
+      <nav className="bg-card border-b border-border shadow-soft sticky top-0 z-50">
+        <div className="w-full max-w-7xl mx-auto px-3 sm:px-4 py-3 sm:py-4">
+          <div className="flex items-center justify-between gap-2">
+            <div className="flex items-center gap-2 sm:gap-4 min-w-0 flex-1">
+              <Button variant="ghost" size="sm" onClick={() => navigate("/admin/dashboard")} className="h-8 sm:h-9 px-2 sm:px-3 flex-shrink-0">
+                <ArrowLeft className="h-3.5 w-3.5 sm:h-4 sm:w-4 sm:mr-2" />
+                <span className="hidden sm:inline">Kembali</span>
+              </Button>
+              <h1 className="text-base sm:text-lg md:text-2xl font-bold truncate">Media Storage</h1>
+            </div>
+            <div className="flex gap-1.5 sm:gap-2 flex-shrink-0">
+              <Button variant="outline" size="sm" onClick={fetchFiles} disabled={loading} className="h-8 sm:h-9 px-2 sm:px-3">
+                <RefreshCw className={`h-3.5 w-3.5 sm:h-4 sm:w-4 sm:mr-2 ${loading ? "animate-spin" : ""}`} />
+                <span className="hidden sm:inline">Refresh</span>
+              </Button>
+              {selectedFiles.size > 0 && (
+                <Button
+                  variant="destructive"
+                  size="sm"
+                  onClick={handleBulkDelete}
+                  disabled={deleting}
+                  className="h-8 sm:h-9 px-2 sm:px-3"
+                >
+                  <Trash2 className="h-3.5 w-3.5 sm:h-4 sm:w-4 sm:mr-2" />
+                  <span className="hidden xs:inline">Hapus</span> ({selectedFiles.size})
+                </Button>
+              )}
+              <Button variant="outline" size="sm" onClick={() => navigate("/")} className="h-8 sm:h-9 px-2 sm:px-3">
+                <Home className="h-3.5 w-3.5 sm:h-4 sm:w-4 sm:mr-2" />
+                <span className="hidden sm:inline">Website</span>
+              </Button>
+            </div>
           </div>
         </div>
       </nav>
 
-      <div className="container mx-auto px-4 py-8">
-        <Card className="shadow-soft border-0">
-          <CardHeader>
-            <div className="flex items-center justify-between">
-              <CardTitle>
+      <div className="w-full max-w-7xl mx-auto px-3 sm:px-4 py-4 sm:py-6 md:py-8">
+        <Card className="shadow-soft border">
+          <CardHeader className="pb-3 sm:pb-6">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+              <CardTitle className="text-base sm:text-lg">
                 File Media ({files.length} file
                 {files.length > 0 && ` - ${formatFileSize(files.reduce((acc, f) => acc + (f.metadata?.size || 0), 0))} total`})
               </CardTitle>
@@ -162,54 +167,53 @@ export default function MediaAdmin() {
                     checked={selectedFiles.size === files.length}
                     onCheckedChange={toggleSelectAll}
                   />
-                  <label className="text-sm text-muted-foreground">Pilih Semua</label>
+                  <label className="text-xs sm:text-sm text-muted-foreground whitespace-nowrap">Pilih Semua</label>
                 </div>
               )}
             </div>
           </CardHeader>
           <CardContent>
             {loading ? (
-              <p className="text-center py-8 text-muted-foreground">Memuat file...</p>
+              <p className="text-center py-8 text-xs sm:text-sm text-muted-foreground">Memuat file...</p>
             ) : files.length === 0 ? (
-              <p className="text-center py-8 text-muted-foreground">Belum ada file yang diupload</p>
+              <p className="text-center py-8 text-xs sm:text-sm text-muted-foreground">Belum ada file yang diupload</p>
             ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-4">
                 {files.map((file) => {
                   const isImage = file.metadata?.mimetype?.startsWith("image/");
                   return (
                     <div
                       key={file.name}
-                      className={`border rounded-lg p-4 hover:bg-accent/50 transition-colors ${
-                        selectedFiles.has(file.name) ? "bg-accent border-primary" : "bg-card"
+                      className={`border rounded-lg overflow-hidden transition-all hover:shadow-md ${
+                        selectedFiles.has(file.name) ? "ring-2 ring-primary" : ""
                       }`}
                     >
-                      <div className="flex items-start gap-3">
+                      <div className="p-2 sm:p-3">
                         <Checkbox
                           checked={selectedFiles.has(file.name)}
                           onCheckedChange={() => toggleFileSelection(file.name)}
+                          className="mb-2"
                         />
-                        <div className="flex-1 min-w-0">
-                          {isImage ? (
-                            <img
-                              src={getFileUrl(file.name)}
-                              alt={file.name}
-                              className="w-full h-32 object-cover rounded mb-2"
-                            />
-                          ) : (
-                            <div className="w-full h-32 bg-muted rounded mb-2 flex items-center justify-center">
-                              <ImageIcon className="h-12 w-12 text-muted-foreground" />
-                            </div>
-                          )}
-                          <p className="text-sm font-medium truncate" title={file.name}>
-                            {file.name}
-                          </p>
-                          <p className="text-xs text-muted-foreground">
-                            {formatFileSize(file.metadata?.size || 0)}
-                          </p>
-                          <p className="text-xs text-muted-foreground">
-                            {new Date(file.created_at).toLocaleDateString("id-ID")}
-                          </p>
-                        </div>
+                        {isImage ? (
+                          <img
+                            src={getFileUrl(file.name)}
+                            alt={file.name}
+                            className="w-full h-24 sm:h-32 object-cover rounded mb-2"
+                          />
+                        ) : (
+                          <div className="w-full h-24 sm:h-32 bg-muted rounded mb-2 flex items-center justify-center">
+                            <ImageIcon className="h-8 w-8 sm:h-12 sm:w-12 text-muted-foreground" />
+                          </div>
+                        )}
+                        <p className="text-xs font-medium truncate" title={file.name}>
+                          {file.name}
+                        </p>
+                        <p className="text-xs text-muted-foreground">
+                          {formatFileSize(file.metadata?.size || 0)}
+                        </p>
+                        <p className="text-xs text-muted-foreground">
+                          {new Date(file.created_at).toLocaleDateString("id-ID")}
+                        </p>
                       </div>
                     </div>
                   );
