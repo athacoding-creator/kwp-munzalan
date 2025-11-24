@@ -51,7 +51,7 @@ const LazyVideo = ({ src, alt }: { src: string; alt: string }) => {
       ref={videoRef}
       src={isVisible ? src : undefined}
       controls
-      className="w-full h-auto object-contain bg-black"
+      className="w-full h-full object-contain"
       preload="none"
       aria-label={alt}
     />
@@ -136,35 +136,39 @@ export default function Dokumentasi() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {filteredData.map((item) => (
                 <Card key={item.id} className="group shadow-soft border-0 overflow-hidden hover:shadow-elegant transition-smooth">
-                  <div className="relative">
+                  <div className="relative w-full">
                     {item.jenis_media === "foto" ? (
                       <Dialog>
                         <DialogTrigger asChild>
-                          <div className="relative cursor-pointer">
+                          <div className="relative cursor-pointer w-full aspect-video bg-muted flex items-center justify-center">
                             <img
                               src={item.media_url}
                               alt={item.deskripsi || "Dokumentasi"}
                               loading="lazy"
-                              className="w-full h-auto object-contain bg-muted"
+                              className="w-full h-full object-contain"
                             />
                             <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-all flex items-center justify-center opacity-0 group-hover:opacity-100">
                               <Maximize2 className="h-8 w-8 text-white" />
                             </div>
                           </div>
                         </DialogTrigger>
-                        <DialogContent className="max-w-screen-lg w-full p-0">
-                          <img
-                            src={item.media_url}
-                            alt={item.deskripsi || "Dokumentasi"}
-                            className="w-full h-auto object-contain"
-                          />
+                        <DialogContent className="max-w-screen-xl w-[95vw] h-[95vh] p-2">
+                          <div className="w-full h-full flex items-center justify-center">
+                            <img
+                              src={item.media_url}
+                              alt={item.deskripsi || "Dokumentasi"}
+                              className="max-w-full max-h-full object-contain"
+                            />
+                          </div>
                         </DialogContent>
                       </Dialog>
                     ) : (
-                      <LazyVideo 
-                        src={item.media_url}
-                        alt={item.deskripsi || "Video dokumentasi"}
-                      />
+                      <div className="w-full aspect-video bg-black flex items-center justify-center">
+                        <LazyVideo 
+                          src={item.media_url}
+                          alt={item.deskripsi || "Video dokumentasi"}
+                        />
+                      </div>
                     )}
                   </div>
                   <CardContent className="p-4">
