@@ -39,7 +39,7 @@ export default function DokumentasiAdmin() {
     jenis_media: "foto",
     media_url: "",
     deskripsi: "",
-    kegiatan_id: "",
+    kegiatan_id: "NONE",
   });
 
   useEffect(() => {
@@ -67,7 +67,7 @@ export default function DokumentasiAdmin() {
     try {
       const dataToSubmit = {
         ...formData,
-        kegiatan_id: formData.kegiatan_id || null,
+        kegiatan_id: formData.kegiatan_id === "NONE" ? null : formData.kegiatan_id,
       };
 
       if (editingId) {
@@ -102,7 +102,7 @@ export default function DokumentasiAdmin() {
         
         toast({ title: "Dokumentasi berhasil ditambahkan!" });
       }
-      setFormData({ jenis_media: "foto", media_url: "", deskripsi: "", kegiatan_id: "" });
+      setFormData({ jenis_media: "foto", media_url: "", deskripsi: "", kegiatan_id: "NONE" });
       setIsEditing(false);
       setEditingId(null);
       fetchData();
@@ -116,7 +116,7 @@ export default function DokumentasiAdmin() {
       jenis_media: item.jenis_media,
       media_url: item.media_url,
       deskripsi: item.deskripsi || "",
-      kegiatan_id: item.kegiatan_id || "",
+      kegiatan_id: item.kegiatan_id || "NONE",
     });
     setEditingId(item.id);
     setIsEditing(true);
@@ -195,7 +195,7 @@ export default function DokumentasiAdmin() {
                       <SelectValue placeholder="Pilih kegiatan" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="">Tidak ada</SelectItem>
+                      <SelectItem value="NONE">Tidak ada</SelectItem>
                       {kegiatanOptions.map((kegiatan) => (
                         <SelectItem key={kegiatan.id} value={kegiatan.id}>
                           {kegiatan.nama_kegiatan}
