@@ -14,6 +14,7 @@ export default function Auth() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [isSignUp, setIsSignUp] = useState(false);
   const [showResetPassword, setShowResetPassword] = useState(false);
   const [resetEmail, setResetEmail] = useState("");
   const [resetLoading, setResetLoading] = useState(false);
@@ -39,7 +40,7 @@ export default function Auth() {
     if (email.toLowerCase() !== ADMIN_EMAIL.toLowerCase()) {
       toast({
         title: "Akses Ditolak",
-        description: "Hanya admin yang dapat mengakses halaman ini.",
+        description: "Hanya email admin yang diizinkan.",
         variant: "destructive",
       });
       return;
@@ -48,9 +49,24 @@ export default function Auth() {
     setLoading(true);
 
     try {
-      const { error } = await supabase.auth.signInWithPassword({ email, password });
-      if (error) throw error;
-      toast({ title: "Login berhasil!", description: "Selamat datang kembali." });
+      if (isSignUp) {
+        const { error } = await supabase.auth.signUp({
+          email,
+          password,
+          options: {
+            emailRedirectTo: `${window.location.origin}/admin/dashboard`,
+          },
+        });
+        if (error) throw error;
+        toast({
+          title: "Akun berhasil dibuat!",
+          description: "Silakan cek email untuk verifikasi (jika diaktifkan).",
+        });
+      } else {
+        const { error } = await supabase.auth.signInWithPassword({ email, password });
+        if (error) throw error;
+        toast({ title: "Login berhasil!", description: "Selamat datang kembali." });
+      }
     } catch (error: any) {
       toast({
         title: "Error",
@@ -98,11 +114,13 @@ export default function Auth() {
         <Card className="w-full max-w-md shadow-elegant border-0">
           <CardHeader className="space-y-1">
             <CardTitle className="text-2xl text-center">
-              {showResetPassword ? "Reset Password" : "Login Admin"}
+              {showResetPassword ? "Reset Password" : isSignUp ? "Buat Akun Admin" : "Login Admin"}
             </CardTitle>
             <CardDescription className="text-center">
               {showResetPassword 
                 ? "Masukkan email untuk reset password" 
+                : isSignUp
+                ? "Buat akun admin baru"
                 : "Masuk ke dashboard admin"}
             </CardDescription>
           </CardHeader>
@@ -168,14 +186,21 @@ export default function Auth() {
                     className="w-full gradient-primary text-primary-foreground"
                     disabled={loading}
                   >
-                    {loading ? "Loading..." : "Login"}
+                    {loading ? "Loading..." : isSignUp ? "Buat Akun" : "Login"}
                   </Button>
                 </form>
-                <div className="mt-4 text-center">
+                <div className="mt-4 space-y-2 text-center">
+                  <button
+                    type="button"
+                    onClick={() => setIsSignUp(!isSignUp)}
+                    className="text-sm text-primary hover:underline block w-full"
+                  >
+                    {isSignUp ? "Sudah punya akun? Login" : "Belum punya akun? Daftar"}
+                  </button>
                   <button
                     type="button"
                     onClick={() => setShowResetPassword(true)}
-                    className="text-sm text-primary hover:underline"
+                    className="text-sm text-primary hover:underline block w-full"
                   >
                     Lupa Password?
                   </button>
