@@ -217,22 +217,24 @@ export default function StatistikAdmin() {
                 {loading ? (
                   <div className="text-center py-8">Memuat data...</div>
                 ) : (
-                  <ResponsiveContainer width="100%" height={300}>
-                    <LineChart data={dailyActivity}>
-                      <CartesianGrid strokeDasharray="3 3" />
-                      <XAxis dataKey="date" />
-                      <YAxis />
-                      <Tooltip />
-                      <Legend />
-                      <Line 
-                        type="monotone" 
-                        dataKey="count" 
-                        stroke="#8884d8" 
-                        strokeWidth={2}
-                        name="Jumlah Aktivitas"
-                      />
-                    </LineChart>
-                  </ResponsiveContainer>
+                  <div className="overflow-x-auto -mx-6 px-6">
+                    <ResponsiveContainer width="100%" height={300} minWidth={300}>
+                      <LineChart data={dailyActivity}>
+                        <CartesianGrid strokeDasharray="3 3" />
+                        <XAxis dataKey="date" style={{ fontSize: '12px' }} />
+                        <YAxis style={{ fontSize: '12px' }} />
+                        <Tooltip />
+                        <Legend wrapperStyle={{ fontSize: '12px' }} />
+                        <Line 
+                          type="monotone" 
+                          dataKey="count" 
+                          stroke="#8884d8" 
+                          strokeWidth={2}
+                          name="Jumlah Aktivitas"
+                        />
+                      </LineChart>
+                    </ResponsiveContainer>
+                  </div>
                 )}
               </CardContent>
             </Card>
@@ -254,25 +256,27 @@ export default function StatistikAdmin() {
                       Belum ada data
                     </div>
                   ) : (
-                    <ResponsiveContainer width="100%" height={300}>
-                      <PieChart>
-                        <Pie
-                          data={actionStats}
-                          cx="50%"
-                          cy="50%"
-                          labelLine={false}
-                          label={(entry) => `${entry.action}: ${entry.count}`}
-                          outerRadius={80}
-                          fill="#8884d8"
-                          dataKey="count"
-                        >
-                          {actionStats.map((entry, index) => (
-                            <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                          ))}
-                        </Pie>
-                        <Tooltip />
-                      </PieChart>
-                    </ResponsiveContainer>
+                    <div className="overflow-x-auto">
+                      <ResponsiveContainer width="100%" height={300} minWidth={250}>
+                        <PieChart>
+                          <Pie
+                            data={actionStats}
+                            cx="50%"
+                            cy="50%"
+                            labelLine={false}
+                            label={(entry) => `${entry.action}: ${entry.count}`}
+                            outerRadius={80}
+                            fill="#8884d8"
+                            dataKey="count"
+                          >
+                            {actionStats.map((entry, index) => (
+                              <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                            ))}
+                          </Pie>
+                          <Tooltip />
+                        </PieChart>
+                      </ResponsiveContainer>
+                    </div>
                   )}
                 </CardContent>
               </Card>
@@ -292,16 +296,18 @@ export default function StatistikAdmin() {
                       Belum ada data
                     </div>
                   ) : (
-                    <ResponsiveContainer width="100%" height={300}>
-                      <BarChart data={tableStats}>
-                        <CartesianGrid strokeDasharray="3 3" />
-                        <XAxis dataKey="table" />
-                        <YAxis />
-                        <Tooltip />
-                        <Legend />
-                        <Bar dataKey="count" fill="#82ca9d" name="Jumlah Aktivitas" />
-                      </BarChart>
-                    </ResponsiveContainer>
+                    <div className="overflow-x-auto">
+                      <ResponsiveContainer width="100%" height={300} minWidth={250}>
+                        <BarChart data={tableStats}>
+                          <CartesianGrid strokeDasharray="3 3" />
+                          <XAxis dataKey="table" style={{ fontSize: '12px' }} />
+                          <YAxis style={{ fontSize: '12px' }} />
+                          <Tooltip />
+                          <Legend wrapperStyle={{ fontSize: '12px' }} />
+                          <Bar dataKey="count" fill="#82ca9d" name="Jumlah Aktivitas" />
+                        </BarChart>
+                      </ResponsiveContainer>
+                    </div>
                   )}
                 </CardContent>
               </Card>

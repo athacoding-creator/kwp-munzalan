@@ -164,27 +164,27 @@ export default function ActivityLogAdmin() {
                 Belum ada log aktivitas
               </div>
             ) : (
-              <div className="overflow-x-auto">
-                <Table>
+              <div className="overflow-x-auto -mx-6 px-6">
+                <Table className="min-w-[640px]">
                   <TableHeader>
                     <TableRow>
-                      <TableHead>Waktu</TableHead>
-                      <TableHead>Admin</TableHead>
-                      <TableHead>Action</TableHead>
-                      <TableHead>Tabel</TableHead>
-                      <TableHead>Deskripsi</TableHead>
+                      <TableHead className="whitespace-nowrap">Waktu</TableHead>
+                      <TableHead className="whitespace-nowrap">Admin</TableHead>
+                      <TableHead className="whitespace-nowrap">Action</TableHead>
+                      <TableHead className="whitespace-nowrap">Tabel</TableHead>
+                      <TableHead className="whitespace-nowrap">Deskripsi</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
                     {filteredLogs.map((log) => (
                       <TableRow key={log.id}>
-                        <TableCell className="font-mono text-sm">
+                        <TableCell className="font-mono text-sm whitespace-nowrap">
                           {format(new Date(log.created_at), "dd/MM/yyyy HH:mm:ss")}
                         </TableCell>
-                        <TableCell>{log.user_email}</TableCell>
+                        <TableCell className="whitespace-nowrap">{log.user_email}</TableCell>
                         <TableCell>{getActionBadge(log.action)}</TableCell>
                         <TableCell>
-                          <code className="bg-muted px-2 py-1 rounded text-sm">
+                          <code className="bg-muted px-2 py-1 rounded text-sm whitespace-nowrap">
                             {log.table_name}
                           </code>
                         </TableCell>
