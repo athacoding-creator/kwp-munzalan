@@ -83,8 +83,31 @@ export default function StatistikAdmin() {
   const totalActivities = logs.length;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-background to-primary/5 p-8">
-      <div className="max-w-7xl mx-auto space-y-8">
+    <div className="min-h-screen bg-muted/30 overflow-x-hidden">
+      <nav className="bg-card border-b border-border shadow-soft sticky top-0 z-50">
+        <div className="w-full max-w-7xl mx-auto px-3 sm:px-4 py-3 sm:py-4">
+          <div className="flex items-center justify-between gap-2">
+            <div className="flex items-center gap-2 sm:gap-4 min-w-0 flex-1">
+              <Button
+                variant="ghost"
+                onClick={() => navigate("/admin/dashboard")}
+                size="sm"
+                className="h-8 sm:h-9 px-2 sm:px-3 flex-shrink-0"
+              >
+                <ArrowLeft className="h-3.5 w-3.5 sm:h-4 sm:w-4 sm:mr-2" />
+                <span className="hidden sm:inline">Dashboard</span>
+              </Button>
+              <h1 className="text-base sm:text-lg md:text-2xl font-bold truncate">Statistik</h1>
+            </div>
+            <Button variant="outline" size="sm" onClick={() => navigate("/")} className="h-8 sm:h-9 px-2 sm:px-3 flex-shrink-0">
+              <Home className="h-3.5 w-3.5 sm:h-4 sm:w-4 sm:mr-2" />
+              <span className="hidden sm:inline">Website</span>
+            </Button>
+          </div>
+        </div>
+      </nav>
+
+      <div className="w-full max-w-7xl mx-auto px-3 sm:px-4 py-4 sm:py-6 md:py-8">
         <div className="flex items-center justify-between">
           <div>
             <Button
