@@ -8,6 +8,7 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 import { ArrowLeft, Plus, Pencil, Trash2 } from "lucide-react";
+import { logAdminActivity } from "@/lib/adminLogger";
 
 interface KegiatanData {
   id: string;
@@ -49,15 +50,35 @@ export default function KegiatanAdmin() {
     e.preventDefault();
     try {
       if (editingId) {
+        const oldData = kegiatan.find(k => k.id === editingId);
         const { error } = await supabase
           .from("kegiatan")
           .update(formData)
           .eq("id", editingId);
         if (error) throw error;
+        
+        await logAdminActivity({
+          action: "UPDATE",
+          tableName: "kegiatan",
+          recordId: editingId,
+          oldData,
+          newData: formData,
+          description: `Update kegiatan: ${formData.nama_kegiatan}`,
+        });
+        
         toast({ title: "Kegiatan berhasil diupdate!" });
       } else {
-        const { error } = await supabase.from("kegiatan").insert([formData]);
+        const { data, error } = await supabase.from("kegiatan").insert([formData]).select();
         if (error) throw error;
+        
+        await logAdminActivity({
+          action: "CREATE",
+          tableName: "kegiatan",
+          recordId: data?.[0]?.id,
+          newData: formData,
+          description: `Tambah kegiatan baru: ${formData.nama_kegiatan}`,
+        });
+        
         toast({ title: "Kegiatan berhasil ditambahkan!" });
       }
       setFormData({ nama_kegiatan: "", deskripsi: "", tanggal: "", lokasi: "" });
@@ -83,8 +104,18 @@ export default function KegiatanAdmin() {
   const handleDelete = async (id: string) => {
     if (!confirm("Yakin ingin menghapus?")) return;
     try {
+      const deletedItem = kegiatan.find(k => k.id === id);
       const { error } = await supabase.from("kegiatan").delete().eq("id", id);
       if (error) throw error;
+      
+      await logAdminActivity({
+        action: "DELETE",
+        tableName: "kegiatan",
+        recordId: id,
+        oldData: deletedItem,
+        description: `Hapus kegiatan: ${deletedItem?.nama_kegiatan}`,
+      });
+      
       toast({ title: "Kegiatan berhasil dihapus!" });
       fetchKegiatan();
     } catch (error: any) {

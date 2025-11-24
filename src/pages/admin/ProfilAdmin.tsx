@@ -9,6 +9,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 import { ArrowLeft, Plus, Pencil, Trash2 } from "lucide-react";
 import { FileUpload } from "@/components/FileUpload";
+import { logAdminActivity } from "@/lib/adminLogger";
 
 interface ProfilData {
   id: string;
@@ -48,15 +49,35 @@ export default function ProfilAdmin() {
     e.preventDefault();
     try {
       if (editingId) {
+        const oldData = profil.find(p => p.id === editingId);
         const { error } = await supabase
           .from("profil")
           .update(formData)
           .eq("id", editingId);
         if (error) throw error;
+        
+        await logAdminActivity({
+          action: "UPDATE",
+          tableName: "profil",
+          recordId: editingId,
+          oldData,
+          newData: formData,
+          description: `Update profil: ${formData.judul}`,
+        });
+        
         toast({ title: "Profil berhasil diupdate!" });
       } else {
-        const { error } = await supabase.from("profil").insert([formData]);
+        const { data, error } = await supabase.from("profil").insert([formData]).select();
         if (error) throw error;
+        
+        await logAdminActivity({
+          action: "CREATE",
+          tableName: "profil",
+          recordId: data?.[0]?.id,
+          newData: formData,
+          description: `Tambah profil baru: ${formData.judul}`,
+        });
+        
         toast({ title: "Profil berhasil ditambahkan!" });
       }
       setFormData({ judul: "", konten: "", foto_profil_url: "" });
@@ -81,8 +102,18 @@ export default function ProfilAdmin() {
   const handleDelete = async (id: string) => {
     if (!confirm("Yakin ingin menghapus?")) return;
     try {
+      const deletedItem = profil.find(p => p.id === id);
       const { error } = await supabase.from("profil").delete().eq("id", id);
       if (error) throw error;
+      
+      await logAdminActivity({
+        action: "DELETE",
+        tableName: "profil",
+        recordId: id,
+        oldData: deletedItem,
+        description: `Hapus profil: ${deletedItem?.judul}`,
+      });
+      
       toast({ title: "Profil berhasil dihapus!" });
       fetchProfil();
     } catch (error: any) {
