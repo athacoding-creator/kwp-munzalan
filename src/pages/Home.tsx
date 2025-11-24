@@ -56,10 +56,10 @@ export default function Home() {
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-3xl mx-auto text-center">
             <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-primary to-primary-light bg-clip-text text-transparent">
-              Selamat Datang di KWP Munzalan
+              Selamat Datang di KWP Munzalan Indonesia
             </h1>
             <p className="text-xl text-muted-foreground mb-8">
-              Lembaga pendidikan Islam yang berkomitmen membentuk generasi Qurani, berakhlak mulia, dan berprestasi
+              Lembaga pendidikan Kawasan Wakaf Produktif yang berkomitmen pada Pusat kegiatan keagamaan, sosial, dan ekonomi
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link to="/profil">

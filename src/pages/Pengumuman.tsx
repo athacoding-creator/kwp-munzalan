@@ -35,7 +35,7 @@ export default function Pengumuman() {
           <div className="container mx-auto px-4">
             <h1 className="text-4xl md:text-5xl font-bold text-center mb-4">Pengumuman</h1>
             <p className="text-center text-muted-foreground max-w-2xl mx-auto">
-              Informasi terkini dan pengumuman penting untuk santri dan orang tua
+              Informasi terkini dan pengumuman penting untuk Masyarakat
             </p>
           </div>
         </section>
