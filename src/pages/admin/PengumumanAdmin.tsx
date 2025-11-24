@@ -8,6 +8,7 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 import { ArrowLeft, Plus, Pencil, Trash2 } from "lucide-react";
+import { logAdminActivity } from "@/lib/adminLogger";
 
 interface PengumumanData {
   id: string;
@@ -49,18 +50,38 @@ export default function PengumumanAdmin() {
       const { data: { session } } = await supabase.auth.getSession();
       
       if (editingId) {
+        const oldData = pengumuman.find(p => p.id === editingId);
         const { error } = await supabase
           .from("pengumuman")
           .update(formData)
           .eq("id", editingId);
         if (error) throw error;
+        
+        await logAdminActivity({
+          action: "UPDATE",
+          tableName: "pengumuman",
+          recordId: editingId,
+          oldData,
+          newData: formData,
+          description: `Update pengumuman: ${formData.judul}`,
+        });
+        
         toast({ title: "Pengumuman berhasil diupdate!" });
       } else {
-        const { error } = await supabase.from("pengumuman").insert([{
+        const { data, error } = await supabase.from("pengumuman").insert([{
           ...formData,
           admin_id: session?.user.id,
-        }]);
+        }]).select();
         if (error) throw error;
+        
+        await logAdminActivity({
+          action: "CREATE",
+          tableName: "pengumuman",
+          recordId: data?.[0]?.id,
+          newData: formData,
+          description: `Tambah pengumuman baru: ${formData.judul}`,
+        });
+        
         toast({ title: "Pengumuman berhasil ditambahkan!" });
       }
       setFormData({ judul: "", isi: "", tanggal: "" });
@@ -85,8 +106,18 @@ export default function PengumumanAdmin() {
   const handleDelete = async (id: string) => {
     if (!confirm("Yakin ingin menghapus?")) return;
     try {
+      const deletedItem = pengumuman.find(p => p.id === id);
       const { error } = await supabase.from("pengumuman").delete().eq("id", id);
       if (error) throw error;
+      
+      await logAdminActivity({
+        action: "DELETE",
+        tableName: "pengumuman",
+        recordId: id,
+        oldData: deletedItem,
+        description: `Hapus pengumuman: ${deletedItem?.judul}`,
+      });
+      
       toast({ title: "Pengumuman berhasil dihapus!" });
       fetchPengumuman();
     } catch (error: any) {
