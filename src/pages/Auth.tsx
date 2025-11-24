@@ -14,6 +14,9 @@ export default function Auth() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [showResetPassword, setShowResetPassword] = useState(false);
+  const [resetEmail, setResetEmail] = useState("");
+  const [resetLoading, setResetLoading] = useState(false);
   const navigate = useNavigate();
   const { toast } = useToast();
 
@@ -59,6 +62,35 @@ export default function Auth() {
     }
   };
 
+  const handleResetPassword = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setResetLoading(true);
+
+    try {
+      const { error } = await supabase.auth.resetPasswordForEmail(resetEmail, {
+        redirectTo: `${window.location.origin}/admin`,
+      });
+      
+      if (error) throw error;
+      
+      toast({
+        title: "Email Terkirim",
+        description: "Silakan cek email Anda untuk link reset password.",
+      });
+      
+      setShowResetPassword(false);
+      setResetEmail("");
+    } catch (error: any) {
+      toast({
+        title: "Error",
+        description: error.message,
+        variant: "destructive",
+      });
+    } finally {
+      setResetLoading(false);
+    }
+  };
+
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />
@@ -66,43 +98,90 @@ export default function Auth() {
         <Card className="w-full max-w-md shadow-elegant border-0">
           <CardHeader className="space-y-1">
             <CardTitle className="text-2xl text-center">
-              Login Admin
+              {showResetPassword ? "Reset Password" : "Login Admin"}
             </CardTitle>
             <CardDescription className="text-center">
-              Masuk ke dashboard admin
+              {showResetPassword 
+                ? "Masukkan email untuk reset password" 
+                : "Masuk ke dashboard admin"}
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <form onSubmit={handleAuth} className="space-y-4">
-              <div>
-                <Label htmlFor="email">Email</Label>
-                <Input
-                  id="email"
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="athacoding@gmail.com"
-                  required
-                />
-              </div>
-              <div>
-                <Label htmlFor="password">Password</Label>
-                <Input
-                  id="password"
-                  type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                />
-              </div>
-              <Button
-                type="submit"
-                className="w-full gradient-primary text-primary-foreground"
-                disabled={loading}
-              >
-                {loading ? "Loading..." : "Login"}
-              </Button>
-            </form>
+            {showResetPassword ? (
+              <form onSubmit={handleResetPassword} className="space-y-4">
+                <div>
+                  <Label htmlFor="resetEmail">Email</Label>
+                  <Input
+                    id="resetEmail"
+                    type="email"
+                    value={resetEmail}
+                    onChange={(e) => setResetEmail(e.target.value)}
+                    placeholder="admin@example.com"
+                    required
+                  />
+                </div>
+                <Button
+                  type="submit"
+                  className="w-full gradient-primary text-primary-foreground"
+                  disabled={resetLoading}
+                >
+                  {resetLoading ? "Mengirim..." : "Kirim Link Reset"}
+                </Button>
+                <Button
+                  type="button"
+                  variant="ghost"
+                  className="w-full"
+                  onClick={() => {
+                    setShowResetPassword(false);
+                    setResetEmail("");
+                  }}
+                >
+                  Kembali ke Login
+                </Button>
+              </form>
+            ) : (
+              <>
+                <form onSubmit={handleAuth} className="space-y-4">
+                  <div>
+                    <Label htmlFor="email">Email</Label>
+                    <Input
+                      id="email"
+                      type="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      placeholder="admin@example.com"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <Label htmlFor="password">Password</Label>
+                    <Input
+                      id="password"
+                      type="password"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      required
+                    />
+                  </div>
+                  <Button
+                    type="submit"
+                    className="w-full gradient-primary text-primary-foreground"
+                    disabled={loading}
+                  >
+                    {loading ? "Loading..." : "Login"}
+                  </Button>
+                </form>
+                <div className="mt-4 text-center">
+                  <button
+                    type="button"
+                    onClick={() => setShowResetPassword(true)}
+                    className="text-sm text-primary hover:underline"
+                  >
+                    Lupa Password?
+                  </button>
+                </div>
+              </>
+            )}
           </CardContent>
         </Card>
       </div>
