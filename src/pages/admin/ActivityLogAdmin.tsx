@@ -1,70 +1,33 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { ArrowLeft, RefreshCw, Filter } from "lucide-react";
-import { useToast } from "@/hooks/use-toast";
 import { format } from "date-fns";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-
-interface AdminLog {
-  id: string;
-  created_at: string;
-  user_email: string;
-  action: string;
-  table_name: string;
-  record_id: string | null;
-  description: string;
-  old_data: any;
-  new_data: any;
-}
+import { useAdminAuth } from "@/hooks/useAdminAuth";
+import { useAdminLogs } from "@/hooks/useAdminLogs";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export default function ActivityLogAdmin() {
-  const [logs, setLogs] = useState<AdminLog[]>([]);
-  const [loading, setLoading] = useState(true);
   const [filterAction, setFilterAction] = useState<string>("ALL");
   const [filterTable, setFilterTable] = useState<string>("ALL");
   const navigate = useNavigate();
-  const { toast } = useToast();
+  const { isLoading: authLoading, isAuthorized } = useAdminAuth();
+  const { data: logs = [], isLoading, refetch } = useAdminLogs();
 
-  useEffect(() => {
-    checkAuth();
-    fetchLogs();
-  }, []);
-
-  const checkAuth = async () => {
-    const { data: { session } } = await supabase.auth.getSession();
-    if (!session) {
-      navigate("/admin");
-    }
-  };
-
-  const fetchLogs = async () => {
-    setLoading(true);
-    try {
-      let query = supabase
-        .from("admin_logs")
-        .select("*")
-        .order("created_at", { ascending: false })
-        .limit(100);
-
-      const { data, error } = await query;
-
-      if (error) throw error;
-      setLogs(data || []);
-    } catch (error: any) {
-      toast({
-        title: "Error",
-        description: error.message,
-        variant: "destructive",
-      });
-    } finally {
-      setLoading(false);
-    }
-  };
+  if (authLoading || !isAuthorized) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-background via-background to-primary/5 p-8">
+        <div className="max-w-7xl mx-auto space-y-8">
+          <Skeleton className="h-12 w-64" />
+          <Skeleton className="h-96 w-full" />
+        </div>
+      </div>
+    );
+  }
 
   const getActionBadge = (action: string) => {
     const variants: Record<string, "default" | "destructive" | "secondary" | "outline"> = {
@@ -104,8 +67,8 @@ export default function ActivityLogAdmin() {
               Tracking semua perubahan data yang dilakukan admin
             </p>
           </div>
-          <Button onClick={fetchLogs} disabled={loading}>
-            <RefreshCw className={`mr-2 h-4 w-4 ${loading ? "animate-spin" : ""}`} />
+          <Button onClick={() => refetch()} disabled={isLoading}>
+            <RefreshCw className={`mr-2 h-4 w-4 ${isLoading ? "animate-spin" : ""}`} />
             Refresh
           </Button>
         </div>
@@ -157,8 +120,12 @@ export default function ActivityLogAdmin() {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            {loading ? (
-              <div className="text-center py-8">Memuat log...</div>
+            {isLoading ? (
+              <div className="space-y-4">
+                <Skeleton className="h-12 w-full" />
+                <Skeleton className="h-12 w-full" />
+                <Skeleton className="h-12 w-full" />
+              </div>
             ) : filteredLogs.length === 0 ? (
               <div className="text-center py-8 text-muted-foreground">
                 Belum ada log aktivitas
