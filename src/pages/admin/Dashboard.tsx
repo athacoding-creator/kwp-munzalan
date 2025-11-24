@@ -52,43 +52,55 @@ export default function Dashboard() {
   ];
 
   return (
-    <div className="min-h-screen bg-muted/30">
-      <nav className="bg-card border-b border-border shadow-soft">
-        <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-          <h1 className="text-2xl font-bold">Dashboard Admin</h1>
-          <div className="flex gap-2">
-            <Button onClick={() => navigate("/")} variant="outline" size="sm">
-              <Home className="h-4 w-4 mr-2" />
-              Ke Website
-            </Button>
-            <Button onClick={handleLogout} variant="outline" size="sm">
-              <LogOut className="h-4 w-4 mr-2" />
-              Logout
-            </Button>
+    <div className="min-h-screen bg-muted/30 overflow-x-hidden">
+      <nav className="bg-card border-b border-border shadow-soft sticky top-0 z-50">
+        <div className="w-full max-w-7xl mx-auto px-3 sm:px-4 py-3 sm:py-4">
+          <div className="flex justify-between items-center gap-2">
+            <h1 className="text-lg sm:text-xl md:text-2xl font-bold truncate">Dashboard Admin</h1>
+            <div className="flex gap-1.5 sm:gap-2 flex-shrink-0">
+              <Button 
+                onClick={() => navigate("/")} 
+                variant="outline" 
+                size="sm"
+                className="h-8 sm:h-9 px-2 sm:px-3"
+              >
+                <Home className="h-3.5 w-3.5 sm:h-4 sm:w-4 sm:mr-2" />
+                <span className="hidden sm:inline">Website</span>
+              </Button>
+              <Button 
+                onClick={handleLogout} 
+                variant="outline" 
+                size="sm"
+                className="h-8 sm:h-9 px-2 sm:px-3"
+              >
+                <LogOut className="h-3.5 w-3.5 sm:h-4 sm:w-4 sm:mr-2" />
+                <span className="hidden sm:inline">Logout</span>
+              </Button>
+            </div>
           </div>
         </div>
       </nav>
 
-      <div className="container mx-auto px-4 py-8">
-        <div className="mb-8">
-          <h2 className="text-3xl font-bold mb-2">Selamat Datang, Admin</h2>
-          <p className="text-muted-foreground">
+      <div className="w-full max-w-7xl mx-auto px-3 sm:px-4 py-4 sm:py-6 md:py-8">
+        <div className="mb-6 sm:mb-8">
+          <h2 className="text-xl sm:text-2xl md:text-3xl font-bold mb-2">Selamat Datang, Admin</h2>
+          <p className="text-sm sm:text-base text-muted-foreground">
             Kelola konten website KWP Munzalan
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 md:gap-6">
           {menuItems.map((item) => (
-            <Link key={item.title} to={item.link}>
-              <Card className="shadow-soft border-0 hover:shadow-elegant transition-smooth cursor-pointer h-full">
-                <CardHeader>
-                  <div className={`w-12 h-12 rounded-lg bg-gradient-to-br ${item.color} flex items-center justify-center mb-4`}>
-                    <item.icon className="h-6 w-6 text-white" />
+            <Link key={item.title} to={item.link} className="block">
+              <Card className="shadow-soft border hover:shadow-elegant transition-smooth cursor-pointer h-full hover:scale-[1.02] active:scale-[0.98]">
+                <CardHeader className="pb-3 sm:pb-4">
+                  <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-gradient-to-br ${item.color} flex items-center justify-center mb-3 sm:mb-4`}>
+                    <item.icon className="h-5 w-5 sm:h-6 sm:w-6 text-white" />
                   </div>
-                  <CardTitle>{item.title}</CardTitle>
+                  <CardTitle className="text-base sm:text-lg">{item.title}</CardTitle>
                 </CardHeader>
-                <CardContent>
-                  <p className="text-sm text-muted-foreground">
+                <CardContent className="pt-0">
+                  <p className="text-xs sm:text-sm text-muted-foreground">
                     Kelola data {item.title.toLowerCase()}
                   </p>
                 </CardContent>
