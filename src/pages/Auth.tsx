@@ -14,12 +14,9 @@ export default function Auth() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
-  const [isSignUp, setIsSignUp] = useState(false);
   const [showResetPassword, setShowResetPassword] = useState(false);
   const [resetEmail, setResetEmail] = useState("");
   const [resetLoading, setResetLoading] = useState(false);
-  const [signupEnabled, setSignupEnabled] = useState(true);
-  const [checkingSignup, setCheckingSignup] = useState(true);
   const navigate = useNavigate();
   const { toast } = useToast();
 
@@ -35,29 +32,6 @@ export default function Auth() {
     };
   }, [navigate]);
 
-  useEffect(() => {
-    const checkExistingUsers = async () => {
-      try {
-        const { count, error } = await supabase
-          .from('profiles')
-          .select('*', { count: 'exact', head: true });
-        
-        if (error) throw error;
-        
-        // Disable signup if any users exist
-        setSignupEnabled(count === 0);
-      } catch (error) {
-        console.error('Error checking users:', error);
-        // On error, disable signup for safety
-        setSignupEnabled(false);
-      } finally {
-        setCheckingSignup(false);
-      }
-    };
-
-    checkExistingUsers();
-  }, []);
-
   const handleAuth = async (e: React.FormEvent) => {
     e.preventDefault();
     
@@ -71,37 +45,12 @@ export default function Auth() {
       return;
     }
 
-    // Check if signup is disabled
-    if (isSignUp && !signupEnabled) {
-      toast({
-        title: "Signup Dinonaktifkan",
-        description: "Akun admin sudah ada. Silakan login.",
-        variant: "destructive",
-      });
-      return;
-    }
-
     setLoading(true);
 
     try {
-      if (isSignUp) {
-        const { error } = await supabase.auth.signUp({
-          email,
-          password,
-          options: {
-            emailRedirectTo: `${window.location.origin}/admin/dashboard`,
-          },
-        });
-        if (error) throw error;
-        toast({
-          title: "Akun berhasil dibuat!",
-          description: "Silakan cek email untuk verifikasi (jika diaktifkan).",
-        });
-      } else {
-        const { error } = await supabase.auth.signInWithPassword({ email, password });
-        if (error) throw error;
-        toast({ title: "Login berhasil!", description: "Selamat datang kembali." });
-      }
+      const { error } = await supabase.auth.signInWithPassword({ email, password });
+      if (error) throw error;
+      toast({ title: "Login berhasil!", description: "Selamat datang kembali." });
     } catch (error: any) {
       toast({
         title: "Error",
@@ -146,23 +95,14 @@ export default function Auth() {
     <div className="min-h-screen flex flex-col">
       <Navbar />
       <div className="flex-1 flex items-center justify-center py-12 px-4 islamic-pattern">
-        {checkingSignup ? (
-          <Card className="w-full max-w-md shadow-elegant border-0">
-            <CardContent className="pt-6 text-center">
-              <p className="text-muted-foreground">Memuat...</p>
-            </CardContent>
-          </Card>
-        ) : (
-          <Card className="w-full max-w-md shadow-elegant border-0">
+        <Card className="w-full max-w-md shadow-elegant border-0">
           <CardHeader className="space-y-1">
             <CardTitle className="text-2xl text-center">
-              {showResetPassword ? "Reset Password" : isSignUp ? "Buat Akun Admin" : "Login Admin"}
+              {showResetPassword ? "Reset Password" : "Login Admin"}
             </CardTitle>
             <CardDescription className="text-center">
               {showResetPassword 
                 ? "Masukkan email untuk reset password" 
-                : isSignUp
-                ? "Buat akun admin baru"
                 : "Masuk ke dashboard admin"}
             </CardDescription>
           </CardHeader>
@@ -228,23 +168,14 @@ export default function Auth() {
                     className="w-full gradient-primary text-primary-foreground"
                     disabled={loading}
                   >
-                    {loading ? "Loading..." : isSignUp ? "Buat Akun" : "Login"}
+                    {loading ? "Loading..." : "Login"}
                   </Button>
                 </form>
-                <div className="mt-4 space-y-2 text-center">
-                  {signupEnabled && (
-                    <button
-                      type="button"
-                      onClick={() => setIsSignUp(!isSignUp)}
-                      className="text-sm text-primary hover:underline block w-full"
-                    >
-                      {isSignUp ? "Sudah punya akun? Login" : "Belum punya akun? Daftar"}
-                    </button>
-                  )}
+                <div className="mt-4 text-center">
                   <button
                     type="button"
                     onClick={() => setShowResetPassword(true)}
-                    className="text-sm text-primary hover:underline block w-full"
+                    className="text-sm text-primary hover:underline"
                   >
                     Lupa Password?
                   </button>
@@ -253,7 +184,6 @@ export default function Auth() {
             )}
           </CardContent>
         </Card>
-        )}
       </div>
     </div>
   );
