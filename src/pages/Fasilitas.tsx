@@ -48,7 +48,7 @@ export default function Fasilitas() {
                     <img
                       src={item.foto_url}
                       alt={item.nama}
-                      className="w-full h-48 object-cover"
+                      className="w-full object-contain"
                     />
                   )}
                   <CardContent className="p-6">
