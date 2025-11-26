@@ -198,7 +198,7 @@ export default function MediaAdmin() {
                           <img
                             src={getFileUrl(file.name)}
                             alt={file.name}
-                            className="w-full h-24 sm:h-32 object-cover rounded mb-2"
+                            className="w-full object-contain rounded mb-2"
                           />
                         ) : (
                           <div className="w-full h-24 sm:h-32 bg-muted rounded mb-2 flex items-center justify-center">

@@ -48,7 +48,7 @@ export default function Profil() {
                     <img
                       src={item.foto_profil_url}
                       alt={item.judul}
-                      className="w-full h-64 object-cover"
+                      className="w-full object-contain"
                     />
                   )}
                   <CardContent className="p-8">

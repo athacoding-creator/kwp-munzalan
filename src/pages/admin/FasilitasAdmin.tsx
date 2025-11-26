@@ -202,7 +202,7 @@ export default function FasilitasAdmin() {
               <Card key={item.id} className="shadow-soft border hover:shadow-elegant transition-smooth">
                 <CardContent className="p-3 sm:p-4 md:p-6">
                   {item.foto_url && (
-                    <img src={item.foto_url} alt={item.nama} className="w-full h-32 sm:h-40 object-cover rounded mb-3 sm:mb-4" />
+                    <img src={item.foto_url} alt={item.nama} className="w-full object-contain rounded mb-3 sm:mb-4" />
                   )}
                   <h3 className="font-semibold text-base sm:text-lg mb-2">{item.nama}</h3>
                   <p className="text-xs sm:text-sm text-muted-foreground mb-3 sm:mb-4 line-clamp-3">{item.deskripsi}</p>

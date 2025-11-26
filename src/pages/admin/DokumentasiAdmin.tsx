@@ -251,9 +251,9 @@ export default function DokumentasiAdmin() {
                 <CardContent className="p-3 sm:p-4 md:p-6">
                   <div className="flex gap-3 sm:gap-4">
                     {item.jenis_media === "foto" ? (
-                      <img src={item.media_url} alt="" className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 object-cover rounded flex-shrink-0" />
+                      <img src={item.media_url} alt="" className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 object-contain rounded flex-shrink-0" />
                     ) : (
-                      <video src={item.media_url} className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 object-cover rounded bg-black flex-shrink-0" />
+                      <video src={item.media_url} className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 object-contain rounded bg-black flex-shrink-0" />
                     )}
                     <div className="flex-1 min-w-0">
                       <p className="text-xs sm:text-sm text-primary mb-1 capitalize">{item.jenis_media}</p>
