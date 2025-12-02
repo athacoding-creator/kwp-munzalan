@@ -32,8 +32,8 @@ export const Footer = () => {
                 </Link>
               </li>
               <li>
-                <Link to="/kegiatan" className="text-muted-foreground hover:text-primary transition-smooth">
-                  Kegiatan
+                <Link to="/program" className="text-muted-foreground hover:text-primary transition-smooth">
+                  Program
                 </Link>
               </li>
               <li>

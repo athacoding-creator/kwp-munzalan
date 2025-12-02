@@ -7,7 +7,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 
-interface Kegiatan {
+interface Program {
   id: string;
   nama_kegiatan: string;
   deskripsi: string;
@@ -22,7 +22,7 @@ interface Pengumuman {
 }
 
 export default function Home() {
-  const [kegiatanTerbaru, setKegiatanTerbaru] = useState<Kegiatan[]>([]);
+  const [programTerbaru, setProgramTerbaru] = useState<Program[]>([]);
   const [pengumumanTerbaru, setPengumumanTerbaru] = useState<Pengumuman[]>([]);
 
   useEffect(() => {
@@ -30,7 +30,7 @@ export default function Home() {
   }, []);
 
   const fetchData = async () => {
-    const { data: kegiatan } = await supabase
+    const { data: program } = await supabase
       .from("kegiatan")
       .select("*")
       .order("tanggal", { ascending: false })
@@ -42,7 +42,7 @@ export default function Home() {
       .order("tanggal", { ascending: false })
       .limit(3);
 
-    if (kegiatan) setKegiatanTerbaru(kegiatan);
+    if (program) setProgramTerbaru(program);
     if (pengumuman) setPengumumanTerbaru(pengumuman);
   };
 
@@ -113,28 +113,28 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Kegiatan Terbaru */}
+      {/* Program Terbaru */}
       <section className="py-16">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Kegiatan Terbaru</h2>
-            <p className="text-muted-foreground">Ikuti berbagai kegiatan dan program yang kami adakan</p>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Program Terbaru</h2>
+            <p className="text-muted-foreground">Ikuti berbagai program dan kegiatan yang kami adakan</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {kegiatanTerbaru.map((kegiatan) => (
-              <Card key={kegiatan.id} className="shadow-soft border-0 hover:shadow-elegant transition-smooth">
+            {programTerbaru.map((program) => (
+              <Card key={program.id} className="shadow-soft border-0 hover:shadow-elegant transition-smooth">
                 <CardContent className="p-6">
                   <div className="text-sm text-primary mb-2">
-                    {new Date(kegiatan.tanggal).toLocaleDateString("id-ID", {
+                    {new Date(program.tanggal).toLocaleDateString("id-ID", {
                       day: "numeric",
                       month: "long",
                       year: "numeric",
                     })}
                   </div>
-                  <h3 className="text-xl font-semibold mb-3">{kegiatan.nama_kegiatan}</h3>
-                  <p className="text-muted-foreground mb-4 line-clamp-3">{kegiatan.deskripsi}</p>
-                  <Link to="/kegiatan">
+                  <h3 className="text-xl font-semibold mb-3">{program.nama_kegiatan}</h3>
+                  <p className="text-muted-foreground mb-4 line-clamp-3">{program.deskripsi}</p>
+                  <Link to="/program">
                     <Button variant="ghost" size="sm" className="text-primary hover:text-primary-dark">
                       Selengkapnya
                       <ArrowRight className="ml-2 h-4 w-4" />
@@ -146,9 +146,9 @@ export default function Home() {
           </div>
 
           <div className="text-center mt-8">
-            <Link to="/kegiatan">
+            <Link to="/program">
               <Button variant="outline" size="lg">
-                Lihat Semua Kegiatan
+                Lihat Semua Program
               </Button>
             </Link>
           </div>

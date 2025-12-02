@@ -42,7 +42,7 @@ export default function Dashboard() {
   const menuItems = [
     { title: "Profil", icon: FileText, link: "/admin/profil", color: "from-blue-500 to-blue-600" },
     { title: "Fasilitas", icon: Image, link: "/admin/fasilitas", color: "from-green-500 to-green-600" },
-    { title: "Kegiatan", icon: Calendar, link: "/admin/kegiatan", color: "from-purple-500 to-purple-600" },
+    { title: "Program", icon: Calendar, link: "/admin/program", color: "from-purple-500 to-purple-600" },
     { title: "Dokumentasi", icon: Image, link: "/admin/dokumentasi", color: "from-orange-500 to-orange-600" },
     { title: "Pengumuman", icon: Megaphone, link: "/admin/pengumuman", color: "from-red-500 to-red-600" },
     { title: "Media Storage", icon: HardDrive, link: "/admin/media", color: "from-cyan-500 to-cyan-600" },
