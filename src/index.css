@@ -2,89 +2,90 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* KWP Munzalan Design System - Modern Green/Teal Theme matching brochure */
 
 @layer base {
   :root {
-    /* Elegant professional purple design system */
-    --background: 270 15% 98%;
-    --foreground: 270 20% 15%;
+    /* Clean modern green/teal design system from brochure */
+    --background: 150 20% 98%;
+    --foreground: 160 30% 12%;
 
     --card: 0 0% 100%;
-    --card-foreground: 270 20% 15%;
+    --card-foreground: 160 30% 12%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 270 20% 15%;
+    --popover-foreground: 160 30% 12%;
 
-    /* Royal purple primary with elegant accents */
-    --primary: 270 65% 50%;
+    /* Vibrant teal/green primary from brochure */
+    --primary: 168 70% 38%;
     --primary-foreground: 0 0% 100%;
     
-    --primary-light: 270 60% 65%;
-    --primary-dark: 270 70% 35%;
+    --primary-light: 168 65% 50%;
+    --primary-dark: 168 75% 28%;
 
-    --secondary: 280 55% 92%;
-    --secondary-foreground: 270 65% 50%;
+    --secondary: 168 50% 92%;
+    --secondary-foreground: 168 70% 38%;
 
-    --muted: 270 10% 95%;
-    --muted-foreground: 270 15% 45%;
+    --muted: 150 15% 94%;
+    --muted-foreground: 160 15% 40%;
 
-    --accent: 270 70% 60%;
+    /* Accent - warm gold/orange from brochure */
+    --accent: 38 90% 55%;
     --accent-foreground: 0 0% 100%;
 
-    --destructive: 0 84.2% 60.2%;
+    --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 270 15% 90%;
-    --input: 270 15% 90%;
-    --ring: 270 65% 50%;
+    --border: 150 15% 88%;
+    --input: 150 15% 88%;
+    --ring: 168 70% 38%;
 
-    --radius: 0.75rem;
+    --radius: 1rem;
 
     /* Custom design tokens */
-    --gradient-primary: linear-gradient(135deg, hsl(270 65% 50%), hsl(280 60% 60%));
-    --gradient-accent: linear-gradient(135deg, hsl(270 70% 60%), hsl(280 55% 70%));
-    --gradient-hero: linear-gradient(180deg, hsl(270 65% 50% / 0.08), hsl(270 65% 50% / 0));
+    --gradient-primary: linear-gradient(135deg, hsl(168 70% 38%), hsl(168 65% 50%));
+    --gradient-accent: linear-gradient(135deg, hsl(38 90% 55%), hsl(45 85% 60%));
+    --gradient-hero: linear-gradient(180deg, hsl(168 70% 38% / 0.08), hsl(168 65% 50% / 0));
+    --gradient-dark: linear-gradient(135deg, hsl(168 75% 28%), hsl(168 70% 38%));
     
-    --shadow-elegant: 0 10px 40px -10px hsl(270 65% 50% / 0.25);
-    --shadow-soft: 0 4px 20px -4px hsl(270 30% 20% / 0.12);
+    --shadow-elegant: 0 10px 40px -10px hsl(168 70% 38% / 0.3);
+    --shadow-soft: 0 4px 20px -4px hsl(160 30% 20% / 0.12);
+    --shadow-card: 0 2px 12px -2px hsl(160 30% 20% / 0.08);
     
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .dark {
-    --background: 270 25% 10%;
-    --foreground: 270 10% 95%;
+    --background: 160 30% 8%;
+    --foreground: 150 15% 95%;
 
-    --card: 270 20% 14%;
-    --card-foreground: 270 10% 95%;
+    --card: 160 25% 12%;
+    --card-foreground: 150 15% 95%;
 
-    --popover: 270 20% 14%;
-    --popover-foreground: 270 10% 95%;
+    --popover: 160 25% 12%;
+    --popover-foreground: 150 15% 95%;
 
-    --primary: 270 60% 65%;
-    --primary-foreground: 270 25% 10%;
+    --primary: 168 65% 50%;
+    --primary-foreground: 160 30% 8%;
     
-    --primary-light: 270 55% 75%;
-    --primary-dark: 270 65% 50%;
+    --primary-light: 168 60% 60%;
+    --primary-dark: 168 70% 40%;
 
-    --secondary: 280 50% 25%;
-    --secondary-foreground: 270 60% 85%;
+    --secondary: 168 40% 20%;
+    --secondary-foreground: 168 60% 80%;
 
-    --muted: 270 15% 18%;
-    --muted-foreground: 270 10% 65%;
+    --muted: 160 20% 15%;
+    --muted-foreground: 150 10% 60%;
 
-    --accent: 270 65% 70%;
-    --accent-foreground: 270 25% 10%;
+    --accent: 38 85% 60%;
+    --accent-foreground: 160 30% 8%;
 
-    --destructive: 0 62.8% 50%;
-    --destructive-foreground: 270 10% 95%;
+    --destructive: 0 62% 50%;
+    --destructive-foreground: 150 15% 95%;
 
-    --border: 270 20% 22%;
-    --input: 270 20% 22%;
-    --ring: 270 60% 65%;
+    --border: 160 20% 20%;
+    --input: 160 20% 20%;
+    --ring: 168 65% 50%;
   }
 }
 
@@ -101,6 +102,19 @@ All colors MUST be HSL.
   h1, h2, h3, h4, h5, h6 {
     @apply font-semibold;
   }
+  
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  /* Animation delays */
+  .delay-100 { animation-delay: 100ms; }
+  .delay-200 { animation-delay: 200ms; }
+  .delay-300 { animation-delay: 300ms; }
+  .delay-400 { animation-delay: 400ms; }
+  .delay-500 { animation-delay: 500ms; }
+  .delay-600 { animation-delay: 600ms; }
+  .delay-700 { animation-delay: 700ms; }
 }
 
 @layer components {
@@ -116,6 +130,10 @@ All colors MUST be HSL.
     background: var(--gradient-hero);
   }
   
+  .gradient-dark {
+    background: var(--gradient-dark);
+  }
+  
   .shadow-elegant {
     box-shadow: var(--shadow-elegant);
   }
@@ -124,13 +142,51 @@ All colors MUST be HSL.
     box-shadow: var(--shadow-soft);
   }
   
+  .shadow-card {
+    box-shadow: var(--shadow-card);
+  }
+  
   .transition-smooth {
     transition: var(--transition-smooth);
   }
   
+  /* Islamic pattern with green tones */
   .islamic-pattern {
     background-image: 
-      radial-gradient(circle at 25% 25%, hsl(270 65% 50% / 0.04) 0%, transparent 50%),
-      radial-gradient(circle at 75% 75%, hsl(280 60% 60% / 0.04) 0%, transparent 50%);
+      radial-gradient(circle at 25% 25%, hsl(168 70% 38% / 0.04) 0%, transparent 50%),
+      radial-gradient(circle at 75% 75%, hsl(168 65% 50% / 0.04) 0%, transparent 50%);
+  }
+
+  /* Circular image frames like brochure */
+  .circle-frame {
+    @apply rounded-full overflow-hidden border-4 border-primary/20 shadow-elegant;
+  }
+  
+  .circle-frame-accent {
+    @apply rounded-full overflow-hidden border-4 border-accent/30 shadow-soft;
+  }
+
+  /* Wave divider styles */
+  .wave-divider {
+    @apply w-full overflow-hidden leading-[0];
+  }
+
+  /* Card hover effect */
+  .card-hover {
+    @apply transition-all duration-300 hover:shadow-elegant hover:-translate-y-1;
+  }
+
+  /* Text gradient */
+  .text-gradient {
+    @apply bg-gradient-to-r from-primary to-primary-light bg-clip-text text-transparent;
+  }
+
+  /* Badge styles */
+  .badge-primary {
+    @apply inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium;
+  }
+
+  .badge-accent {
+    @apply inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/10 text-accent text-sm font-medium;
   }
 }

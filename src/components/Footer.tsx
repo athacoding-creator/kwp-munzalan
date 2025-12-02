@@ -1,24 +1,43 @@
 import { Link } from "react-router-dom";
-import { MapPin, Phone, Mail } from "lucide-react";
+import { MapPin, Phone, Mail, Heart, Instagram, Facebook, Youtube } from "lucide-react";
 
 export const Footer = () => {
+  const currentYear = new Date().getFullYear();
+
   return (
-    <footer className="bg-card border-t border-border mt-20">
-      <div className="container mx-auto px-4 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+    <footer className="bg-foreground text-background">
+      <div className="container mx-auto px-4 py-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+          {/* Brand */}
           <div>
-            <div className="flex items-center space-x-3 mb-4">
-              <div className="w-10 h-10 rounded-lg gradient-primary flex items-center justify-center">
-                <span className="text-primary-foreground font-bold text-xl">K</span>
+            <div className="flex items-center space-x-3 mb-6">
+              <div className="w-12 h-12 rounded-lg gradient-primary flex items-center justify-center">
+                <span className="text-white font-bold text-xl">K</span>
               </div>
-              <span className="font-bold text-xl">KWP Munzalan</span>
+              <div>
+                <h3 className="font-bold text-lg">Baitul Waqof</h3>
+                <p className="text-sm text-background/70">Munzalan Indonesia</p>
+              </div>
             </div>
-            <p className="text-muted-foreground text-sm">
-              Lembaga Islam yang berkomitmen pada Pusat kegiatan keagamaan, sosial, dan ekonomi yang terintegrasi dengan manajemen masjid yang profesional. 
+            <p className="text-background/70 mb-6 leading-relaxed text-sm">
+              Jembatan Amal Sholeh dari Orang Baik untuk Orang Baik.
             </p>
+            <div className="flex space-x-3">
+              <a href="#" className="w-10 h-10 rounded-full bg-background/10 hover:bg-primary flex items-center justify-center transition-colors">
+                <Instagram className="w-5 h-5" />
+              </a>
+              <a href="#" className="w-10 h-10 rounded-full bg-background/10 hover:bg-primary flex items-center justify-center transition-colors">
+                <Facebook className="w-5 h-5" />
+              </a>
+              <a href="#" className="w-10 h-10 rounded-full bg-background/10 hover:bg-primary flex items-center justify-center transition-colors">
+                <Youtube className="w-5 h-5" />
+              </a>
+            </div>
           </div>
 
+          {/* Quick Links */}
           <div>
+<<<<<<< HEAD
             <h3 className="font-semibold mb-4">Navigasi</h3>
             <ul className="space-y-2 text-sm">
               <li>
@@ -41,30 +60,67 @@ export const Footer = () => {
                   Dokumentasi
                 </Link>
               </li>
+=======
+            <h4 className="font-bold text-lg mb-6">Menu</h4>
+            <ul className="space-y-3">
+              {[
+                { to: "/", label: "Beranda" },
+                { to: "/profil", label: "Profil" },
+                { to: "/fasilitas", label: "Fasilitas" },
+                { to: "/kegiatan", label: "Kegiatan" },
+                { to: "/dokumentasi", label: "Dokumentasi" },
+              ].map((link) => (
+                <li key={link.to}>
+                  <Link to={link.to} className="text-background/70 hover:text-primary transition-colors">
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+>>>>>>> fce656f772b0bb7a4f54e70ed2ff0f106c590f0e
             </ul>
           </div>
 
+          {/* Programs */}
           <div>
-            <h3 className="font-semibold mb-4">Kontak</h3>
-            <ul className="space-y-3 text-sm">
-              <li className="flex items-start space-x-2">
-                <MapPin className="h-5 w-5 text-primary flex-shrink-0" />
-                <span className="text-muted-foreground">Daerah Istimewa Yogyakarta, Indonesia</span>
+            <h4 className="font-bold text-lg mb-6">Program</h4>
+            <ul className="space-y-3 text-background/70 text-sm">
+              <li>MMP (Mustahiq Mengaji Peduli)</li>
+              <li>Tahsin Warga</li>
+              <li>Kelas Iqro' Warga</li>
+              <li>Kelas TPA Anak-anak</li>
+              <li>MUFASA</li>
+            </ul>
+          </div>
+
+          {/* Contact */}
+          <div>
+            <h4 className="font-bold text-lg mb-6">Kontak</h4>
+            <ul className="space-y-4">
+              <li className="flex items-start space-x-3">
+                <MapPin className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                <span className="text-background/70 text-sm">Kebun Lor, Argomulyo, Cangkringan, Sleman, DIY</span>
               </li>
-              <li className="flex items-center space-x-2">
-                <Phone className="h-5 w-5 text-primary" />
-                <span className="text-muted-foreground">+62 811-2999-211</span>
+              <li className="flex items-center space-x-3">
+                <Phone className="w-5 h-5 text-primary" />
+                <span className="text-background/70 text-sm">+62 811-2999-211</span>
               </li>
-              <li className="flex items-center space-x-2">
-                <Mail className="h-5 w-5 text-primary" />
-                <span className="text-muted-foreground">info@kwpmunzalan.com</span>
+              <li className="flex items-center space-x-3">
+                <Mail className="w-5 h-5 text-primary" />
+                <span className="text-background/70 text-sm">info@kwpmunzalan.com</span>
               </li>
             </ul>
           </div>
         </div>
+      </div>
 
-        <div className="mt-8 pt-8 border-t border-border text-center text-sm text-muted-foreground">
-          <p>&copy; {new Date().getFullYear()} KWP Munzalan Indonesian. All rights reserved.</p>
+      <div className="border-t border-background/10">
+        <div className="container mx-auto px-4 py-6">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+            <p className="text-background/60 text-sm">&copy; {currentYear} Baitul Waqof Munzalan Indonesia.</p>
+            <p className="text-background/60 text-sm flex items-center gap-1">
+              Dibuat dengan <Heart className="w-4 h-4 text-red-500 fill-red-500" /> untuk Umat
+            </p>
+          </div>
         </div>
       </div>
     </footer>
