@@ -42,15 +42,22 @@
 
     --radius: 1rem;
 
+    /* Deep purple variations */
+    --primary-deeper: 270 70% 35%;
+    --primary-deepest: 270 75% 25%;
+    
     /* Custom design tokens */
     --gradient-primary: linear-gradient(135deg, hsl(270 60% 50%), hsl(270 55% 60%));
     --gradient-accent: linear-gradient(135deg, hsl(38 90% 55%), hsl(45 85% 60%));
     --gradient-hero: linear-gradient(180deg, hsl(270 60% 50% / 0.08), hsl(270 55% 60% / 0));
-    --gradient-dark: linear-gradient(135deg, hsl(270 65% 38%), hsl(270 60% 50%));
+    --gradient-dark: linear-gradient(135deg, hsl(270 75% 25%), hsl(270 65% 38%));
+    --gradient-dramatic: linear-gradient(135deg, hsl(270 75% 20%), hsl(270 70% 35%), hsl(270 60% 50%));
+    --gradient-royal: linear-gradient(180deg, hsl(270 75% 25%), hsl(270 65% 40%));
     
     --shadow-elegant: 0 10px 40px -10px hsl(270 60% 50% / 0.3);
     --shadow-soft: 0 4px 20px -4px hsl(270 30% 20% / 0.12);
     --shadow-card: 0 2px 12px -2px hsl(270 30% 20% / 0.08);
+    --shadow-dramatic: 0 20px 60px -15px hsl(270 70% 30% / 0.4);
     
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
@@ -132,6 +139,18 @@
   
   .gradient-dark {
     background: var(--gradient-dark);
+  }
+  
+  .gradient-dramatic {
+    background: var(--gradient-dramatic);
+  }
+  
+  .gradient-royal {
+    background: var(--gradient-royal);
+  }
+  
+  .shadow-dramatic {
+    box-shadow: var(--shadow-dramatic);
   }
   
   .shadow-elegant {
