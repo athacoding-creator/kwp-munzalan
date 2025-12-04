@@ -53,7 +53,7 @@ export default function Kontak() {
     setIsSubmitting(false);
   };
 
-  const googleMapsUrl = "https://www.google.com/maps/place/Kebun+Lor,+Argomulyo,+Kec.+Cangkringan,+Kabupaten+Sleman,+Daerah+Istimewa+Yogyakarta+55583";
+  const googleMapsUrl = "https://www.google.com/maps/place/KWP+Masjid+Kapal+Munzalan+Yogyakarta/@-7.672948,110.450166,17z/data=!3m1!4b1!4m6!3m5!1s0x2e7a5d350e02aa25:0xaecedf1459aac1c3!8m2!3d-7.6729533!4d110.4527409!16s%2Fg%2F11svnf_f8r?entry=ttu&g_ep=EgoyMDI1MTIwMS4wIKXMDSoASAFQAw%3D%3D";
   const embedUrl = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15812.482714044548!2d110.44!3d-7.65!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7a5d05f5e01c8d%3A0x1234567890abcdef!2sKebun%20Lor%2C%20Argomulyo%2C%20Cangkringan%2C%20Sleman%2C%20DIY!5e0!3m2!1sen!2sid!4v1700000000000!5m2!1sen!2sid";
 
   return (
