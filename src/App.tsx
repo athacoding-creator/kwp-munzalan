@@ -10,7 +10,7 @@ import ErrorBoundary from "@/components/ErrorBoundary";
 const Home = lazy(() => import("./pages/Home"));
 const Profil = lazy(() => import("./pages/Profil"));
 const Fasilitas = lazy(() => import("./pages/Fasilitas"));
-const Program = lazy(() => import("./pages/Program"));
+const Kegiatan = lazy(() => import("./pages/Kegiatan"));
 const Dokumentasi = lazy(() => import("./pages/Dokumentasi"));
 const Pengumuman = lazy(() => import("./pages/Pengumuman"));
 const Kontak = lazy(() => import("./pages/Kontak"));
@@ -18,7 +18,7 @@ const Auth = lazy(() => import("./pages/Auth"));
 const Dashboard = lazy(() => import("./pages/admin/Dashboard"));
 const ProfilAdmin = lazy(() => import("./pages/admin/ProfilAdmin"));
 const FasilitasAdmin = lazy(() => import("./pages/admin/FasilitasAdmin"));
-const ProgramAdmin = lazy(() => import("./pages/admin/ProgramAdmin"));
+const KegiatanAdmin = lazy(() => import("./pages/admin/KegiatanAdmin"));
 const DokumentasiAdmin = lazy(() => import("./pages/admin/DokumentasiAdmin"));
 const PengumumanAdmin = lazy(() => import("./pages/admin/PengumumanAdmin"));
 const MediaAdmin = lazy(() => import("./pages/admin/MediaAdmin"));
@@ -54,7 +54,7 @@ const App = () => (
               <Route path="/" element={<Home />} />
               <Route path="/profil" element={<Profil />} />
               <Route path="/fasilitas" element={<Fasilitas />} />
-              <Route path="/program" element={<Program />} />
+              <Route path="/kegiatan" element={<Kegiatan />} />
               <Route path="/dokumentasi" element={<Dokumentasi />} />
               <Route path="/pengumuman" element={<Pengumuman />} />
               <Route path="/kontak" element={<Kontak />} />
@@ -62,7 +62,7 @@ const App = () => (
               <Route path="/admin/dashboard" element={<Dashboard />} />
               <Route path="/admin/profil" element={<ProfilAdmin />} />
               <Route path="/admin/fasilitas" element={<FasilitasAdmin />} />
-              <Route path="/admin/program" element={<ProgramAdmin />} />
+              <Route path="/admin/kegiatan" element={<KegiatanAdmin />} />
               <Route path="/admin/dokumentasi" element={<DokumentasiAdmin />} />
               <Route path="/admin/pengumuman" element={<PengumumanAdmin />} />
               <Route path="/admin/media" element={<MediaAdmin />} />

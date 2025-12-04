@@ -6,7 +6,7 @@ import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { Calendar, MapPin } from "lucide-react";
 
-interface ProgramData {
+interface KegiatanData {
   id: string;
   nama_kegiatan: string;
   deskripsi: string;
@@ -14,16 +14,16 @@ interface ProgramData {
   lokasi: string | null;
 }
 
-export default function Program() {
-  const [program, setProgram] = useState<ProgramData[]>([]);
+export default function Kegiatan() {
+  const [kegiatan, setKegiatan] = useState<KegiatanData[]>([]);
 
   useEffect(() => {
-    fetchProgram();
+    fetchKegiatan();
   }, []);
 
-  const fetchProgram = async () => {
+  const fetchKegiatan = async () => {
     const { data } = await supabase.from("kegiatan").select("*").order("tanggal", { ascending: false });
-    if (data) setProgram(data);
+    if (data) setKegiatan(data);
   };
 
   return (
@@ -34,7 +34,7 @@ export default function Program() {
         {/* Header */}
         <section className="py-16 bg-gradient-to-br from-primary/5 to-accent/5 islamic-pattern">
           <div className="container mx-auto px-4">
-            <h1 className="text-4xl md:text-5xl font-bold text-center mb-4">Program</h1>
+            <h1 className="text-4xl md:text-5xl font-bold text-center mb-4">Kegiatan</h1>
             <p className="text-center text-muted-foreground max-w-2xl mx-auto">
               Program dan kegiatan yang dirancang untuk pengembangan spiritual dan karakter santri
             </p>
@@ -45,7 +45,7 @@ export default function Program() {
         <section className="py-16">
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto space-y-6">
-              {program.map((item) => (
+              {kegiatan.map((item) => (
                 <Card key={item.id} className="shadow-soft border-0 hover:shadow-elegant transition-smooth">
                   <CardContent className="p-6">
                     <div className="flex flex-col md:flex-row md:items-start gap-4">
@@ -74,10 +74,10 @@ export default function Program() {
                 </Card>
               ))}
 
-              {program.length === 0 && (
+              {kegiatan.length === 0 && (
                 <Card className="shadow-soft border-0">
                   <CardContent className="p-12 text-center">
-                    <p className="text-muted-foreground">Belum ada program yang dijadwalkan.</p>
+                    <p className="text-muted-foreground">Belum ada kegiatan yang dijadwalkan.</p>
                   </CardContent>
                 </Card>
               )}
