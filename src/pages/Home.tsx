@@ -15,7 +15,6 @@ import hero2 from "@/assets/hero-2.jpg";
 import hero3 from "@/assets/hero-3.jpg";
 import hero4 from "@/assets/hero-4.jpg";
 import hero5 from "@/assets/hero-5.jpg";
-import logoKwp from "@/assets/logo-kwp.png";
 
 interface Kegiatan {
   id: string;
