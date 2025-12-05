@@ -12,7 +12,7 @@ export const Navbar = () => {
     { to: "/", label: "Beranda" },
     { to: "/profil", label: "Profil" },
     { to: "/fasilitas", label: "Fasilitas" },
-    { to: "/kegiatan", label: "Kegiatan" },
+    { to: "/program", label: "Program" },
     { to: "/dokumentasi", label: "Dokumentasi" },
     { to: "/pengumuman", label: "Pengumuman" },
     { to: "/kontak", label: "Kontak" },

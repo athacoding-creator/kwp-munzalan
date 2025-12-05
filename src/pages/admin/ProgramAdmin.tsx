@@ -7,10 +7,10 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
-import { ArrowLeft, Plus, Pencil, Trash2, Home } from "lucide-react";
+import { ArrowLeft, Plus, Pencil, Trash2, Home, Calendar, MapPin } from "lucide-react";
 import { logAdminActivity } from "@/lib/adminLogger";
 
-interface KegiatanData {
+interface ProgramData {
   id: string;
   nama_kegiatan: string;
   deskripsi: string;
@@ -18,10 +18,10 @@ interface KegiatanData {
   lokasi: string | null;
 }
 
-export default function KegiatanAdmin() {
+export default function ProgramAdmin() {
   const navigate = useNavigate();
   const { toast } = useToast();
-  const [kegiatan, setKegiatan] = useState<KegiatanData[]>([]);
+  const [programs, setPrograms] = useState<ProgramData[]>([]);
   const [isEditing, setIsEditing] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [formData, setFormData] = useState({
@@ -33,7 +33,7 @@ export default function KegiatanAdmin() {
 
   useEffect(() => {
     checkAuth();
-    fetchKegiatan();
+    fetchPrograms();
   }, []);
 
   const checkAuth = async () => {
@@ -41,16 +41,16 @@ export default function KegiatanAdmin() {
     if (!session) navigate("/admin");
   };
 
-  const fetchKegiatan = async () => {
+  const fetchPrograms = async () => {
     const { data } = await supabase.from("kegiatan").select("*").order("tanggal", { ascending: false });
-    if (data) setKegiatan(data);
+    if (data) setPrograms(data);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
       if (editingId) {
-        const oldData = kegiatan.find(k => k.id === editingId);
+        const oldData = programs.find(k => k.id === editingId);
         const { error } = await supabase
           .from("kegiatan")
           .update(formData)
@@ -63,10 +63,10 @@ export default function KegiatanAdmin() {
           recordId: editingId,
           oldData,
           newData: formData,
-          description: `Update kegiatan: ${formData.nama_kegiatan}`,
+          description: `Update program: ${formData.nama_kegiatan}`,
         });
         
-        toast({ title: "Kegiatan berhasil diupdate!" });
+        toast({ title: "Program berhasil diupdate!" });
       } else {
         const { data, error } = await supabase.from("kegiatan").insert([formData]).select();
         if (error) throw error;
@@ -76,21 +76,21 @@ export default function KegiatanAdmin() {
           tableName: "kegiatan",
           recordId: data?.[0]?.id,
           newData: formData,
-          description: `Tambah kegiatan baru: ${formData.nama_kegiatan}`,
+          description: `Tambah program baru: ${formData.nama_kegiatan}`,
         });
         
-        toast({ title: "Kegiatan berhasil ditambahkan!" });
+        toast({ title: "Program berhasil ditambahkan!" });
       }
       setFormData({ nama_kegiatan: "", deskripsi: "", tanggal: "", lokasi: "" });
       setIsEditing(false);
       setEditingId(null);
-      fetchKegiatan();
+      fetchPrograms();
     } catch (error: any) {
       toast({ title: "Error", description: error.message, variant: "destructive" });
     }
   };
 
-  const handleEdit = (item: KegiatanData) => {
+  const handleEdit = (item: ProgramData) => {
     setFormData({
       nama_kegiatan: item.nama_kegiatan,
       deskripsi: item.deskripsi,
@@ -104,7 +104,7 @@ export default function KegiatanAdmin() {
   const handleDelete = async (id: string) => {
     if (!confirm("Yakin ingin menghapus?")) return;
     try {
-      const deletedItem = kegiatan.find(k => k.id === id);
+      const deletedItem = programs.find(k => k.id === id);
       const { error } = await supabase.from("kegiatan").delete().eq("id", id);
       if (error) throw error;
       
@@ -113,11 +113,11 @@ export default function KegiatanAdmin() {
         tableName: "kegiatan",
         recordId: id,
         oldData: deletedItem,
-        description: `Hapus kegiatan: ${deletedItem?.nama_kegiatan}`,
+        description: `Hapus program: ${deletedItem?.nama_kegiatan}`,
       });
       
-      toast({ title: "Kegiatan berhasil dihapus!" });
-      fetchKegiatan();
+      toast({ title: "Program berhasil dihapus!" });
+      fetchPrograms();
     } catch (error: any) {
       toast({ title: "Error", description: error.message, variant: "destructive" });
     }
@@ -133,7 +133,7 @@ export default function KegiatanAdmin() {
                 <ArrowLeft className="h-3.5 w-3.5 sm:h-4 sm:w-4 sm:mr-2" />
                 <span className="hidden sm:inline">Kembali</span>
               </Button>
-              <h1 className="text-base sm:text-lg md:text-2xl font-bold truncate">Kelola Kegiatan</h1>
+              <h1 className="text-base sm:text-lg md:text-2xl font-bold truncate">Kelola Program</h1>
             </div>
             <Button variant="outline" size="sm" onClick={() => navigate("/")} className="h-8 sm:h-9 px-2 sm:px-3 flex-shrink-0">
               <Home className="h-3.5 w-3.5 sm:h-4 sm:w-4 sm:mr-2" />
@@ -145,18 +145,24 @@ export default function KegiatanAdmin() {
 
       <div className="w-full max-w-7xl mx-auto px-3 sm:px-4 py-4 sm:py-6 md:py-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 md:gap-8">
-          <Card className="shadow-soft border hover:shadow-elegant transition-smooth">
+          <Card className="shadow-soft border-0">
             <CardHeader className="pb-3 sm:pb-6">
-              <CardTitle className="text-base sm:text-lg">{isEditing ? "Edit Kegiatan" : "Tambah Kegiatan Baru"}</CardTitle>
+              <CardTitle className="text-base sm:text-lg flex items-center gap-2">
+                <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary to-primary-light flex items-center justify-center">
+                  <Plus className="h-4 w-4 text-white" />
+                </div>
+                {isEditing ? "Edit Program" : "Tambah Program Baru"}
+              </CardTitle>
             </CardHeader>
             <CardContent>
               <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4">
                 <div>
-                  <Label htmlFor="nama_kegiatan">Nama Kegiatan</Label>
+                  <Label htmlFor="nama_kegiatan">Nama Program</Label>
                   <Input
                     id="nama_kegiatan"
                     value={formData.nama_kegiatan}
                     onChange={(e) => setFormData({ ...formData, nama_kegiatan: e.target.value })}
+                    placeholder="Masukkan nama program"
                     required
                   />
                 </div>
@@ -176,6 +182,7 @@ export default function KegiatanAdmin() {
                     id="lokasi"
                     value={formData.lokasi}
                     onChange={(e) => setFormData({ ...formData, lokasi: e.target.value })}
+                    placeholder="Masukkan lokasi kegiatan"
                   />
                 </div>
                 <div>
@@ -184,6 +191,7 @@ export default function KegiatanAdmin() {
                     id="deskripsi"
                     value={formData.deskripsi}
                     onChange={(e) => setFormData({ ...formData, deskripsi: e.target.value })}
+                    placeholder="Jelaskan detail program"
                     required
                     rows={6}
                   />
@@ -213,28 +221,51 @@ export default function KegiatanAdmin() {
           </Card>
 
           <div className="space-y-3 sm:space-y-4">
-            {kegiatan.map((item) => (
-              <Card key={item.id} className="shadow-soft border hover:shadow-elegant transition-smooth">
-                <CardContent className="p-3 sm:p-4 md:p-6">
-                  <h3 className="font-semibold text-base sm:text-lg mb-2">{item.nama_kegiatan}</h3>
-                  <p className="text-xs sm:text-sm text-primary mb-2">
-                    {new Date(item.tanggal).toLocaleDateString("id-ID")}
-                  </p>
-                  {item.lokasi && <p className="text-xs sm:text-sm text-muted-foreground mb-2">{item.lokasi}</p>}
-                  <p className="text-xs sm:text-sm text-muted-foreground mb-3 sm:mb-4 line-clamp-2">{item.deskripsi}</p>
-                  <div className="flex flex-col sm:flex-row gap-2">
-                    <Button size="sm" variant="outline" onClick={() => handleEdit(item)} className="w-full sm:w-auto">
-                      <Pencil className="h-3.5 w-3.5 sm:h-4 sm:w-4 sm:mr-2" />
-                      <span>Edit</span>
-                    </Button>
-                    <Button size="sm" variant="destructive" onClick={() => handleDelete(item.id)} className="w-full sm:w-auto">
-                      <Trash2 className="h-3.5 w-3.5 sm:h-4 sm:w-4 sm:mr-2" />
-                      <span>Hapus</span>
-                    </Button>
+            <h3 className="text-lg font-semibold text-foreground">Daftar Program ({programs.length})</h3>
+            {programs.length === 0 ? (
+              <Card className="shadow-soft border-0">
+                <CardContent className="p-8 text-center">
+                  <div className="w-12 h-12 mx-auto mb-4 rounded-full bg-muted flex items-center justify-center">
+                    <Calendar className="h-6 w-6 text-muted-foreground" />
                   </div>
+                  <p className="text-muted-foreground">Belum ada program yang ditambahkan</p>
                 </CardContent>
               </Card>
-            ))}
+            ) : (
+              programs.map((item) => (
+                <Card key={item.id} className="shadow-soft border-0 overflow-hidden">
+                  <div className="h-1 bg-gradient-to-r from-primary to-accent" />
+                  <CardContent className="p-3 sm:p-4 md:p-6">
+                    <h3 className="font-semibold text-base sm:text-lg mb-2 text-foreground">{item.nama_kegiatan}</h3>
+                    <div className="flex items-center gap-2 text-xs sm:text-sm text-primary mb-2">
+                      <Calendar className="h-3.5 w-3.5" />
+                      {new Date(item.tanggal).toLocaleDateString("id-ID", {
+                        day: "numeric",
+                        month: "long",
+                        year: "numeric",
+                      })}
+                    </div>
+                    {item.lokasi && (
+                      <div className="flex items-center gap-2 text-xs sm:text-sm text-muted-foreground mb-2">
+                        <MapPin className="h-3.5 w-3.5" />
+                        {item.lokasi}
+                      </div>
+                    )}
+                    <p className="text-xs sm:text-sm text-muted-foreground mb-3 sm:mb-4 line-clamp-2">{item.deskripsi}</p>
+                    <div className="flex flex-col sm:flex-row gap-2">
+                      <Button size="sm" variant="outline" onClick={() => handleEdit(item)} className="w-full sm:w-auto hover:bg-primary/10 hover:border-primary/50">
+                        <Pencil className="h-3.5 w-3.5 sm:h-4 sm:w-4 sm:mr-2" />
+                        <span>Edit</span>
+                      </Button>
+                      <Button size="sm" variant="destructive" onClick={() => handleDelete(item.id)} className="w-full sm:w-auto">
+                        <Trash2 className="h-3.5 w-3.5 sm:h-4 sm:w-4 sm:mr-2" />
+                        <span>Hapus</span>
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))
+            )}
           </div>
         </div>
       </div>
