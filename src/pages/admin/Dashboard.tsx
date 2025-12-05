@@ -40,15 +40,15 @@ export default function Dashboard() {
   };
 
   const menuItems = [
-    { title: "Profil", icon: FileText, link: "/admin/profil", color: "from-blue-500 to-blue-600" },
-    { title: "Fasilitas", icon: Image, link: "/admin/fasilitas", color: "from-green-500 to-green-600" },
-    { title: "Kegiatan", icon: Calendar, link: "/admin/kegiatan", color: "from-purple-500 to-purple-600" },
-    { title: "Dokumentasi", icon: Image, link: "/admin/dokumentasi", color: "from-orange-500 to-orange-600" },
-    { title: "Pengumuman", icon: Megaphone, link: "/admin/pengumuman", color: "from-red-500 to-red-600" },
-    { title: "Media Storage", icon: HardDrive, link: "/admin/media", color: "from-cyan-500 to-cyan-600" },
-    { title: "Monitoring", icon: Activity, link: "/admin/monitoring", color: "from-indigo-500 to-indigo-600" },
-    { title: "Log Aktivitas", icon: ScrollText, link: "/admin/activity-log", color: "from-pink-500 to-pink-600" },
-    { title: "Statistik", icon: BarChart3, link: "/admin/statistik", color: "from-violet-500 to-violet-600" },
+    { title: "Profil", icon: FileText, link: "/admin/profil", color: "from-primary to-primary-light" },
+    { title: "Fasilitas", icon: Image, link: "/admin/fasilitas", color: "from-accent to-primary" },
+    { title: "Program", icon: Calendar, link: "/admin/program", color: "from-primary-light to-accent" },
+    { title: "Dokumentasi", icon: Image, link: "/admin/dokumentasi", color: "from-primary to-accent" },
+    { title: "Pengumuman", icon: Megaphone, link: "/admin/pengumuman", color: "from-accent to-primary-light" },
+    { title: "Media Storage", icon: HardDrive, link: "/admin/media", color: "from-primary-light to-primary" },
+    { title: "Monitoring", icon: Activity, link: "/admin/monitoring", color: "from-primary to-primary-light" },
+    { title: "Log Aktivitas", icon: ScrollText, link: "/admin/activity-log", color: "from-accent to-primary" },
+    { title: "Statistik", icon: BarChart3, link: "/admin/statistik", color: "from-primary-light to-accent" },
   ];
 
   return (
