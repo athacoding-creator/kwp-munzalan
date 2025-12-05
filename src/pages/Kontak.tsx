@@ -20,7 +20,7 @@ const contactInfo = [
   {
     icon: Phone,
     title: "Telepon",
-    details: ["+62 811-2999-211", "+62 822-4159-0417"],
+    details: ["+62 811-2999-211", "+62 878-3964-3782"],
   },
   {
     icon: Mail,
