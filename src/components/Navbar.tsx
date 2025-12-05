@@ -23,12 +23,12 @@ export const Navbar = () => {
   return (
     <nav className="sticky top-0 z-50 bg-background/95 backdrop-blur-md border-b border-border/50 shadow-soft">
       <div className="container mx-auto px-4">
-        <div className="flex justify-between items-center h-18 py-2">
-          <Link to="/" className="flex items-center space-x-3 group">
+        <div className="flex justify-between items-center py-3">
+          <Link to="/" className="flex items-center group">
             <img 
               src={logoKwp} 
               alt="Logo KWP Munzalan" 
-              className="w-12 h-12 object-contain group-hover:scale-105 transition-transform"
+              className="h-16 md:h-20 w-auto max-w-full object-contain group-hover:scale-105 transition-transform"
             />
           </Link>
 
