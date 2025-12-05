@@ -7,6 +7,7 @@ import { WaveDivider } from "@/components/WaveDivider";
 import { CircleImage } from "@/components/CircleImage";
 import { Target, Eye, BookOpen, Heart, Users, Sparkles } from "lucide-react";
 import visiImage from "@/assets/visi-image.jpg";
+import misiImage from "@/assets/misi-image.jpg";
 
 interface ProfilData {
   id: string;
@@ -122,7 +123,7 @@ export default function Profil() {
               <div className="grid md:grid-cols-2 gap-8 items-center">
                 <div className="flex justify-center">
                   <CircleImage
-                    src="/placeholder.svg"
+                    src={misiImage}
                     alt="Misi KWP Munzalan"
                     size="lg"
                     className="shadow-elegant"
