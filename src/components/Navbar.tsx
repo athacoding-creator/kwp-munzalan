@@ -30,10 +30,6 @@ export const Navbar = () => {
               alt="Logo KWP Munzalan" 
               className="w-12 h-12 object-contain group-hover:scale-105 transition-transform"
             />
-            <div className="flex flex-col">
-              <span className="font-bold text-lg text-foreground leading-tight">Baitul Waqof</span>
-              <span className="text-xs text-primary font-medium">Munzalan Indonesia</span>
-            </div>
           </Link>
 
           {/* Desktop Navigation */}
