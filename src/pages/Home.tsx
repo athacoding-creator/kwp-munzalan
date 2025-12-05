@@ -31,17 +31,25 @@ interface Pengumuman {
   tanggal: string;
 }
 
-// Programs data matching the brochure
-const programs = [
-  { icon: Heart, title: "MMP", subtitle: "Mustahiq Mengaji Peduli", color: "bg-primary" },
-  { icon: BookOpen, title: "Tahsin Warga", subtitle: "Perbaikan Bacaan Al-Quran", color: "bg-primary-light" },
-  { icon: BookOpen, title: "Kelas Iqro' Warga", subtitle: "Belajar Iqro' untuk Warga", color: "bg-accent" },
-  { icon: BookOpen, title: "Kelas Quran Warga", subtitle: "Pengajian Al-Quran Rutin", color: "bg-primary" },
-  { icon: Users, title: "Kelas TPA Anak", subtitle: "Pendidikan Agama Anak-anak", color: "bg-primary-light" },
-  { icon: Moon, title: "MUFASA", subtitle: "Munzalan After Isya", color: "bg-accent" },
-  { icon: Heart, title: "Bekam Masal", subtitle: "Kesehatan Gratis untuk Warga", color: "bg-primary" },
-  { icon: Users, title: "PASKAS", subtitle: "Pasukan Amal Sholeh", color: "bg-primary-light" },
-];
+interface ProgramUnggulan {
+  id: string;
+  nama: string;
+  subtitle: string;
+  deskripsi: string | null;
+  icon_name: string;
+  urutan: number;
+  is_active: boolean;
+}
+
+// Icon mapping
+const iconMap: Record<string, any> = {
+  Heart,
+  BookOpen,
+  Users,
+  Moon,
+};
+
+const colorClasses = ["bg-primary", "bg-primary-light", "bg-accent"];
 
 // Facilities data matching the brochure
 const facilities = [
@@ -62,6 +70,7 @@ const wakafReasons = [
 export default function Home() {
   const [kegiatanTerbaru, setKegiatanTerbaru] = useState<Kegiatan[]>([]);
   const [pengumumanTerbaru, setPengumumanTerbaru] = useState<Pengumuman[]>([]);
+  const [programs, setPrograms] = useState<ProgramUnggulan[]>([]);
 
   useEffect(() => {
     fetchData();
@@ -80,8 +89,15 @@ export default function Home() {
       .order("tanggal", { ascending: false })
       .limit(3);
 
+    const { data: programsData } = await supabase
+      .from("programs")
+      .select("*")
+      .eq("is_active", true)
+      .order("urutan", { ascending: true });
+
     if (kegiatan) setKegiatanTerbaru(kegiatan);
     if (pengumuman) setPengumumanTerbaru(pengumuman);
+    if (programsData) setPrograms(programsData);
   };
 
   return (
@@ -225,21 +241,25 @@ export default function Home() {
           </div>
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
-            {programs.map((program, index) => (
-              <Card 
-                key={program.title}
-                className="group card-hover border-0 shadow-card bg-card animate-fade-in overflow-hidden"
-                style={{ animationDelay: `${index * 100}ms` }}
-              >
-                <CardContent className="p-6 text-center">
-                  <div className={`w-14 h-14 mx-auto mb-4 rounded-full ${program.color} flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300`}>
-                    <program.icon className="h-7 w-7 text-white" />
-                  </div>
-                  <h3 className="font-bold text-foreground mb-1">{program.title}</h3>
-                  <p className="text-xs text-muted-foreground line-clamp-2">{program.subtitle}</p>
-                </CardContent>
-              </Card>
-            ))}
+            {programs.map((program, index) => {
+              const IconComponent = iconMap[program.icon_name] || Heart;
+              const colorClass = colorClasses[index % colorClasses.length];
+              return (
+                <Card 
+                  key={program.id}
+                  className="group card-hover border-0 shadow-card bg-card animate-fade-in overflow-hidden"
+                  style={{ animationDelay: `${index * 100}ms` }}
+                >
+                  <CardContent className="p-6 text-center">
+                    <div className={`w-14 h-14 mx-auto mb-4 rounded-full ${colorClass} flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300`}>
+                      <IconComponent className="h-7 w-7 text-white" />
+                    </div>
+                    <h3 className="font-bold text-foreground mb-1">{program.nama}</h3>
+                    <p className="text-xs text-muted-foreground line-clamp-2">{program.subtitle}</p>
+                  </CardContent>
+                </Card>
+              );
+            })}
           </div>
         </div>
       </section>

@@ -14,30 +14,56 @@ interface ProgramData {
   lokasi: string | null;
 }
 
-// Default programs from brochure
-const defaultPrograms = [
-  { icon: Heart, title: "MMP", subtitle: "Mustahiq Mengaji Peduli", description: "Program pemberdayaan bagi mustahiq untuk belajar mengaji dengan pendampingan penuh.", color: "from-primary to-primary-light" },
-  { icon: BookOpen, title: "Tahsin Warga", subtitle: "Perbaikan Bacaan Al-Quran", description: "Kelas perbaikan bacaan Al-Quran untuk warga sekitar dengan metode yang mudah dipahami.", color: "from-primary-light to-accent" },
-  { icon: BookOpen, title: "Kelas Iqro' Warga", subtitle: "Belajar Iqro' untuk Warga", description: "Program pembelajaran Iqro' dari dasar untuk warga yang ingin belajar membaca Al-Quran.", color: "from-accent to-primary" },
-  { icon: BookOpen, title: "Kelas Quran Warga", subtitle: "Pengajian Al-Quran Rutin", description: "Pengajian rutin Al-Quran dengan tadarus dan kajian tafsir untuk masyarakat.", color: "from-primary to-accent" },
-  { icon: Users, title: "Kelas TPA Anak", subtitle: "Pendidikan Agama Anak-anak", description: "Taman Pendidikan Al-Quran untuk anak-anak dengan kurikulum yang menyenangkan.", color: "from-primary-light to-primary" },
-  { icon: Moon, title: "MUFASA", subtitle: "Munzalan After Isya", description: "Kajian rutin setelah Isya dengan berbagai tema keislaman yang inspiratif.", color: "from-accent to-primary-light" },
-  { icon: Heart, title: "Bekam Masal", subtitle: "Kesehatan Gratis untuk Warga", description: "Layanan bekam gratis untuk kesehatan warga sekitar dengan tenaga profesional.", color: "from-primary to-primary-light" },
-  { icon: Users, title: "PASKAS", subtitle: "Pasukan Amal Sholeh", description: "Program pembentukan dan pemberdayaan santri sebagai jembatan amal sholeh.", color: "from-primary-light to-accent" },
+interface ProgramUnggulan {
+  id: string;
+  nama: string;
+  subtitle: string;
+  deskripsi: string | null;
+  icon_name: string;
+  urutan: number;
+  is_active: boolean;
+}
+
+// Icon mapping
+const iconMap: Record<string, any> = {
+  Heart,
+  BookOpen,
+  Users,
+  Moon,
+};
+
+const colorClasses = [
+  "from-primary to-primary-light",
+  "from-primary-light to-accent", 
+  "from-accent to-primary",
+  "from-primary to-accent",
 ];
 
 export default function Program() {
   const [kegiatan, setKegiatan] = useState<ProgramData[]>([]);
+  const [programs, setPrograms] = useState<ProgramUnggulan[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    fetchKegiatan();
+    fetchData();
   }, []);
 
-  const fetchKegiatan = async () => {
+  const fetchData = async () => {
     setIsLoading(true);
-    const { data } = await supabase.from("kegiatan").select("*").order("tanggal", { ascending: false });
-    if (data) setKegiatan(data);
+    
+    const { data: kegiatanData } = await supabase
+      .from("kegiatan")
+      .select("*")
+      .order("tanggal", { ascending: false });
+    
+    const { data: programsData } = await supabase
+      .from("programs")
+      .select("*")
+      .eq("is_active", true)
+      .order("urutan", { ascending: true });
+    
+    if (kegiatanData) setKegiatan(kegiatanData);
+    if (programsData) setPrograms(programsData);
     setIsLoading(false);
   };
 
@@ -89,23 +115,29 @@ export default function Program() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {defaultPrograms.map((program, index) => (
-              <Card 
-                key={program.title}
-                className="group border-0 shadow-card overflow-hidden animate-fade-in"
-                style={{ animationDelay: `${index * 100}ms` }}
-              >
-                <div className={`h-2 bg-gradient-to-r ${program.color}`} />
-                <CardContent className="p-6">
-                  <div className={`w-14 h-14 mb-4 rounded-xl bg-gradient-to-br ${program.color} flex items-center justify-center transform group-hover:scale-110 group-hover:rotate-3 transition-all duration-300`}>
-                    <program.icon className="h-7 w-7 text-white" />
-                  </div>
-                  <h3 className="font-bold text-lg text-foreground mb-1">{program.title}</h3>
-                  <p className="text-sm text-primary font-medium mb-3">{program.subtitle}</p>
-                  <p className="text-sm text-muted-foreground">{program.description}</p>
-                </CardContent>
-              </Card>
-            ))}
+            {programs.map((program, index) => {
+              const IconComponent = iconMap[program.icon_name] || Heart;
+              const colorClass = colorClasses[index % colorClasses.length];
+              return (
+                <Card 
+                  key={program.id}
+                  className="group border-0 shadow-card overflow-hidden animate-fade-in"
+                  style={{ animationDelay: `${index * 100}ms` }}
+                >
+                  <div className={`h-2 bg-gradient-to-r ${colorClass}`} />
+                  <CardContent className="p-6">
+                    <div className={`w-14 h-14 mb-4 rounded-xl bg-gradient-to-br ${colorClass} flex items-center justify-center transform group-hover:scale-110 group-hover:rotate-3 transition-all duration-300`}>
+                      <IconComponent className="h-7 w-7 text-white" />
+                    </div>
+                    <h3 className="font-bold text-lg text-foreground mb-1">{program.nama}</h3>
+                    <p className="text-sm text-primary font-medium mb-3">{program.subtitle}</p>
+                    {program.deskripsi && (
+                      <p className="text-sm text-muted-foreground">{program.deskripsi}</p>
+                    )}
+                  </CardContent>
+                </Card>
+              );
+            })}
           </div>
         </div>
       </section>
