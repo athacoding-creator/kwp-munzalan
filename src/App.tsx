@@ -19,6 +19,7 @@ const Dashboard = lazy(() => import("./pages/admin/Dashboard"));
 const ProfilAdmin = lazy(() => import("./pages/admin/ProfilAdmin"));
 const FasilitasAdmin = lazy(() => import("./pages/admin/FasilitasAdmin"));
 const ProgramAdmin = lazy(() => import("./pages/admin/ProgramAdmin"));
+const ProgramUnggulanAdmin = lazy(() => import("./pages/admin/ProgramUnggulanAdmin"));
 const DokumentasiAdmin = lazy(() => import("./pages/admin/DokumentasiAdmin"));
 const PengumumanAdmin = lazy(() => import("./pages/admin/PengumumanAdmin"));
 const MediaAdmin = lazy(() => import("./pages/admin/MediaAdmin"));
@@ -63,6 +64,7 @@ const App = () => (
               <Route path="/admin/profil" element={<ProfilAdmin />} />
               <Route path="/admin/fasilitas" element={<FasilitasAdmin />} />
               <Route path="/admin/program" element={<ProgramAdmin />} />
+              <Route path="/admin/program-unggulan" element={<ProgramUnggulanAdmin />} />
               <Route path="/admin/dokumentasi" element={<DokumentasiAdmin />} />
               <Route path="/admin/pengumuman" element={<PengumumanAdmin />} />
               <Route path="/admin/media" element={<MediaAdmin />} />
