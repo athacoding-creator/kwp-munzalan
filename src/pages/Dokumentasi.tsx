@@ -72,31 +72,24 @@ export default function Dokumentasi() {
     <div className="min-h-screen flex flex-col bg-background">
       <Navbar />
 
-      {/* Hero Header */}
-      <section className="relative min-h-[50vh] flex items-center overflow-hidden bg-gradient-to-br from-primary/10 via-background to-accent/10">
-        <div className="absolute inset-0 islamic-pattern opacity-50" />
-        <div className="absolute top-10 right-10 w-40 h-40 bg-primary/20 rounded-full blur-3xl" />
-        <div className="absolute bottom-20 left-10 w-60 h-60 bg-accent/20 rounded-full blur-3xl" />
-        
-        <div className="container mx-auto px-4 relative z-10 py-20">
-          <div className="max-w-3xl mx-auto text-center animate-fade-in">
-            <div className="badge-primary mb-6 mx-auto">
-              <Camera className="w-4 h-4" />
-              <span>Gallery Premium</span>
+      <div className="flex-1">
+        {/* Hero Section */}
+        <section className="relative bg-gradient-primary py-20 overflow-hidden">
+          <div className="absolute inset-0 islamic-pattern opacity-10"></div>
+          <div className="container mx-auto px-4 relative z-10">
+            <div className="text-center text-white">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 animate-fade-in">
+                Dokumentasi
+              </h1>
+              <p className="text-lg md:text-xl text-white/90 max-w-2xl mx-auto">
+                Kumpulan momen berharga dan kegiatan inspiratif di KWP Munzalan
+              </p>
             </div>
-            
-            <h1 className="text-4xl md:text-6xl font-bold mb-6">
-              Galeri <span className="text-gradient">Dokumentasi</span>
-            </h1>
-            
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Kumpulan momen berharga dan kegiatan inspiratif di KWP Munzalan
-            </p>
           </div>
-        </div>
-        
-        <WaveDivider className="absolute bottom-0 left-0 right-0" variant="white" />
-      </section>
+          <div className="absolute bottom-0 left-0 right-0">
+            <WaveDivider variant="white" />
+          </div>
+        </section>
 
       {/* Advanced Filters */}
       <section className="py-8 border-y border-border/50 bg-card/50 backdrop-blur-sm">
@@ -217,6 +210,7 @@ export default function Dokumentasi() {
           )}
         </div>
       </section>
+      </div>
 
       <Footer />
     </div>
