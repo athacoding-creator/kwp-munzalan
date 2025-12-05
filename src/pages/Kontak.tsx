@@ -75,7 +75,7 @@ export default function Kontak() {
                 <span>Hubungi Kami</span>
               </div>
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
-                Mari <span className="text-accent">Terhubung</span>
+                Mari <span className="text-white">Terhubung</span>
               </h1>
               <p className="text-lg md:text-xl text-white/80 leading-relaxed">
                 Kami siap membantu Anda. Silakan hubungi kami untuk informasi lebih lanjut 
