@@ -29,8 +29,8 @@
     --muted: 270 15% 94%;
     --muted-foreground: 270 15% 40%;
 
-    /* Accent - warm gold */
-    --accent: 38 90% 55%;
+    /* Accent - light purple */
+    --accent: 270 55% 65%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84% 60%;
@@ -48,7 +48,7 @@
     
     /* Custom design tokens */
     --gradient-primary: linear-gradient(135deg, hsl(270 60% 50%), hsl(270 55% 60%));
-    --gradient-accent: linear-gradient(135deg, hsl(38 90% 55%), hsl(45 85% 60%));
+    --gradient-accent: linear-gradient(135deg, hsl(270 55% 65%), hsl(270 50% 70%));
     --gradient-hero: linear-gradient(180deg, hsl(270 60% 50% / 0.08), hsl(270 55% 60% / 0));
     --gradient-dark: linear-gradient(135deg, hsl(270 75% 25%), hsl(270 65% 38%));
     --gradient-dramatic: linear-gradient(135deg, hsl(270 75% 20%), hsl(270 70% 35%), hsl(270 60% 50%));
@@ -84,7 +84,7 @@
     --muted: 270 20% 15%;
     --muted-foreground: 270 10% 60%;
 
-    --accent: 38 85% 60%;
+    --accent: 270 50% 70%;
     --accent-foreground: 270 30% 8%;
 
     --destructive: 0 62% 50%;

@@ -24,7 +24,7 @@ interface TableStats {
   count: number;
 }
 
-const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884d8', '#82ca9d'];
+const COLORS = ['#8b5cf6', '#a78bfa', '#c4b5fd', '#7c3aed', '#6d28d9', '#5b21b6'];
 
 export default function StatistikAdmin() {
   const [timeRange, setTimeRange] = useState<'7' | '30'>('7');
