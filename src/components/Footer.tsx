@@ -37,30 +37,6 @@ export const Footer = () => {
 
           {/* Quick Links */}
           <div>
-<<<<<<< HEAD
-            <h3 className="font-semibold mb-4">Navigasi</h3>
-            <ul className="space-y-2 text-sm">
-              <li>
-                <Link to="/profil" className="text-muted-foreground hover:text-primary transition-smooth">
-                  Profil
-                </Link>
-              </li>
-              <li>
-                <Link to="/fasilitas" className="text-muted-foreground hover:text-primary transition-smooth">
-                  Fasilitas
-                </Link>
-              </li>
-              <li>
-                <Link to="/program" className="text-muted-foreground hover:text-primary transition-smooth">
-                  Program
-                </Link>
-              </li>
-              <li>
-                <Link to="/dokumentasi" className="text-muted-foreground hover:text-primary transition-smooth">
-                  Dokumentasi
-                </Link>
-              </li>
-=======
             <h4 className="font-bold text-lg mb-6">Menu</h4>
             <ul className="space-y-3">
               {[
@@ -76,7 +52,6 @@ export const Footer = () => {
                   </Link>
                 </li>
               ))}
->>>>>>> fce656f772b0bb7a4f54e70ed2ff0f106c590f0e
             </ul>
           </div>
 

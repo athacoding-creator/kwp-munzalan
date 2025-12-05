@@ -7,7 +7,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
-import { ArrowLeft, Plus, Pencil, Trash2, Home } from "lucide-react";
+import { ArrowLeft, Plus, Pencil, Trash2, Home, Calendar, MapPin } from "lucide-react";
 import { logAdminActivity } from "@/lib/adminLogger";
 
 interface ProgramData {
@@ -21,7 +21,7 @@ interface ProgramData {
 export default function ProgramAdmin() {
   const navigate = useNavigate();
   const { toast } = useToast();
-  const [program, setProgram] = useState<ProgramData[]>([]);
+  const [programs, setPrograms] = useState<ProgramData[]>([]);
   const [isEditing, setIsEditing] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [formData, setFormData] = useState({
@@ -33,7 +33,7 @@ export default function ProgramAdmin() {
 
   useEffect(() => {
     checkAuth();
-    fetchProgram();
+    fetchPrograms();
   }, []);
 
   const checkAuth = async () => {
@@ -41,16 +41,16 @@ export default function ProgramAdmin() {
     if (!session) navigate("/admin");
   };
 
-  const fetchProgram = async () => {
+  const fetchPrograms = async () => {
     const { data } = await supabase.from("kegiatan").select("*").order("tanggal", { ascending: false });
-    if (data) setProgram(data);
+    if (data) setPrograms(data);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
       if (editingId) {
-        const oldData = program.find(k => k.id === editingId);
+        const oldData = programs.find(k => k.id === editingId);
         const { error } = await supabase
           .from("kegiatan")
           .update(formData)
@@ -84,7 +84,7 @@ export default function ProgramAdmin() {
       setFormData({ nama_kegiatan: "", deskripsi: "", tanggal: "", lokasi: "" });
       setIsEditing(false);
       setEditingId(null);
-      fetchProgram();
+      fetchPrograms();
     } catch (error: any) {
       toast({ title: "Error", description: error.message, variant: "destructive" });
     }
@@ -104,7 +104,7 @@ export default function ProgramAdmin() {
   const handleDelete = async (id: string) => {
     if (!confirm("Yakin ingin menghapus?")) return;
     try {
-      const deletedItem = program.find(k => k.id === id);
+      const deletedItem = programs.find(k => k.id === id);
       const { error } = await supabase.from("kegiatan").delete().eq("id", id);
       if (error) throw error;
       
@@ -117,7 +117,7 @@ export default function ProgramAdmin() {
       });
       
       toast({ title: "Program berhasil dihapus!" });
-      fetchProgram();
+      fetchPrograms();
     } catch (error: any) {
       toast({ title: "Error", description: error.message, variant: "destructive" });
     }
@@ -145,9 +145,14 @@ export default function ProgramAdmin() {
 
       <div className="w-full max-w-7xl mx-auto px-3 sm:px-4 py-4 sm:py-6 md:py-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 md:gap-8">
-          <Card className="shadow-soft border hover:shadow-elegant transition-smooth">
+          <Card className="shadow-soft border-0">
             <CardHeader className="pb-3 sm:pb-6">
-              <CardTitle className="text-base sm:text-lg">{isEditing ? "Edit Program" : "Tambah Program Baru"}</CardTitle>
+              <CardTitle className="text-base sm:text-lg flex items-center gap-2">
+                <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary to-primary-light flex items-center justify-center">
+                  <Plus className="h-4 w-4 text-white" />
+                </div>
+                {isEditing ? "Edit Program" : "Tambah Program Baru"}
+              </CardTitle>
             </CardHeader>
             <CardContent>
               <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4">
@@ -157,6 +162,7 @@ export default function ProgramAdmin() {
                     id="nama_kegiatan"
                     value={formData.nama_kegiatan}
                     onChange={(e) => setFormData({ ...formData, nama_kegiatan: e.target.value })}
+                    placeholder="Masukkan nama program"
                     required
                   />
                 </div>
@@ -176,6 +182,7 @@ export default function ProgramAdmin() {
                     id="lokasi"
                     value={formData.lokasi}
                     onChange={(e) => setFormData({ ...formData, lokasi: e.target.value })}
+                    placeholder="Masukkan lokasi kegiatan"
                   />
                 </div>
                 <div>
@@ -184,6 +191,7 @@ export default function ProgramAdmin() {
                     id="deskripsi"
                     value={formData.deskripsi}
                     onChange={(e) => setFormData({ ...formData, deskripsi: e.target.value })}
+                    placeholder="Jelaskan detail program"
                     required
                     rows={6}
                   />
@@ -213,28 +221,51 @@ export default function ProgramAdmin() {
           </Card>
 
           <div className="space-y-3 sm:space-y-4">
-            {program.map((item) => (
-              <Card key={item.id} className="shadow-soft border hover:shadow-elegant transition-smooth">
-                <CardContent className="p-3 sm:p-4 md:p-6">
-                  <h3 className="font-semibold text-base sm:text-lg mb-2">{item.nama_kegiatan}</h3>
-                  <p className="text-xs sm:text-sm text-primary mb-2">
-                    {new Date(item.tanggal).toLocaleDateString("id-ID")}
-                  </p>
-                  {item.lokasi && <p className="text-xs sm:text-sm text-muted-foreground mb-2">{item.lokasi}</p>}
-                  <p className="text-xs sm:text-sm text-muted-foreground mb-3 sm:mb-4 line-clamp-2">{item.deskripsi}</p>
-                  <div className="flex flex-col sm:flex-row gap-2">
-                    <Button size="sm" variant="outline" onClick={() => handleEdit(item)} className="w-full sm:w-auto">
-                      <Pencil className="h-3.5 w-3.5 sm:h-4 sm:w-4 sm:mr-2" />
-                      <span>Edit</span>
-                    </Button>
-                    <Button size="sm" variant="destructive" onClick={() => handleDelete(item.id)} className="w-full sm:w-auto">
-                      <Trash2 className="h-3.5 w-3.5 sm:h-4 sm:w-4 sm:mr-2" />
-                      <span>Hapus</span>
-                    </Button>
+            <h3 className="text-lg font-semibold text-foreground">Daftar Program ({programs.length})</h3>
+            {programs.length === 0 ? (
+              <Card className="shadow-soft border-0">
+                <CardContent className="p-8 text-center">
+                  <div className="w-12 h-12 mx-auto mb-4 rounded-full bg-muted flex items-center justify-center">
+                    <Calendar className="h-6 w-6 text-muted-foreground" />
                   </div>
+                  <p className="text-muted-foreground">Belum ada program yang ditambahkan</p>
                 </CardContent>
               </Card>
-            ))}
+            ) : (
+              programs.map((item) => (
+                <Card key={item.id} className="shadow-soft border-0 overflow-hidden">
+                  <div className="h-1 bg-gradient-to-r from-primary to-accent" />
+                  <CardContent className="p-3 sm:p-4 md:p-6">
+                    <h3 className="font-semibold text-base sm:text-lg mb-2 text-foreground">{item.nama_kegiatan}</h3>
+                    <div className="flex items-center gap-2 text-xs sm:text-sm text-primary mb-2">
+                      <Calendar className="h-3.5 w-3.5" />
+                      {new Date(item.tanggal).toLocaleDateString("id-ID", {
+                        day: "numeric",
+                        month: "long",
+                        year: "numeric",
+                      })}
+                    </div>
+                    {item.lokasi && (
+                      <div className="flex items-center gap-2 text-xs sm:text-sm text-muted-foreground mb-2">
+                        <MapPin className="h-3.5 w-3.5" />
+                        {item.lokasi}
+                      </div>
+                    )}
+                    <p className="text-xs sm:text-sm text-muted-foreground mb-3 sm:mb-4 line-clamp-2">{item.deskripsi}</p>
+                    <div className="flex flex-col sm:flex-row gap-2">
+                      <Button size="sm" variant="outline" onClick={() => handleEdit(item)} className="w-full sm:w-auto hover:bg-primary/10 hover:border-primary/50">
+                        <Pencil className="h-3.5 w-3.5 sm:h-4 sm:w-4 sm:mr-2" />
+                        <span>Edit</span>
+                      </Button>
+                      <Button size="sm" variant="destructive" onClick={() => handleDelete(item.id)} className="w-full sm:w-auto">
+                        <Trash2 className="h-3.5 w-3.5 sm:h-4 sm:w-4 sm:mr-2" />
+                        <span>Hapus</span>
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))
+            )}
           </div>
         </div>
       </div>

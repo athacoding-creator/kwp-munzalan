@@ -247,6 +247,42 @@ export type Database = {
         }
         Relationships: []
       }
+      programs: {
+        Row: {
+          created_at: string
+          deskripsi: string | null
+          icon_name: string
+          id: string
+          is_active: boolean
+          nama: string
+          subtitle: string
+          updated_at: string
+          urutan: number
+        }
+        Insert: {
+          created_at?: string
+          deskripsi?: string | null
+          icon_name?: string
+          id?: string
+          is_active?: boolean
+          nama: string
+          subtitle: string
+          updated_at?: string
+          urutan?: number
+        }
+        Update: {
+          created_at?: string
+          deskripsi?: string | null
+          icon_name?: string
+          id?: string
+          is_active?: boolean
+          nama?: string
+          subtitle?: string
+          updated_at?: string
+          urutan?: number
+        }
+        Relationships: []
+      }
       user_roles: {
         Row: {
           created_at: string

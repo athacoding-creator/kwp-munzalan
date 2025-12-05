@@ -3,7 +3,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { LogOut, FileText, Image, Calendar, Megaphone, HardDrive, Activity, ScrollText, BarChart3, Home } from "lucide-react";
+import { LogOut, FileText, Image, Calendar, Megaphone, HardDrive, Activity, ScrollText, BarChart3, Home, Heart } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { logAdminActivity } from "@/lib/adminLogger";
 
@@ -40,15 +40,16 @@ export default function Dashboard() {
   };
 
   const menuItems = [
-    { title: "Profil", icon: FileText, link: "/admin/profil", color: "from-blue-500 to-blue-600" },
-    { title: "Fasilitas", icon: Image, link: "/admin/fasilitas", color: "from-green-500 to-green-600" },
-    { title: "Program", icon: Calendar, link: "/admin/program", color: "from-purple-500 to-purple-600" },
-    { title: "Dokumentasi", icon: Image, link: "/admin/dokumentasi", color: "from-orange-500 to-orange-600" },
-    { title: "Pengumuman", icon: Megaphone, link: "/admin/pengumuman", color: "from-red-500 to-red-600" },
-    { title: "Media Storage", icon: HardDrive, link: "/admin/media", color: "from-cyan-500 to-cyan-600" },
-    { title: "Monitoring", icon: Activity, link: "/admin/monitoring", color: "from-indigo-500 to-indigo-600" },
-    { title: "Log Aktivitas", icon: ScrollText, link: "/admin/activity-log", color: "from-pink-500 to-pink-600" },
-    { title: "Statistik", icon: BarChart3, link: "/admin/statistik", color: "from-violet-500 to-violet-600" },
+    { title: "Profil", icon: FileText, link: "/admin/profil", color: "from-primary to-primary-light", desc: "Kelola informasi profil pesantren" },
+    { title: "Program Unggulan", icon: Heart, link: "/admin/program-unggulan", color: "from-accent to-primary", desc: "Kelola 8 program unggulan di homepage" },
+    { title: "Fasilitas", icon: Image, link: "/admin/fasilitas", color: "from-primary-light to-accent", desc: "Kelola data fasilitas pesantren" },
+    { title: "Jadwal Kegiatan", icon: Calendar, link: "/admin/program", color: "from-primary to-accent", desc: "Kelola jadwal kegiatan/program" },
+    { title: "Dokumentasi", icon: Image, link: "/admin/dokumentasi", color: "from-accent to-primary-light", desc: "Kelola foto dan video dokumentasi" },
+    { title: "Pengumuman", icon: Megaphone, link: "/admin/pengumuman", color: "from-primary-light to-primary", desc: "Kelola pengumuman terbaru" },
+    { title: "Media Storage", icon: HardDrive, link: "/admin/media", color: "from-primary to-primary-light", desc: "Kelola file media di storage" },
+    { title: "Monitoring", icon: Activity, link: "/admin/monitoring", color: "from-accent to-primary", desc: "Monitor status sistem" },
+    { title: "Log Aktivitas", icon: ScrollText, link: "/admin/activity-log", color: "from-primary-light to-accent", desc: "Lihat riwayat aktivitas admin" },
+    { title: "Statistik", icon: BarChart3, link: "/admin/statistik", color: "from-primary to-accent", desc: "Lihat statistik website" },
   ];
 
   return (
@@ -101,7 +102,7 @@ export default function Dashboard() {
                 </CardHeader>
                 <CardContent className="pt-0">
                   <p className="text-xs sm:text-sm text-muted-foreground">
-                    Kelola data {item.title.toLowerCase()}
+                    {item.desc}
                   </p>
                 </CardContent>
               </Card>
