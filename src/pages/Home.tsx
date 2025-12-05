@@ -15,7 +15,7 @@ import hero2 from "@/assets/hero-2.jpg";
 import hero3 from "@/assets/hero-3.jpg";
 import hero4 from "@/assets/hero-4.jpg";
 import hero5 from "@/assets/hero-5.jpg";
-import logoKwp from "@/assets/logo-kwp.png";
+
 
 interface Kegiatan {
   id: string;
@@ -117,9 +117,6 @@ export default function Home() {
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             {/* Left Content */}
             <div className="text-center lg:text-left animate-fade-in">
-              <div className="flex justify-center lg:justify-start mb-6">
-                <img src={logoKwp} alt="Logo KWP" className="w-24 h-24 object-contain" />
-              </div>
               
               <div className="badge-primary mb-6">
                 <Sparkles className="w-4 h-4" />
