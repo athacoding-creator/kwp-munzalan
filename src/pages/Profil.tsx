@@ -4,6 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { Eye, Target, CheckCircle } from "lucide-react";
+import visiImage from "@/assets/visi-image.jpg";
 
 interface ProfilData {
   id: string;
@@ -62,6 +63,14 @@ export default function Profil() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
             {/* Visi Card */}
             <Card className="shadow-elegant border-0 overflow-hidden hover:shadow-2xl transition-all duration-300">
+              {/* Image Section */}
+              <div className="w-full aspect-video overflow-hidden">
+                <img
+                  src={visiImage}
+                  alt="Visi Baitul Waqof Munzalan"
+                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                />
+              </div>
               <div className="bg-gradient-to-r from-primary to-primary-light p-6">
                 <div className="flex items-center justify-center gap-3">
                   <Eye className="h-8 w-8 text-white" />
