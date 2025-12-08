@@ -7,7 +7,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
-import { ArrowLeft, Plus, Pencil, Trash2, Home } from "lucide-react";
+import { ArrowLeft, Plus, Pencil, Trash2, Home, Upload, X } from "lucide-react";
 import { logAdminActivity } from "@/lib/adminLogger";
 
 interface PengumumanData {
@@ -15,6 +15,7 @@ interface PengumumanData {
   judul: string;
   isi: string;
   tanggal: string;
+  gambar_url?: string | null;
 }
 
 export default function PengumumanAdmin() {
@@ -23,10 +24,12 @@ export default function PengumumanAdmin() {
   const [pengumuman, setPengumuman] = useState<PengumumanData[]>([]);
   const [isEditing, setIsEditing] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
+  const [uploading, setUploading] = useState(false);
   const [formData, setFormData] = useState({
     judul: "",
     isi: "",
     tanggal: "",
+    gambar_url: "" as string | null,
   });
 
   useEffect(() => {
@@ -42,6 +45,35 @@ export default function PengumumanAdmin() {
   const fetchPengumuman = async () => {
     const { data } = await supabase.from("pengumuman").select("*").order("tanggal", { ascending: false });
     if (data) setPengumuman(data);
+  };
+
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    try {
+      setUploading(true);
+      const fileExt = file.name.split('.').pop();
+      const fileName = `artikel-${Date.now()}.${fileExt}`;
+      const filePath = `artikel/${fileName}`;
+
+      const { error: uploadError } = await supabase.storage
+        .from('media')
+        .upload(filePath, file);
+
+      if (uploadError) throw uploadError;
+
+      const { data: { publicUrl } } = supabase.storage
+        .from('media')
+        .getPublicUrl(filePath);
+
+      setFormData({ ...formData, gambar_url: publicUrl });
+      toast({ title: "Gambar berhasil diupload!" });
+    } catch (error: any) {
+      toast({ title: "Error upload", description: error.message, variant: "destructive" });
+    } finally {
+      setUploading(false);
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -63,10 +95,10 @@ export default function PengumumanAdmin() {
           recordId: editingId,
           oldData,
           newData: formData,
-          description: `Update pengumuman: ${formData.judul}`,
+          description: `Update artikel: ${formData.judul}`,
         });
         
-        toast({ title: "Pengumuman berhasil diupdate!" });
+        toast({ title: "Artikel berhasil diupdate!" });
       } else {
         const { data, error } = await supabase.from("pengumuman").insert([{
           ...formData,
@@ -79,12 +111,12 @@ export default function PengumumanAdmin() {
           tableName: "pengumuman",
           recordId: data?.[0]?.id,
           newData: formData,
-          description: `Tambah pengumuman baru: ${formData.judul}`,
+          description: `Tambah artikel baru: ${formData.judul}`,
         });
         
-        toast({ title: "Pengumuman berhasil ditambahkan!" });
+        toast({ title: "Artikel berhasil ditambahkan!" });
       }
-      setFormData({ judul: "", isi: "", tanggal: "" });
+      setFormData({ judul: "", isi: "", tanggal: "", gambar_url: null });
       setIsEditing(false);
       setEditingId(null);
       fetchPengumuman();
@@ -98,6 +130,7 @@ export default function PengumumanAdmin() {
       judul: item.judul,
       isi: item.isi,
       tanggal: item.tanggal,
+      gambar_url: item.gambar_url || null,
     });
     setEditingId(item.id);
     setIsEditing(true);
@@ -115,10 +148,10 @@ export default function PengumumanAdmin() {
         tableName: "pengumuman",
         recordId: id,
         oldData: deletedItem,
-        description: `Hapus pengumuman: ${deletedItem?.judul}`,
+        description: `Hapus artikel: ${deletedItem?.judul}`,
       });
       
-      toast({ title: "Pengumuman berhasil dihapus!" });
+      toast({ title: "Artikel berhasil dihapus!" });
       fetchPengumuman();
     } catch (error: any) {
       toast({ title: "Error", description: error.message, variant: "destructive" });
@@ -135,7 +168,7 @@ export default function PengumumanAdmin() {
                 <ArrowLeft className="h-3.5 w-3.5 sm:h-4 sm:w-4 sm:mr-2" />
                 <span className="hidden sm:inline">Kembali</span>
               </Button>
-              <h1 className="text-base sm:text-lg md:text-2xl font-bold truncate">Kelola Pengumuman</h1>
+              <h1 className="text-base sm:text-lg md:text-2xl font-bold truncate">Kelola Artikel</h1>
             </div>
             <Button variant="outline" size="sm" onClick={() => navigate("/")} className="h-8 sm:h-9 px-2 sm:px-3 flex-shrink-0">
               <Home className="h-3.5 w-3.5 sm:h-4 sm:w-4 sm:mr-2" />
@@ -149,7 +182,7 @@ export default function PengumumanAdmin() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 md:gap-8">
           <Card className="shadow-soft border hover:shadow-elegant transition-smooth">
             <CardHeader className="pb-3 sm:pb-6">
-              <CardTitle className="text-base sm:text-lg">{isEditing ? "Edit Pengumuman" : "Tambah Pengumuman Baru"}</CardTitle>
+              <CardTitle className="text-base sm:text-lg">{isEditing ? "Edit Artikel" : "Tambah Artikel Baru"}</CardTitle>
             </CardHeader>
             <CardContent>
               <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4">
@@ -173,7 +206,46 @@ export default function PengumumanAdmin() {
                   />
                 </div>
                 <div>
-                  <Label htmlFor="isi">Isi Pengumuman</Label>
+                  <Label htmlFor="gambar">Gambar Artikel</Label>
+                  {formData.gambar_url ? (
+                    <div className="relative mt-2">
+                      <img 
+                        src={formData.gambar_url} 
+                        alt="Preview" 
+                        className="w-full h-48 object-cover rounded-lg"
+                      />
+                      <Button
+                        type="button"
+                        variant="destructive"
+                        size="sm"
+                        className="absolute top-2 right-2"
+                        onClick={() => setFormData({ ...formData, gambar_url: null })}
+                      >
+                        <X className="h-4 w-4" />
+                      </Button>
+                    </div>
+                  ) : (
+                    <div className="mt-2">
+                      <label className="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed rounded-lg cursor-pointer hover:bg-muted/50 transition-colors">
+                        <div className="flex flex-col items-center justify-center pt-5 pb-6">
+                          <Upload className="w-8 h-8 mb-2 text-muted-foreground" />
+                          <p className="text-sm text-muted-foreground">
+                            {uploading ? "Mengupload..." : "Klik untuk upload gambar"}
+                          </p>
+                        </div>
+                        <input
+                          type="file"
+                          className="hidden"
+                          accept="image/*"
+                          onChange={handleImageUpload}
+                          disabled={uploading}
+                        />
+                      </label>
+                    </div>
+                  )}
+                </div>
+                <div>
+                  <Label htmlFor="isi">Isi Artikel</Label>
                   <Textarea
                     id="isi"
                     value={formData.isi}
@@ -195,7 +267,7 @@ export default function PengumumanAdmin() {
                       onClick={() => {
                         setIsEditing(false);
                         setEditingId(null);
-                        setFormData({ judul: "", isi: "", tanggal: "" });
+                        setFormData({ judul: "", isi: "", tanggal: "", gambar_url: null });
                       }}
                     >
                       Batal
@@ -210,12 +282,23 @@ export default function PengumumanAdmin() {
             {pengumuman.map((item) => (
               <Card key={item.id} className="shadow-soft border hover:shadow-elegant transition-smooth">
                 <CardContent className="p-3 sm:p-4 md:p-6">
-                  <h3 className="font-semibold text-base sm:text-lg mb-2">{item.judul}</h3>
-                  <p className="text-xs sm:text-sm text-primary mb-2">
-                    {new Date(item.tanggal).toLocaleDateString("id-ID")}
-                  </p>
-                  <p className="text-xs sm:text-sm text-muted-foreground mb-3 sm:mb-4 line-clamp-3">{item.isi}</p>
-                  <div className="flex flex-col sm:flex-row gap-2">
+                  <div className="flex gap-4">
+                    {item.gambar_url && (
+                      <img 
+                        src={item.gambar_url} 
+                        alt={item.judul}
+                        className="w-20 h-20 object-cover rounded-lg flex-shrink-0"
+                      />
+                    )}
+                    <div className="flex-1 min-w-0">
+                      <h3 className="font-semibold text-base sm:text-lg mb-1 truncate">{item.judul}</h3>
+                      <p className="text-xs sm:text-sm text-primary mb-2">
+                        {new Date(item.tanggal).toLocaleDateString("id-ID")}
+                      </p>
+                      <p className="text-xs sm:text-sm text-muted-foreground line-clamp-2">{item.isi}</p>
+                    </div>
+                  </div>
+                  <div className="flex flex-col sm:flex-row gap-2 mt-4">
                     <Button size="sm" variant="outline" onClick={() => handleEdit(item)} className="w-full sm:w-auto">
                       <Pencil className="h-3.5 w-3.5 sm:h-4 sm:w-4 sm:mr-2" />
                       <span>Edit</span>

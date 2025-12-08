@@ -173,6 +173,7 @@ export type Database = {
         Row: {
           admin_id: string | null
           created_at: string
+          gambar_url: string | null
           id: string
           isi: string
           judul: string
@@ -182,6 +183,7 @@ export type Database = {
         Insert: {
           admin_id?: string | null
           created_at?: string
+          gambar_url?: string | null
           id?: string
           isi: string
           judul: string
@@ -191,6 +193,7 @@ export type Database = {
         Update: {
           admin_id?: string | null
           created_at?: string
+          gambar_url?: string | null
           id?: string
           isi?: string
           judul?: string
