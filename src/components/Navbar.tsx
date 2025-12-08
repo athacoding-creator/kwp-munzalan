@@ -39,7 +39,7 @@ export const Navbar = () => {
             <img 
               src={logoKwp} 
               alt="Logo KWP Munzalan" 
-              className="h-16 md:h-20 w-auto max-w-full object-contain group-hover:scale-105 transition-transform"
+              className="h-12 md:h-14 w-auto max-w-full object-contain group-hover:scale-105 transition-transform"
             />
           </Link>
 
