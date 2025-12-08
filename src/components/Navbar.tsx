@@ -14,7 +14,7 @@ export const Navbar = () => {
     { to: "/fasilitas", label: "Fasilitas" },
     { to: "/program", label: "Program" },
     { to: "/dokumentasi", label: "Dokumentasi" },
-    { to: "/pengumuman", label: "Pengumuman" },
+    { to: "/artikel", label: "Artikel" },
     { to: "/kontak", label: "Kontak" },
   ];
 

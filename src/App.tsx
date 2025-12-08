@@ -12,7 +12,7 @@ const Profil = lazy(() => import("./pages/Profil"));
 const Fasilitas = lazy(() => import("./pages/Fasilitas"));
 const Program = lazy(() => import("./pages/Program"));
 const Dokumentasi = lazy(() => import("./pages/Dokumentasi"));
-const Pengumuman = lazy(() => import("./pages/Pengumuman"));
+const Artikel = lazy(() => import("./pages/Artikel"));
 const Kontak = lazy(() => import("./pages/Kontak"));
 const Auth = lazy(() => import("./pages/Auth"));
 const Dashboard = lazy(() => import("./pages/admin/Dashboard"));
@@ -57,7 +57,7 @@ const App = () => (
               <Route path="/fasilitas" element={<Fasilitas />} />
               <Route path="/program" element={<Program />} />
               <Route path="/dokumentasi" element={<Dokumentasi />} />
-              <Route path="/pengumuman" element={<Pengumuman />} />
+              <Route path="/artikel" element={<Artikel />} />
               <Route path="/kontak" element={<Kontak />} />
               <Route path="/admin" element={<Auth />} />
               <Route path="/admin/dashboard" element={<Dashboard />} />

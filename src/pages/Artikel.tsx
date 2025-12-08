@@ -6,24 +6,24 @@ import { Footer } from "@/components/Footer";
 import { WaveDivider } from "@/components/WaveDivider";
 import { Calendar, Bell } from "lucide-react";
 
-interface PengumumanData {
+interface ArtikelData {
   id: string;
   judul: string;
   isi: string;
   tanggal: string;
 }
 
-export default function Pengumuman() {
-  const [pengumuman, setPengumuman] = useState<PengumumanData[]>([]);
+export default function Artikel() {
+  const [artikel, setArtikel] = useState<ArtikelData[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchPengumuman();
+    fetchArtikel();
   }, []);
 
-  const fetchPengumuman = async () => {
+  const fetchArtikel = async () => {
     const { data } = await supabase.from("pengumuman").select("*").order("tanggal", { ascending: false });
-    if (data) setPengumuman(data);
+    if (data) setArtikel(data);
     setLoading(false);
   };
 
@@ -38,10 +38,10 @@ export default function Pengumuman() {
           <div className="container mx-auto px-4 relative z-10">
             <div className="text-center text-white">
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 animate-fade-in">
-                Pengumuman
+                Artikel
               </h1>
               <p className="text-lg md:text-xl text-white/90 max-w-2xl mx-auto">
-                Informasi terkini dan pengumuman penting untuk masyarakat
+                Artikel dan informasi terkini untuk masyarakat
               </p>
             </div>
           </div>
@@ -56,11 +56,11 @@ export default function Pengumuman() {
             {loading ? (
               <div className="text-center py-20">
                 <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
-                <p className="mt-4 text-muted-foreground">Memuat pengumuman...</p>
+                <p className="mt-4 text-muted-foreground">Memuat artikel...</p>
               </div>
-            ) : pengumuman.length > 0 ? (
+            ) : artikel.length > 0 ? (
               <div className="max-w-4xl mx-auto space-y-6">
-                {pengumuman.map((item, index) => (
+                {artikel.map((item, index) => (
                   <Card 
                     key={item.id} 
                     className="group shadow-elegant border-0 hover:shadow-2xl transition-all duration-300"
@@ -97,10 +97,10 @@ export default function Pengumuman() {
                       <Bell className="w-10 h-10 text-primary" />
                     </div>
                     <h3 className="text-2xl font-bold mb-3 text-foreground">
-                      Belum Ada Pengumuman
+                      Belum Ada Artikel
                     </h3>
                     <p className="text-muted-foreground">
-                      Pengumuman terbaru akan ditampilkan di sini
+                      Artikel terbaru akan ditampilkan di sini
                     </p>
                   </CardContent>
                 </Card>
