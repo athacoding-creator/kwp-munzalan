@@ -4,7 +4,13 @@ import { supabase } from "@/integrations/supabase/client";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { WaveDivider } from "@/components/WaveDivider";
-import { Building2 } from "lucide-react";
+import { Building2, X } from "lucide-react";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 
 interface FasilitasData {
   id: string;
@@ -16,6 +22,7 @@ interface FasilitasData {
 export default function Fasilitas() {
   const [fasilitas, setFasilitas] = useState<FasilitasData[]>([]);
   const [loading, setLoading] = useState(true);
+  const [selectedFasilitas, setSelectedFasilitas] = useState<FasilitasData | null>(null);
 
   useEffect(() => {
     fetchFasilitas();
@@ -64,8 +71,9 @@ export default function Fasilitas() {
                   {fasilitas.map((item, index) => (
                     <Card 
                       key={item.id} 
-                      className="group bg-card border-0 shadow-sm hover:shadow-elegant transition-all duration-300 hover:-translate-y-1 rounded-xl overflow-hidden"
+                      className="group bg-card border-0 shadow-sm hover:shadow-elegant transition-all duration-300 hover:-translate-y-1 rounded-xl overflow-hidden cursor-pointer"
                       style={{ animationDelay: `${index * 100}ms` }}
+                      onClick={() => setSelectedFasilitas(item)}
                     >
                       {/* Image Section */}
                       <div className="p-4 pb-0">
@@ -92,10 +100,10 @@ export default function Fasilitas() {
                         <p className="text-muted-foreground leading-relaxed line-clamp-2 mb-4">
                           {item.deskripsi}
                         </p>
-                        <button className="inline-flex items-center gap-2 text-sm font-semibold text-foreground hover:text-primary transition-colors group/link">
+                        <span className="inline-flex items-center gap-2 text-sm font-semibold text-foreground hover:text-primary transition-colors group/link">
                           SELENGKAPNYA 
                           <span className="group-hover/link:translate-x-1 transition-transform">»</span>
-                        </button>
+                        </span>
                       </CardContent>
                     </Card>
                   ))}
@@ -146,6 +154,42 @@ export default function Fasilitas() {
           </div>
         </section>
       </div>
+
+      {/* Detail Dialog */}
+      <Dialog open={!!selectedFasilitas} onOpenChange={() => setSelectedFasilitas(null)}>
+        <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto p-0">
+          {selectedFasilitas && (
+            <>
+              {/* Full Image */}
+              {selectedFasilitas.foto_url ? (
+                <div className="w-full aspect-video bg-muted">
+                  <img
+                    src={selectedFasilitas.foto_url}
+                    alt={selectedFasilitas.nama}
+                    className="w-full h-full object-contain"
+                  />
+                </div>
+              ) : (
+                <div className="w-full aspect-video bg-gradient-to-br from-primary/10 to-primary-light/10 flex items-center justify-center">
+                  <Building2 className="w-24 h-24 text-primary/40" />
+                </div>
+              )}
+              
+              {/* Content */}
+              <div className="p-6">
+                <DialogHeader>
+                  <DialogTitle className="text-2xl font-bold text-foreground">
+                    {selectedFasilitas.nama}
+                  </DialogTitle>
+                </DialogHeader>
+                <p className="mt-4 text-muted-foreground leading-relaxed whitespace-pre-wrap">
+                  {selectedFasilitas.deskripsi}
+                </p>
+              </div>
+            </>
+          )}
+        </DialogContent>
+      </Dialog>
 
       <Footer />
     </div>
