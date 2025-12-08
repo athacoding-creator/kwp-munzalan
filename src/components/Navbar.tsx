@@ -1,24 +1,35 @@
 import { Link, useLocation } from "react-router-dom";
 import { useState } from "react";
-import { Menu, X } from "lucide-react";
+import { Menu, X, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import logoKwp from "@/assets/logo-kwp.png";
 
 export const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [aboutOpen, setAboutOpen] = useState(false);
   const location = useLocation();
 
-  const navLinks = [
+  const mainLinks = [
     { to: "/", label: "Beranda" },
-    { to: "/profil", label: "Profil" },
-    { to: "/fasilitas", label: "Fasilitas" },
-    { to: "/program", label: "Program" },
-    { to: "/dokumentasi", label: "Dokumentasi" },
     { to: "/artikel", label: "Artikel" },
     { to: "/kontak", label: "Kontak" },
   ];
 
+  const aboutLinks = [
+    { to: "/profil", label: "Profil" },
+    { to: "/fasilitas", label: "Fasilitas" },
+    { to: "/program", label: "Program" },
+    { to: "/dokumentasi", label: "Dokumentasi" },
+  ];
+
   const isActive = (path: string) => location.pathname === path;
+  const isAboutActive = aboutLinks.some(link => location.pathname === link.to);
 
   return (
     <nav className="sticky top-0 z-50 bg-background/95 backdrop-blur-md border-b border-border/50 shadow-soft">
@@ -34,19 +45,70 @@ export const Navbar = () => {
 
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center space-x-1">
-            {navLinks.map((link) => (
-              <Link
-                key={link.to}
-                to={link.to}
-                className={`px-4 py-2 rounded-lg transition-smooth text-sm font-medium ${
-                  isActive(link.to)
-                    ? "bg-primary text-primary-foreground shadow-elegant"
-                    : "text-muted-foreground hover:text-foreground hover:bg-primary/10"
-                }`}
-              >
-                {link.label}
-              </Link>
-            ))}
+            {/* Beranda */}
+            <Link
+              to="/"
+              className={`px-4 py-2 rounded-lg transition-smooth text-sm font-medium ${
+                isActive("/")
+                  ? "bg-primary text-primary-foreground shadow-elegant"
+                  : "text-muted-foreground hover:text-foreground hover:bg-primary/10"
+              }`}
+            >
+              Beranda
+            </Link>
+
+            {/* About Us Dropdown */}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <button
+                  className={`px-4 py-2 rounded-lg transition-smooth text-sm font-medium flex items-center gap-1 ${
+                    isAboutActive
+                      ? "bg-primary text-primary-foreground shadow-elegant"
+                      : "text-muted-foreground hover:text-foreground hover:bg-primary/10"
+                  }`}
+                >
+                  About Us
+                  <ChevronDown className="h-4 w-4" />
+                </button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="center" className="w-48">
+                {aboutLinks.map((link) => (
+                  <DropdownMenuItem key={link.to} asChild>
+                    <Link
+                      to={link.to}
+                      className={`w-full cursor-pointer ${
+                        isActive(link.to) ? "bg-primary/10 text-primary font-medium" : ""
+                      }`}
+                    >
+                      {link.label}
+                    </Link>
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
+
+            {/* Artikel & Kontak */}
+            <Link
+              to="/artikel"
+              className={`px-4 py-2 rounded-lg transition-smooth text-sm font-medium ${
+                isActive("/artikel")
+                  ? "bg-primary text-primary-foreground shadow-elegant"
+                  : "text-muted-foreground hover:text-foreground hover:bg-primary/10"
+              }`}
+            >
+              Artikel
+            </Link>
+            <Link
+              to="/kontak"
+              className={`px-4 py-2 rounded-lg transition-smooth text-sm font-medium ${
+                isActive("/kontak")
+                  ? "bg-primary text-primary-foreground shadow-elegant"
+                  : "text-muted-foreground hover:text-foreground hover:bg-primary/10"
+              }`}
+            >
+              Kontak
+            </Link>
+
             <Link to="/admin" className="ml-2">
               <Button variant="outline" size="sm" className="border-primary/30 text-primary hover:bg-primary hover:text-primary-foreground">
                 Admin
@@ -67,20 +129,74 @@ export const Navbar = () => {
         {/* Mobile Navigation */}
         {isOpen && (
           <div className="lg:hidden py-4 space-y-2 border-t border-border/50 animate-fade-in">
-            {navLinks.map((link) => (
-              <Link
-                key={link.to}
-                to={link.to}
-                onClick={() => setIsOpen(false)}
-                className={`block px-4 py-3 rounded-lg transition-smooth ${
-                  isActive(link.to)
+            <Link
+              to="/"
+              onClick={() => setIsOpen(false)}
+              className={`block px-4 py-3 rounded-lg transition-smooth ${
+                isActive("/")
+                  ? "bg-primary text-primary-foreground"
+                  : "text-muted-foreground hover:text-foreground hover:bg-muted"
+              }`}
+            >
+              Beranda
+            </Link>
+
+            {/* Mobile About Us Accordion */}
+            <div>
+              <button
+                onClick={() => setAboutOpen(!aboutOpen)}
+                className={`w-full flex items-center justify-between px-4 py-3 rounded-lg transition-smooth ${
+                  isAboutActive
                     ? "bg-primary text-primary-foreground"
                     : "text-muted-foreground hover:text-foreground hover:bg-muted"
                 }`}
               >
-                {link.label}
-              </Link>
-            ))}
+                About Us
+                <ChevronDown className={`h-4 w-4 transition-transform ${aboutOpen ? "rotate-180" : ""}`} />
+              </button>
+              {aboutOpen && (
+                <div className="ml-4 mt-2 space-y-1 border-l-2 border-primary/30 pl-4">
+                  {aboutLinks.map((link) => (
+                    <Link
+                      key={link.to}
+                      to={link.to}
+                      onClick={() => setIsOpen(false)}
+                      className={`block px-4 py-2 rounded-lg transition-smooth text-sm ${
+                        isActive(link.to)
+                          ? "bg-primary/20 text-primary font-medium"
+                          : "text-muted-foreground hover:text-foreground hover:bg-muted"
+                      }`}
+                    >
+                      {link.label}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            <Link
+              to="/artikel"
+              onClick={() => setIsOpen(false)}
+              className={`block px-4 py-3 rounded-lg transition-smooth ${
+                isActive("/artikel")
+                  ? "bg-primary text-primary-foreground"
+                  : "text-muted-foreground hover:text-foreground hover:bg-muted"
+              }`}
+            >
+              Artikel
+            </Link>
+            <Link
+              to="/kontak"
+              onClick={() => setIsOpen(false)}
+              className={`block px-4 py-3 rounded-lg transition-smooth ${
+                isActive("/kontak")
+                  ? "bg-primary text-primary-foreground"
+                  : "text-muted-foreground hover:text-foreground hover:bg-muted"
+              }`}
+            >
+              Kontak
+            </Link>
+
             <Link to="/admin" onClick={() => setIsOpen(false)}>
               <Button variant="outline" size="sm" className="w-full mt-2 border-primary/30 text-primary hover:bg-primary hover:text-primary-foreground">
                 Admin
