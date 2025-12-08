@@ -485,33 +485,38 @@ export default function Home() {
       </section>
 
       {/* Why Wakaf Section */}
-      <section className="py-20 gradient-dark relative overflow-hidden">
+      <section className="py-20 bg-slate-900 relative overflow-hidden">
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-10 left-10 w-40 h-40 bg-white rounded-full blur-3xl" />
           <div className="absolute bottom-10 right-10 w-60 h-60 bg-white rounded-full blur-3xl" />
         </div>
         
         <div className="container mx-auto px-4 relative z-10">
-          <div className="text-center mb-12 animate-fade-in">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-              Kenapa Harus Wakaf di Baitul Wakaf Munzalan?
+          {/* Header */}
+          <div className="mb-12 animate-fade-in">
+            <div className="inline-block px-4 py-2 bg-primary text-primary-foreground text-sm font-semibold rounded mb-6">
+              KENAPA WAKAF
+            </div>
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight max-w-xl">
+              Wakaf di Baitul Wakaf Munzalan, Kebaikan Berkelanjutan
             </h2>
-            <p className="text-white/80 max-w-2xl mx-auto">
-              Wakaf Dikelola Secara Produktif untuk Infaq!
-            </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
+          {/* Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {wakafReasons.map((reason, index) => (
               <div 
                 key={index}
-                className="text-center p-6 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-white/20 transition-all duration-300 animate-fade-in"
+                className="relative p-6 rounded-2xl bg-slate-800/80 hover:bg-slate-700/80 transition-all duration-300 animate-fade-in"
                 style={{ animationDelay: `${index * 100}ms` }}
               >
-                <div className="w-14 h-14 mx-auto mb-4 rounded-full bg-white/20 flex items-center justify-center">
-                  <reason.icon className="h-7 w-7 text-white" />
+                {/* Number Badge */}
+                <div className="absolute -top-3 -right-3 w-10 h-10 rounded-full bg-primary flex items-center justify-center text-primary-foreground font-bold text-sm shadow-lg">
+                  {String(index + 1).padStart(2, '0')}
                 </div>
-                <p className="text-white font-medium">{reason.text}</p>
+                
+                <h3 className="text-white font-bold text-lg mb-3">{reason.text.split(' ').slice(0, 2).join(' ')}</h3>
+                <p className="text-slate-400 text-sm leading-relaxed">{reason.text}</p>
               </div>
             ))}
           </div>
