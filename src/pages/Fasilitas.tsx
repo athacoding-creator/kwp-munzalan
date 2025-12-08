@@ -59,40 +59,43 @@ export default function Fasilitas() {
                 <p className="mt-4 text-muted-foreground">Memuat fasilitas...</p>
               </div>
             ) : fasilitas.length > 0 ? (
-              <div className="max-w-6xl mx-auto">
+              <div className="max-w-7xl mx-auto">
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                   {fasilitas.map((item, index) => (
                     <Card 
                       key={item.id} 
-                      className="group shadow-elegant border-0 overflow-hidden hover:shadow-2xl transition-all duration-500 hover:-translate-y-2"
+                      className="group bg-card border-0 shadow-sm hover:shadow-elegant transition-all duration-300 hover:-translate-y-1 rounded-xl overflow-hidden"
                       style={{ animationDelay: `${index * 100}ms` }}
                     >
                       {/* Image Section */}
-                      {item.foto_url ? (
-                        <div className="relative overflow-hidden aspect-video bg-muted">
-                          <img
-                            src={item.foto_url}
-                            alt={item.nama}
-                            className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
-                          />
-                        </div>
-                      ) : (
-                        <div className="aspect-video bg-gradient-to-br from-primary/10 to-primary-light/10 flex items-center justify-center">
-                          <div className="text-center p-6">
-                            <Building2 className="w-16 h-16 mx-auto text-primary/40 mb-2" />
-                            <p className="text-sm text-muted-foreground">Gambar akan segera tersedia</p>
+                      <div className="p-4 pb-0">
+                        {item.foto_url ? (
+                          <div className="relative overflow-hidden rounded-xl aspect-[4/3] bg-muted">
+                            <img
+                              src={item.foto_url}
+                              alt={item.nama}
+                              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                            />
                           </div>
-                        </div>
-                      )}
+                        ) : (
+                          <div className="rounded-xl aspect-[4/3] bg-gradient-to-br from-primary/10 to-primary-light/10 flex items-center justify-center">
+                            <Building2 className="w-16 h-16 text-primary/40" />
+                          </div>
+                        )}
+                      </div>
                       
                       {/* Content Section */}
                       <CardContent className="p-6">
                         <h3 className="text-xl font-bold mb-3 text-foreground group-hover:text-primary transition-colors">
                           {item.nama}
                         </h3>
-                        <p className="text-muted-foreground leading-relaxed">
+                        <p className="text-muted-foreground leading-relaxed line-clamp-2 mb-4">
                           {item.deskripsi}
                         </p>
+                        <button className="inline-flex items-center gap-2 text-sm font-semibold text-foreground hover:text-primary transition-colors group/link">
+                          SELENGKAPNYA 
+                          <span className="group-hover/link:translate-x-1 transition-transform">»</span>
+                        </button>
                       </CardContent>
                     </Card>
                   ))}

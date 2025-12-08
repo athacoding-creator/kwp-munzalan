@@ -59,35 +59,45 @@ export default function Artikel() {
                 <p className="mt-4 text-muted-foreground">Memuat artikel...</p>
               </div>
             ) : artikel.length > 0 ? (
-              <div className="max-w-4xl mx-auto space-y-6">
-                {artikel.map((item, index) => (
-                  <Card 
-                    key={item.id} 
-                    className="group shadow-elegant border-0 hover:shadow-2xl transition-all duration-300"
-                    style={{ animationDelay: `${index * 100}ms` }}
-                  >
-                    <CardContent className="p-6">
-                      <div className="flex items-center gap-2 mb-4">
-                        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-primary/10 text-primary">
-                          <Calendar className="h-4 w-4" />
-                          <span className="text-sm font-medium">
-                            {new Date(item.tanggal).toLocaleDateString("id-ID", {
-                              day: "numeric",
-                              month: "long",
-                              year: "numeric",
-                            })}
-                          </span>
+              <div className="max-w-7xl mx-auto">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                  {artikel.map((item, index) => (
+                    <Card 
+                      key={item.id} 
+                      className="group bg-card border-0 shadow-sm hover:shadow-elegant transition-all duration-300 hover:-translate-y-1 rounded-xl overflow-hidden"
+                      style={{ animationDelay: `${index * 100}ms` }}
+                    >
+                      {/* Image Placeholder */}
+                      <div className="p-4 pb-0">
+                        <div className="rounded-xl aspect-[4/3] bg-gradient-to-br from-primary/10 to-primary-light/10 flex items-center justify-center">
+                          <Bell className="w-16 h-16 text-primary/40" />
                         </div>
                       </div>
-                      <h3 className="text-2xl font-bold mb-4 text-foreground group-hover:text-primary transition-colors">
-                        {item.judul}
-                      </h3>
-                      <div className="prose prose-lg max-w-none text-muted-foreground leading-relaxed whitespace-pre-wrap">
-                        {item.isi}
-                      </div>
-                    </CardContent>
-                  </Card>
-                ))}
+                      
+                      {/* Content Section */}
+                      <CardContent className="p-6">
+                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-medium mb-3">
+                          <Calendar className="h-3 w-3" />
+                          {new Date(item.tanggal).toLocaleDateString("id-ID", {
+                            day: "numeric",
+                            month: "short",
+                            year: "numeric",
+                          })}
+                        </div>
+                        <h3 className="text-xl font-bold mb-3 text-foreground group-hover:text-primary transition-colors line-clamp-2">
+                          {item.judul}
+                        </h3>
+                        <p className="text-muted-foreground leading-relaxed line-clamp-2 mb-4">
+                          {item.isi}
+                        </p>
+                        <button className="inline-flex items-center gap-2 text-sm font-semibold text-foreground hover:text-primary transition-colors group/link">
+                          SELENGKAPNYA 
+                          <span className="group-hover/link:translate-x-1 transition-transform">»</span>
+                        </button>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
               </div>
             ) : (
               <div className="max-w-2xl mx-auto">
