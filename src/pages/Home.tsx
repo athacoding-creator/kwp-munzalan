@@ -485,7 +485,7 @@ export default function Home() {
       </section>
 
       {/* Why Wakaf Section */}
-      <section className="py-20 bg-slate-900 relative overflow-hidden">
+      <section className="py-20 gradient-dark relative overflow-hidden">
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-10 left-10 w-40 h-40 bg-white rounded-full blur-3xl" />
           <div className="absolute bottom-10 right-10 w-60 h-60 bg-white rounded-full blur-3xl" />
@@ -494,7 +494,7 @@ export default function Home() {
         <div className="container mx-auto px-4 relative z-10">
           {/* Header */}
           <div className="mb-12 animate-fade-in">
-            <div className="inline-block px-4 py-2 bg-primary text-primary-foreground text-sm font-semibold rounded mb-6">
+            <div className="inline-block px-4 py-2 bg-white/20 text-white text-sm font-semibold rounded mb-6">
               KENAPA WAKAF
             </div>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight max-w-xl">
@@ -503,20 +503,20 @@ export default function Home() {
           </div>
 
           {/* Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-8">
             {wakafReasons.map((reason, index) => (
               <div 
                 key={index}
-                className="relative p-6 rounded-2xl bg-slate-800/80 hover:bg-slate-700/80 transition-all duration-300 animate-fade-in"
+                className="relative p-6 pt-8 rounded-2xl bg-primary-dark/60 backdrop-blur-sm border border-white/10 hover:bg-primary-dark/80 transition-all duration-300 animate-fade-in"
                 style={{ animationDelay: `${index * 100}ms` }}
               >
                 {/* Number Badge */}
-                <div className="absolute -top-3 -right-3 w-10 h-10 rounded-full bg-primary flex items-center justify-center text-primary-foreground font-bold text-sm shadow-lg">
+                <div className="absolute -top-4 right-4 w-10 h-10 rounded-full bg-primary flex items-center justify-center text-primary-foreground font-bold text-sm shadow-lg">
                   {String(index + 1).padStart(2, '0')}
                 </div>
                 
-                <h3 className="text-white font-bold text-lg mb-3">{reason.text.split(' ').slice(0, 2).join(' ')}</h3>
-                <p className="text-slate-400 text-sm leading-relaxed">{reason.text}</p>
+                <h3 className="text-white font-bold text-lg mb-3">{reason.text.split(' ').slice(0, 3).join(' ')}</h3>
+                <p className="text-white/70 text-sm leading-relaxed">{reason.text}</p>
               </div>
             ))}
           </div>
