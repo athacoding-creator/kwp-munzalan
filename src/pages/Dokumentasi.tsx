@@ -76,7 +76,7 @@ export default function Dokumentasi() {
         {/* Hero Section */}
         <section className="relative bg-gradient-primary py-20 overflow-hidden">
           <div className="absolute inset-0 islamic-pattern opacity-10"></div>
-          <div className="container mx-auto px-4 relative z-10">
+          <div className="w-full px-4 md:px-8 lg:px-12 relative z-10">
             <div className="text-center text-white">
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 animate-fade-in">
                 Dokumentasi
@@ -93,7 +93,7 @@ export default function Dokumentasi() {
 
       {/* Advanced Filters */}
       <section className="py-8 border-y border-border/50 bg-card/50 backdrop-blur-sm">
-        <div className="container mx-auto px-4">
+        <div className="w-full px-4 md:px-8 lg:px-12">
           <div className="space-y-6">
             {/* Media Type Filter */}
             <div>
@@ -177,7 +177,7 @@ export default function Dokumentasi() {
 
       {/* Masonry Gallery */}
       <section className="py-16 bg-muted/30">
-        <div className="container mx-auto px-4">
+        <div className="w-full px-4 md:px-8 lg:px-12">
           {isLoading ? (
             <div className="columns-1 md:columns-2 lg:columns-3 gap-6 space-y-6">
               {[...Array(6)].map((_, i) => (

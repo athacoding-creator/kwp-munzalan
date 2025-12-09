@@ -6,7 +6,7 @@ export const Footer = () => {
 
   return (
     <footer className="bg-foreground text-background">
-      <div className="container mx-auto px-4 py-16">
+      <div className="w-full px-4 md:px-8 lg:px-12 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* Brand */}
           <div>
@@ -89,7 +89,7 @@ export const Footer = () => {
       </div>
 
       <div className="border-t border-background/10">
-        <div className="container mx-auto px-4 py-6">
+        <div className="w-full px-4 md:px-8 lg:px-12 py-6">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-background/60 text-sm">&copy; {currentYear} Baitul Waqof Munzalan Indonesia.</p>
             <p className="text-background/60 text-sm flex items-center gap-1">

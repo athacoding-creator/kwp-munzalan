@@ -80,7 +80,7 @@ const MonitoringAdmin = () => {
     : "0";
 
   return (
-    <div className="container mx-auto p-6 space-y-6">
+    <div className="w-full px-4 md:px-8 lg:px-12 p-6 space-y-6">
       <div className="flex justify-between items-center">
         <div>
           <Button

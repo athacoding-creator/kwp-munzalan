@@ -70,7 +70,7 @@ export default function Profil() {
         {/* Hero Section */}
         <section className="relative bg-gradient-primary py-20 overflow-hidden">
           <div className="absolute inset-0 islamic-pattern opacity-10"></div>
-          <div className="container mx-auto px-4 relative z-10">
+          <div className="w-full px-4 md:px-8 lg:px-12 relative z-10">
             <div className="text-center text-white">
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 animate-fade-in">
                 Profil Lembaga
@@ -87,7 +87,7 @@ export default function Profil() {
 
         {/* Visi Section */}
         <section className="py-16 md:py-20 bg-background">
-          <div className="container mx-auto px-4">
+          <div className="w-full px-4 md:px-8 lg:px-12">
             <div className="max-w-4xl mx-auto">
               <div className="grid md:grid-cols-2 gap-8 items-center">
                 <div className="order-2 md:order-1">
@@ -118,7 +118,7 @@ export default function Profil() {
 
         {/* Misi Section */}
         <section className="py-16 md:py-20 bg-muted/30">
-          <div className="container mx-auto px-4">
+          <div className="w-full px-4 md:px-8 lg:px-12">
             <div className="max-w-4xl mx-auto">
               <div className="grid md:grid-cols-2 gap-8 items-center">
                 <div className="flex justify-center">
@@ -158,7 +158,7 @@ export default function Profil() {
 
         {/* Nilai-Nilai Section */}
         <section className="py-16 md:py-20 bg-background">
-          <div className="container mx-auto px-4">
+          <div className="w-full px-4 md:px-8 lg:px-12">
             <div className="text-center mb-12">
               <h2 className="text-3xl md:text-4xl font-bold text-primary mb-4">
                 Nilai-Nilai Kami
@@ -191,7 +191,7 @@ export default function Profil() {
           <>
             <WaveDivider variant="muted" />
             <section className="py-16 md:py-20 bg-muted/30">
-              <div className="container mx-auto px-4">
+              <div className="w-full px-4 md:px-8 lg:px-12">
                 <div className="text-center mb-12">
                   <h2 className="text-3xl md:text-4xl font-bold text-primary mb-4">
                     Informasi Lembaga
@@ -234,7 +234,7 @@ export default function Profil() {
           <>
             <WaveDivider variant="muted" />
             <section className="py-16 bg-muted/30">
-              <div className="container mx-auto px-4">
+              <div className="w-full px-4 md:px-8 lg:px-12">
                 <Card className="shadow-soft border-0 max-w-2xl mx-auto">
                   <CardContent className="p-12 text-center">
                     <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-primary/10 flex items-center justify-center">

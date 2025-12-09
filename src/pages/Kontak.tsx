@@ -68,7 +68,7 @@ export default function Kontak() {
             <div className="absolute bottom-10 left-10 w-60 h-60 bg-white rounded-full blur-3xl" />
           </div>
           
-          <div className="container mx-auto px-4 relative z-10">
+          <div className="w-full px-4 md:px-8 lg:px-12 relative z-10">
             <div className="text-center max-w-3xl mx-auto animate-fade-in">
               <div className="badge-primary bg-white/20 text-white mb-6 mx-auto">
                 <Phone className="h-4 w-4" />
@@ -89,7 +89,7 @@ export default function Kontak() {
 
         {/* Google Maps Section */}
         <section className="py-12 md:py-16 bg-background">
-          <div className="container mx-auto px-4">
+          <div className="w-full px-4 md:px-8 lg:px-12">
             <div className="text-center mb-8">
               <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-2">Lokasi Kami</h2>
               <p className="text-muted-foreground">Kunjungi kami di alamat berikut</p>
@@ -125,7 +125,7 @@ export default function Kontak() {
 
         {/* Contact Info Cards */}
         <section className="py-12 md:py-16 bg-muted/30">
-          <div className="container mx-auto px-4">
+          <div className="w-full px-4 md:px-8 lg:px-12">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
               {contactInfo.map((info, index) => (
                 <Card 
@@ -154,7 +154,7 @@ export default function Kontak() {
 
         {/* Contact Form & Operating Hours */}
         <section className="py-12 md:py-16 bg-background">
-          <div className="container mx-auto px-4">
+          <div className="w-full px-4 md:px-8 lg:px-12">
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
               {/* Contact Form */}
               <div className="lg:col-span-2">

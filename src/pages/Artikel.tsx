@@ -45,7 +45,7 @@ export default function Artikel() {
           {/* Hero Section */}
           <section className="relative bg-gradient-primary py-12 overflow-hidden">
             <div className="absolute inset-0 islamic-pattern opacity-10"></div>
-            <div className="container mx-auto px-4 relative z-10">
+            <div className="w-full px-4 md:px-8 lg:px-12 relative z-10">
               <button 
                 onClick={() => setSelectedArtikel(null)}
                 className="inline-flex items-center gap-2 text-white/80 hover:text-white transition-colors mb-4"
@@ -58,7 +58,7 @@ export default function Artikel() {
 
           {/* Content */}
           <section className="py-12 md:py-16 bg-background">
-            <div className="container mx-auto px-4">
+            <div className="w-full px-4 md:px-8 lg:px-12">
               <div className="max-w-7xl mx-auto">
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
                   {/* Sidebar */}
@@ -167,7 +167,7 @@ export default function Artikel() {
         {/* Hero Section */}
         <section className="relative bg-gradient-primary py-20 overflow-hidden">
           <div className="absolute inset-0 islamic-pattern opacity-10"></div>
-          <div className="container mx-auto px-4 relative z-10">
+          <div className="w-full px-4 md:px-8 lg:px-12 relative z-10">
             <div className="text-center text-white">
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 animate-fade-in">
                 Artikel
@@ -184,7 +184,7 @@ export default function Artikel() {
 
         {/* Content */}
         <section className="py-16 md:py-20 bg-background">
-          <div className="container mx-auto px-4">
+          <div className="w-full px-4 md:px-8 lg:px-12">
             {loading ? (
               <div className="text-center py-20">
                 <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>

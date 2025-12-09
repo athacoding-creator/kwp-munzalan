@@ -104,7 +104,7 @@ export default function Home() {
           {/* Hero Section */}
           <section className="relative bg-gradient-primary py-12 overflow-hidden">
             <div className="absolute inset-0 islamic-pattern opacity-10"></div>
-            <div className="container mx-auto px-4 relative z-10">
+            <div className="w-full px-4 md:px-8 lg:px-12 relative z-10">
               <button 
                 onClick={() => setSelectedArtikel(null)}
                 className="inline-flex items-center gap-2 text-white/80 hover:text-white transition-colors mb-4"
@@ -117,7 +117,7 @@ export default function Home() {
 
           {/* Content */}
           <section className="py-12 md:py-16 bg-background">
-            <div className="container mx-auto px-4">
+            <div className="w-full px-4 md:px-8 lg:px-12">
               <div className="max-w-7xl mx-auto">
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
                   {/* Sidebar */}
@@ -230,7 +230,7 @@ export default function Home() {
         <div className="absolute top-10 right-10 w-40 h-40 bg-primary/10 rounded-full blur-3xl" />
         <div className="absolute bottom-20 left-10 w-60 h-60 bg-accent/10 rounded-full blur-3xl" />
         
-        <div className="container mx-auto px-4 relative z-10">
+        <div className="w-full px-4 md:px-8 lg:px-12 relative z-10">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             {/* Left Content */}
             <div className="text-center lg:text-left animate-fade-in">
@@ -324,7 +324,7 @@ export default function Home() {
           <div className="absolute top-0 left-1/4 w-40 h-40 bg-white rounded-full blur-3xl" />
           <div className="absolute bottom-0 right-1/4 w-60 h-60 bg-white rounded-full blur-3xl" />
         </div>
-        <div className="container mx-auto px-4 text-center relative z-10">
+        <div className="w-full px-4 md:px-8 lg:px-12 text-center relative z-10">
           <h2 className="text-2xl md:text-3xl font-bold text-primary-foreground mb-2 animate-fade-in">
             Yuk, Jadi Bagian dari Gerakan Kebaikan Ini!
           </h2>
@@ -340,7 +340,7 @@ export default function Home() {
 
       {/* Programs Section */}
       <section className="py-20 bg-background">
-        <div className="container mx-auto px-4">
+        <div className="w-full px-4 md:px-8 lg:px-12">
           <div className="text-center mb-16 animate-fade-in">
             <div className="badge-primary mb-4 mx-auto">
               <BookOpen className="w-4 h-4" />
@@ -382,7 +382,7 @@ export default function Home() {
 
       {/* Facilities Section */}
       <section className="py-20 bg-muted/30">
-        <div className="container mx-auto px-4">
+        <div className="w-full px-4 md:px-8 lg:px-12">
           <div className="text-center mb-16 animate-fade-in">
             <div className="badge-accent mb-4 mx-auto">
               <HomeIcon className="w-4 h-4" />
@@ -436,7 +436,7 @@ export default function Home() {
 
       {/* Vision Mission Section */}
       <section className="py-20 bg-background">
-        <div className="container mx-auto px-4">
+        <div className="w-full px-4 md:px-8 lg:px-12">
           <div className="grid lg:grid-cols-2 gap-12 items-center max-w-6xl mx-auto">
             {/* Vision */}
             <Card className="border-0 shadow-elegant overflow-hidden animate-fade-in">
@@ -491,7 +491,7 @@ export default function Home() {
           <div className="absolute bottom-10 right-10 w-60 h-60 bg-white rounded-full blur-3xl" />
         </div>
         
-        <div className="container mx-auto px-4 relative z-10">
+        <div className="w-full px-4 md:px-8 lg:px-12 relative z-10">
           {/* Header */}
           <div className="mb-12 animate-fade-in">
             <div className="inline-block px-4 py-2 bg-white/20 text-white text-sm font-semibold rounded mb-6">
@@ -525,7 +525,7 @@ export default function Home() {
 
       {/* Artikel Terbaru */}
       <section className="py-20 bg-muted/30">
-        <div className="container mx-auto px-4">
+        <div className="w-full px-4 md:px-8 lg:px-12">
           <div className="text-center mb-16 animate-fade-in">
             <div className="badge-accent mb-4 mx-auto">
               <Sparkles className="w-4 h-4" />

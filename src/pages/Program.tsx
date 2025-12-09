@@ -68,7 +68,7 @@ export default function Program() {
         {/* Hero Section */}
         <section className="relative bg-gradient-primary py-20 overflow-hidden">
           <div className="absolute inset-0 islamic-pattern opacity-10"></div>
-          <div className="container mx-auto px-4 relative z-10">
+          <div className="w-full px-4 md:px-8 lg:px-12 relative z-10">
             <div className="text-center text-white">
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 animate-fade-in">
                 Program Kami
@@ -85,7 +85,7 @@ export default function Program() {
 
         {/* Program Unggulan Section */}
         <section className="py-16 md:py-20 bg-background">
-          <div className="container mx-auto px-4">
+          <div className="w-full px-4 md:px-8 lg:px-12">
             <div className="text-center mb-12">
               <h2 className="text-3xl md:text-4xl font-bold mb-4 text-foreground">
                 Program Unggulan
@@ -127,7 +127,7 @@ export default function Program() {
 
         {/* Kegiatan Terjadwal Section */}
         <section className="py-16 md:py-20 bg-muted/30">
-          <div className="container mx-auto px-4">
+          <div className="w-full px-4 md:px-8 lg:px-12">
             <div className="text-center mb-12">
               <h2 className="text-3xl md:text-4xl font-bold mb-4 text-foreground">
                 Kegiatan Terjadwal
