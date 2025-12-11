@@ -442,9 +442,9 @@ export default function Home() {
       {/* Vision Mission Section */}
       <section className="py-20 bg-background">
         <div className="w-full px-4 md:px-8 lg:px-12">
-          <div className="grid lg:grid-cols-2 gap-12 items-center max-w-6xl mx-auto">
+          <div className="grid lg:grid-cols-2 gap-8 items-stretch max-w-6xl mx-auto">
             {/* Vision */}
-            <Card className="border-0 shadow-elegant overflow-hidden animate-fade-in">
+            <Card className="border-0 shadow-elegant overflow-hidden animate-fade-in flex flex-col h-full">
               <div className="gradient-primary p-6">
                 <div className="flex items-center gap-3">
                   <div className="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center">
@@ -453,7 +453,7 @@ export default function Home() {
                   <h3 className="text-2xl font-bold text-white">VISI</h3>
                 </div>
               </div>
-              <CardContent className="p-6">
+              <CardContent className="p-6 flex-1 flex items-center">
                 <p className="text-muted-foreground leading-relaxed">
                   Menjadi lembaga sosial keummatan berbasis Masjid terbaik di Indonesia yang 
                   <span className="text-primary font-semibold"> amanah, profesional dan transparan </span>
@@ -463,7 +463,7 @@ export default function Home() {
             </Card>
 
             {/* Mission */}
-            <Card className="border-0 shadow-elegant overflow-hidden animate-fade-in delay-200">
+            <Card className="border-0 shadow-elegant overflow-hidden animate-fade-in delay-200 flex flex-col h-full">
               <div className="gradient-accent p-6">
                 <div className="flex items-center gap-3">
                   <div className="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center">
@@ -472,7 +472,7 @@ export default function Home() {
                   <h3 className="text-2xl font-bold text-white">MISI</h3>
                 </div>
               </div>
-              <CardContent className="p-6 space-y-4">
+              <CardContent className="p-6 space-y-4 flex-1 flex flex-col justify-center">
                 {[
                   "Menghadirkan semangat kebersamaan, kepedulian, kasih sayang untuk memuliakan, melayani, membahagiakan sahabat yatim, penghafal Al-Qur'an, mustahiq dan fii sabilillah.",
                   "Melaksanakan gerakan dakwah bil hal dengan mengkampanyekan seruan \"Jangan Bosan Jadi Orang Baik\".",
