@@ -227,11 +227,11 @@ export default function Home() {
         {/* Shader Background */}
         <ShaderBackground />
         {/* Background Pattern */}
-        <div className="absolute inset-0 islamic-pattern opacity-50" />
+        <div className="absolute inset-0 islamic-pattern opacity-20" style={{ zIndex: 1 }} />
         
         {/* Decorative circles */}
-        <div className="absolute top-10 right-10 w-40 h-40 bg-primary/10 rounded-full blur-3xl" />
-        <div className="absolute bottom-20 left-10 w-60 h-60 bg-accent/10 rounded-full blur-3xl" />
+        <div className="absolute top-10 right-10 w-40 h-40 bg-primary/10 rounded-full blur-3xl" style={{ zIndex: 1 }} />
+        <div className="absolute bottom-20 left-10 w-60 h-60 bg-accent/10 rounded-full blur-3xl" style={{ zIndex: 1 }} />
         
         <div className="w-full px-4 md:px-8 lg:px-12 relative z-10">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
