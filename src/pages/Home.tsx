@@ -111,7 +111,7 @@ export default function Home() {
 
         <div className="flex-1">
           {/* Hero Section */}
-          <section className="relative bg-gradient-primary py-12 overflow-hidden">
+          <section className="relative bg-gradient-to-r from-[#4a1d5f] via-[#7b2d8e] to-[#c2469d] py-12 overflow-hidden">
             <div className="absolute inset-0 islamic-pattern opacity-10"></div>
             <div className="w-full px-4 md:px-8 lg:px-12 relative z-10">
               <button onClick={() => setSelectedArtikel(null)} className="inline-flex items-center gap-2 text-white/80 hover:text-white transition-colors mb-4">
@@ -296,7 +296,7 @@ export default function Home() {
       </section>
 
       {/* CTA Banner */}
-      <section className="py-8 gradient-primary relative overflow-hidden">
+      <section className="py-8 bg-gradient-to-r from-[#4a1d5f] via-[#7b2d8e] to-[#c2469d] relative overflow-hidden">
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-0 left-1/4 w-40 h-40 bg-white rounded-full blur-3xl" />
           <div className="absolute bottom-0 right-1/4 w-60 h-60 bg-white rounded-full blur-3xl" />
@@ -444,7 +444,7 @@ export default function Home() {
       </section>
 
       {/* Why Wakaf Section */}
-      <section className="py-20 gradient-dark relative overflow-hidden">
+      <section className="py-20 bg-gradient-to-r from-[#4a1d5f] via-[#7b2d8e] to-[#c2469d] relative overflow-hidden">
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-10 left-10 w-40 h-40 bg-white rounded-full blur-3xl" />
           <div className="absolute bottom-10 right-10 w-60 h-60 bg-white rounded-full blur-3xl" />
