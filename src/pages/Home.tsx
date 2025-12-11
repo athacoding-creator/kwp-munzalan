@@ -240,7 +240,7 @@ export default function Home() {
             }}>
                 <span className="text-gradient">BAITUL WAQOF</span>
                 <br />
-                <span className="text-foreground">MUNZALAN</span>
+                <span className="text-gradient">MUNZALAN</span>
                 <br />
                 <span className="text-primary-light text-3xl md:text-4xl">INDONESIA</span>
               </h1>
