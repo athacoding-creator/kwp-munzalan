@@ -226,8 +226,10 @@ export default function Home() {
       <section className="relative min-h-[90vh] flex items-center overflow-hidden bg-gradient-to-br from-primary/5 via-background to-primary-light/5">
         {/* Shader Background */}
         <ShaderBackground />
+        {/* Dark overlay for better text contrast */}
+        <div className="absolute inset-0 bg-black/40" style={{ zIndex: 1 }} />
         {/* Background Pattern */}
-        <div className="absolute inset-0 islamic-pattern opacity-20" style={{ zIndex: 1 }} />
+        <div className="absolute inset-0 islamic-pattern opacity-20" style={{ zIndex: 2 }} />
         
         {/* Decorative circles */}
         <div className="absolute top-10 right-10 w-40 h-40 bg-primary/10 rounded-full blur-3xl" style={{ zIndex: 1 }} />
@@ -238,12 +240,12 @@ export default function Home() {
             {/* Left Content */}
             <div className="text-center lg:text-left animate-fade-in">
               
-              <div className="badge-primary mb-6">
+              <div className="badge-primary mb-6" style={{ textShadow: '1px 1px 4px rgba(0,0,0,0.8)' }}>
                 <Sparkles className="w-4 h-4" />
                 <span>Kawasan Wakaf Produktif</span>
               </div>
               
-              <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 leading-tight">
+              <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 leading-tight" style={{ textShadow: '2px 2px 8px rgba(0,0,0,0.8), 0 0 20px rgba(0,0,0,0.5)' }}>
                 <span className="text-gradient">BAITUL WAQOF</span>
                 <br />
                 <span className="text-foreground">MUNZALAN</span>
@@ -251,11 +253,11 @@ export default function Home() {
                 <span className="text-primary-light text-3xl md:text-4xl">INDONESIA</span>
               </h1>
               
-              <p className="text-xl md:text-2xl text-primary font-medium mb-4 italic">
+              <p className="text-xl md:text-2xl text-primary font-medium mb-4 italic" style={{ textShadow: '1px 1px 6px rgba(0,0,0,0.8), 0 0 15px rgba(0,0,0,0.6)' }}>
                 "Jembatan Amal Sholeh dari Orang Baik untuk Orang Baik"
               </p>
               
-              <p className="text-muted-foreground mb-8 max-w-xl mx-auto lg:mx-0">
+              <p className="text-muted-foreground mb-8 max-w-xl mx-auto lg:mx-0" style={{ textShadow: '1px 1px 4px rgba(0,0,0,0.9), 0 0 10px rgba(0,0,0,0.7)', color: 'rgba(255, 255, 255, 0.9)' }}>
                 Kawasan Wakaf Produktif (KWP) adalah sebuah area yang dikelola secara amanah dan profesional 
                 untuk menghadirkan manfaat berkelanjutan bagi masjid, jamaah, dan masyarakat.
               </p>
