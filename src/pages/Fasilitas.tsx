@@ -40,7 +40,7 @@ export default function Fasilitas() {
 
       <div className="flex-1">
         {/* Hero Section */}
-        <section className="relative bg-gradient-primary py-20 overflow-hidden">
+        <section className="relative bg-gradient-to-r from-[#4a1d5f] via-[#7b2d8e] to-[#c2469d] py-20 overflow-hidden">
           <div className="absolute inset-0 islamic-pattern opacity-10"></div>
           <div className="w-full px-4 md:px-8 lg:px-12 relative z-10">
             <div className="text-center text-white">

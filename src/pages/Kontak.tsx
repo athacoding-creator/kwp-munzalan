@@ -62,7 +62,7 @@ export default function Kontak() {
 
       <div className="flex-1">
         {/* Hero Section */}
-        <section className="relative py-20 md:py-28 gradient-primary overflow-hidden">
+        <section className="relative py-20 md:py-28 bg-gradient-to-r from-[#4a1d5f] via-[#7b2d8e] to-[#c2469d] overflow-hidden">
           <div className="absolute inset-0 opacity-10">
             <div className="absolute top-10 right-10 w-40 h-40 bg-white rounded-full blur-3xl" />
             <div className="absolute bottom-10 left-10 w-60 h-60 bg-white rounded-full blur-3xl" />
