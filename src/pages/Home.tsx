@@ -9,6 +9,7 @@ import { Footer } from "@/components/Footer";
 import { WaveDivider, WaveDividerSimple } from "@/components/WaveDivider";
 import { Input } from "@/components/ui/input";
 import { CircleImage } from "@/components/CircleImage";
+import ShaderBackground from "@/components/ui/shader-background";
 
 // Import images
 import hero1 from "@/assets/hero-1.jpg";
@@ -223,6 +224,8 @@ export default function Home() {
 
       {/* Hero Section - Matching Brochure Style */}
       <section className="relative min-h-[90vh] flex items-center overflow-hidden bg-gradient-to-br from-primary/5 via-background to-primary-light/5">
+        {/* Shader Background */}
+        <ShaderBackground />
         {/* Background Pattern */}
         <div className="absolute inset-0 islamic-pattern opacity-50" />
         
