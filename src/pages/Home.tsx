@@ -257,10 +257,19 @@ export default function Home() {
                 "Jembatan Amal Sholeh dari Orang Baik untuk Orang Baik"
               </p>
               
-              <p className="text-muted-foreground mb-8 max-w-xl mx-auto lg:mx-0" style={{ textShadow: '1px 1px 4px rgba(0,0,0,0.9), 0 0 10px rgba(0,0,0,0.7)', color: 'rgba(255, 255, 255, 0.9)' }}>
+              <p className="text-muted-foreground mb-4 max-w-xl mx-auto lg:mx-0" style={{ textShadow: '1px 1px 4px rgba(0,0,0,0.9), 0 0 10px rgba(0,0,0,0.7)', color: 'rgba(255, 255, 255, 0.9)' }}>
                 Kawasan Wakaf Produktif (KWP) adalah sebuah area yang dikelola secara amanah dan profesional 
                 untuk menghadirkan manfaat berkelanjutan bagi masjid, jamaah, dan masyarakat.
               </p>
+              
+              <div className="mb-8 p-4 bg-primary/20 backdrop-blur-sm rounded-lg border border-primary/30 max-w-xl mx-auto lg:mx-0">
+                <p className="text-sm text-white font-medium mb-2" style={{ textShadow: '1px 1px 4px rgba(0,0,0,0.8)' }}>
+                  🏠 Bagian dari Ekosistem Munzalan.id
+                </p>
+                <p className="text-xs text-white/80" style={{ textShadow: '1px 1px 4px rgba(0,0,0,0.8)' }}>
+                  Website ini merupakan bagian dari <a href="https://munzalan.id" target="_blank" rel="noopener noreferrer" className="underline hover:text-primary-light transition-colors">Munzalan.id</a> - Pusat Informasi Baitul Maal Munzalan Indonesia
+                </p>
+              </div>
               
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                 <Link to="/profil">

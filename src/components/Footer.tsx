@@ -19,9 +19,17 @@ export const Footer = () => {
                 <p className="text-sm text-background/70">Munzalan Indonesia</p>
               </div>
             </div>
-            <p className="text-background/70 mb-6 leading-relaxed text-sm">
+            <p className="text-background/70 mb-4 leading-relaxed text-sm">
               Jembatan Amal Sholeh dari Orang Baik untuk Orang Baik.
             </p>
+            <a 
+              href="https://munzalan.id" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="inline-block text-primary hover:text-primary/80 transition-colors text-sm font-medium mb-6"
+            >
+              🏠 Kunjungi Munzalan.id - Pusat Informasi
+            </a>
             <div className="flex space-x-3">
               <a href="#" className="w-10 h-10 rounded-full bg-background/10 hover:bg-primary flex items-center justify-center transition-colors">
                 <Instagram className="w-5 h-5" />
@@ -52,6 +60,16 @@ export const Footer = () => {
                   </Link>
                 </li>
               ))}
+              <li>
+                <a 
+                  href="https://munzalan.id" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-background/70 hover:text-primary transition-colors"
+                >
+                  Munzalan.id
+                </a>
+              </li>
             </ul>
           </div>
 

@@ -21,6 +21,10 @@ export const Navbar = () => {
     { to: "/kontak", label: "Kontak" },
   ];
 
+  const externalLinks = [
+    { href: "https://munzalan.id", label: "Munzalan.id" },
+  ];
+
   const aboutLinks = [
     { to: "/profil", label: "Profil" },
     { to: "/fasilitas", label: "Fasilitas" },
@@ -109,6 +113,16 @@ export const Navbar = () => {
               Kontak
             </Link>
 
+            {/* External Link to Munzalan.id */}
+            <a
+              href="https://munzalan.id"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-4 py-2 rounded-lg transition-smooth text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-primary/10"
+            >
+              Munzalan.id
+            </a>
+
             <Link to="/admin" className="ml-2">
               <Button variant="outline" size="sm" className="border-primary/30 text-primary hover:bg-primary hover:text-primary-foreground">
                 Admin
@@ -196,6 +210,17 @@ export const Navbar = () => {
             >
               Kontak
             </Link>
+
+            {/* Mobile External Link */}
+            <a
+              href="https://munzalan.id"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block px-4 py-3 rounded-lg transition-smooth text-muted-foreground hover:text-foreground hover:bg-muted"
+              onClick={() => setIsOpen(false)}
+            >
+              Munzalan.id
+            </a>
 
             <Link to="/admin" onClick={() => setIsOpen(false)}>
               <Button variant="outline" size="sm" className="w-full mt-2 border-primary/30 text-primary hover:bg-primary hover:text-primary-foreground">
