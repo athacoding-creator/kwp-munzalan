@@ -47,14 +47,14 @@ export const Navbar = () => {
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center space-x-1">
             {/* Beranda */}
-            <Link to="/" className={`px-4 py-2 rounded-lg transition-smooth text-sm font-medium ${isActive("/") ? "bg-primary text-primary-foreground shadow-elegant" : "text-muted-foreground hover:text-foreground hover:bg-primary/10"}`}>
+            <Link to="/" className={`px-4 py-2 rounded-lg transition-smooth text-sm font-medium ${isActive("/") ? "gradient-primary text-white shadow-elegant" : "text-muted-foreground hover:text-foreground hover:bg-primary/10"}`}>
               Beranda
             </Link>
 
             {/* About Us Dropdown */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <button className={`px-4 py-2 rounded-lg transition-smooth text-sm font-medium flex items-center gap-1 ${isAboutActive ? "bg-primary text-primary-foreground shadow-elegant" : "text-muted-foreground hover:text-foreground hover:bg-primary/10"}`}>
+                <button className={`px-4 py-2 rounded-lg transition-smooth text-sm font-medium flex items-center gap-1 ${isAboutActive ? "gradient-primary text-white shadow-elegant" : "text-muted-foreground hover:text-foreground hover:bg-primary/10"}`}>
                   About Us
                   <ChevronDown className="h-4 w-4" />
                 </button>
@@ -69,10 +69,10 @@ export const Navbar = () => {
             </DropdownMenu>
 
             {/* Artikel & Kontak */}
-            <Link to="/artikel" className={`px-4 py-2 rounded-lg transition-smooth text-sm font-medium ${isActive("/artikel") ? "bg-primary text-primary-foreground shadow-elegant" : "text-muted-foreground hover:text-foreground hover:bg-primary/10"}`}>
+            <Link to="/artikel" className={`px-4 py-2 rounded-lg transition-smooth text-sm font-medium ${isActive("/artikel") ? "gradient-primary text-white shadow-elegant" : "text-muted-foreground hover:text-foreground hover:bg-primary/10"}`}>
               Artikel
             </Link>
-            <Link to="/kontak" className={`px-4 py-2 rounded-lg transition-smooth text-sm font-medium ${isActive("/kontak") ? "bg-primary text-primary-foreground shadow-elegant" : "text-muted-foreground hover:text-foreground hover:bg-primary/10"}`}>
+            <Link to="/kontak" className={`px-4 py-2 rounded-lg transition-smooth text-sm font-medium ${isActive("/kontak") ? "gradient-primary text-white shadow-elegant" : "text-muted-foreground hover:text-foreground hover:bg-primary/10"}`}>
               Kontak
             </Link>
 

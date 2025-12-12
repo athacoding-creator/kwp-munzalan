@@ -47,7 +47,7 @@
     --primary-deepest: 300 60% 28%;
     
     /* Custom design tokens */
-    --gradient-primary: linear-gradient(135deg, hsl(300 45% 50%), hsl(300 40% 60%));
+    --gradient-primary: linear-gradient(135deg, #7A1F86, #8B1D8F, #000000);
     --gradient-accent: linear-gradient(135deg, hsl(300 40% 65%), hsl(300 35% 72%));
     --gradient-hero: linear-gradient(180deg, hsl(300 45% 50% / 0.08), hsl(300 40% 60% / 0));
     --gradient-dark: linear-gradient(135deg, hsl(300 60% 28%), hsl(300 50% 40%));
@@ -126,7 +126,13 @@
 
 @layer components {
   .gradient-primary {
-    background: var(--gradient-primary);
+    background: linear-gradient(135deg, #7A1F86, #8B1D8F, #000000);
+    box-shadow: 0 4px 12px rgba(122, 31, 134, 0.3);
+  }
+  
+  .gradient-primary:hover {
+    box-shadow: 0 6px 16px rgba(122, 31, 134, 0.4);
+    transform: scale(1.02);
   }
   
   .gradient-accent {
@@ -211,6 +217,12 @@
 
   /* Elegant magenta gradient background */
   .bg-gradient-primary {
-    background: linear-gradient(135deg, hsl(300 45% 50%), hsl(300 40% 60%));
+    background: linear-gradient(135deg, #7A1F86, #8B1D8F, #000000);
+    box-shadow: 0 4px 12px rgba(122, 31, 134, 0.3);
+  }
+  
+  .bg-gradient-primary:hover {
+    box-shadow: 0 6px 16px rgba(122, 31, 134, 0.4);
+    transform: scale(1.02);
   }
 }
