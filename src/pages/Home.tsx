@@ -270,7 +270,7 @@ export default function Home() {
                   </Button>
                 </Link>
                 <Link to="/kontak">
-                  <Button size="lg" variant="outline" className="w-full sm:w-auto border-2 border-white text-white hover:bg-white hover:text-primary shadow-lg hover:shadow-2xl transition-all duration-300 px-6">
+                  <Button size="lg" className="w-full sm:w-auto gradient-primary text-primary-foreground shadow-elegant hover:shadow-2xl hover:scale-105 transition-all duration-300">
                     Hubungi Kami
                   </Button>
                 </Link>
