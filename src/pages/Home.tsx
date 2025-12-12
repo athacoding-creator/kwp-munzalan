@@ -224,9 +224,9 @@ export default function Home() {
       }} />
         
         <div className="w-full px-4 md:px-8 lg:px-12 relative z-10">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
+          <div className="max-w-4xl mx-auto">
             {/* Left Content */}
-            <div className="text-center lg:text-left animate-fade-in px-4 lg:px-6">
+            <div className="text-center animate-fade-in px-4 lg:px-6">
               
               <div className="badge-primary mb-6" style={{
               textShadow: '1px 1px 4px rgba(0,0,0,0.8)'
@@ -261,7 +261,7 @@ export default function Home() {
               
               
               
-              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link to="/profil">
                   <Button size="lg" className="w-full sm:w-auto gradient-primary text-primary-foreground shadow-elegant hover:shadow-2xl hover:scale-105 transition-all duration-300">
                     <Sparkles className="mr-2 h-5 w-5" />
@@ -276,19 +276,7 @@ export default function Home() {
                 </Link>
               </div>
             </div>
-            
-            {/* Right Content - Circular Images */}
-            <div className="hidden lg:block relative animate-scale-in">
-              <div className="relative w-full h-[500px]">
-                {/* Main large circle */}
-                <CircleImage src={hero1} alt="Kegiatan KWP" size="xl" className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20" />
-                {/* Smaller circles around */}
-                <CircleImage src={hero2} alt="Kegiatan 2" size="lg" borderColor="accent" className="absolute top-0 left-0 z-10" />
-                <CircleImage src={hero3} alt="Kegiatan 3" size="md" className="absolute top-10 right-10 z-10" />
-                <CircleImage src={hero4} alt="Kegiatan 4" size="lg" borderColor="accent" className="absolute bottom-0 right-0 z-10" />
-                <CircleImage src={hero5} alt="Kegiatan 5" size="md" className="absolute bottom-10 left-10 z-10" />
-              </div>
-            </div>
+
           </div>
         </div>
         
