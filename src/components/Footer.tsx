@@ -7,7 +7,7 @@ export const Footer = () => {
   return (
     <footer className="bg-foreground text-background">
       <div className="w-full px-4 md:px-8 lg:px-12 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-20">
           {/* Brand */}
           <div>
             <div className="flex items-center space-x-3 mb-6">
@@ -19,7 +19,7 @@ export const Footer = () => {
                 <p className="text-sm text-background/70">Munzalan Indonesia</p>
               </div>
             </div>
-            <p className="text-background/70 mb-4 leading-loose text-sm">
+            <p className="text-background/70 mb-4 text-sm" style={{lineHeight: '1.8'}}>
               Jembatan Amal Sholeh dari Orang Baik untuk Orang Baik.
             </p>
             <a 
@@ -76,7 +76,7 @@ export const Footer = () => {
           {/* Programs */}
           <div>
             <h4 className="font-bold text-lg mb-6">Program</h4>
-            <ul className="space-y-3 text-background/70 text-sm leading-relaxed">
+            <ul className="space-y-3 text-background/70 text-sm" style={{lineHeight: '1.8'}}>
               <li>MMP (Mustahiq Mengaji Peduli)</li>
               <li>Tahsin Warga</li>
               <li>Kelas Iqro' Warga</li>

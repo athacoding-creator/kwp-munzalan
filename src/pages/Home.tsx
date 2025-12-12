@@ -226,7 +226,7 @@ export default function Home() {
         <div className="w-full px-4 md:px-8 lg:px-12 relative z-10">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             {/* Left Content */}
-            <div className="text-center lg:text-left animate-fade-in">
+            <div className="text-center lg:text-left animate-fade-in px-4 lg:px-6">
               
               <div className="badge-primary mb-6" style={{
               textShadow: '1px 1px 4px rgba(0,0,0,0.8)'
@@ -296,7 +296,7 @@ export default function Home() {
       </section>
 
       {/* CTA Banner */}
-      <section className="py-12 mb-8 bg-gradient-to-r from-[#4a1d5f] via-[#7b2d8e] to-[#c2469d] relative overflow-hidden">
+      <section className="py-12 mb-16 bg-gradient-to-r from-[#4a1d5f] via-[#7b2d8e] to-[#c2469d] relative overflow-hidden">
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-0 left-1/4 w-40 h-40 bg-white rounded-full blur-3xl" />
           <div className="absolute bottom-0 right-1/4 w-60 h-60 bg-white rounded-full blur-3xl" />
@@ -307,7 +307,7 @@ export default function Home() {
           </h2>
           <p className="text-primary-foreground/80 mb-4">Jangan bosan jadi orang baik</p>
           <Link to="/kontak">
-            <Button size="lg" className="shadow-elegant hover:scale-110 transition-all duration-300 px-8 py-6 text-lg bg-white text-primary hover:opacity-90">
+            <Button size="lg" className="shadow-elegant hover:scale-110 transition-all duration-300 px-10 py-7 text-xl font-semibold bg-white text-primary hover:opacity-90">
               Bergabung Sekarang
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
@@ -331,11 +331,11 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-10">
             {programs.map((program, index) => {
             const IconComponent = iconMap[program.icon_name] || Heart;
             const colorClass = colorClasses[index % colorClasses.length];
-            return <Card key={program.id} className="group card-hover border-0 shadow-lg hover:shadow-2xl bg-card animate-fade-in overflow-hidden transition-all duration-300 hover:-translate-y-1" style={{
+            return <Card key={program.id} className="group card-hover border-0 shadow-[0_2px_8px_rgba(0,0,0,0.08)] hover:shadow-[0_8px_24px_rgba(0,0,0,0.15)] bg-card animate-fade-in overflow-hidden transition-all duration-300 hover:-translate-y-2" style={{
               animationDelay: `${index * 100}ms`
             }}>
                   <CardContent className="p-6 text-center">
@@ -370,13 +370,13 @@ export default function Home() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {facilities.map((facility, index) => <Card key={facility.title} className="group card-hover border-0 shadow-lg hover:shadow-2xl overflow-hidden animate-fade-in transition-all duration-300 hover:-translate-y-2" style={{
+            {facilities.map((facility, index) => <Card key={facility.title} className="group card-hover border-0 shadow-[0_2px_8px_rgba(0,0,0,0.08)] hover:shadow-[0_8px_24px_rgba(0,0,0,0.15)] overflow-hidden animate-fade-in transition-all duration-300 hover:-translate-y-2 flex flex-col h-full" style={{
             animationDelay: `${index * 100}ms`
           }}>
-                <div className="aspect-square overflow-hidden">
-                  <img src={facility.image} alt={facility.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                <div className="aspect-square overflow-hidden flex-shrink-0">
+                  <img src={facility.image} alt={facility.title} className="w-full h-full object-cover group-hover:scale-102 transition-transform duration-500" />
                 </div>
-                <CardContent className="p-4 text-center">
+                <CardContent className="p-4 text-center flex-grow flex flex-col justify-center">
                   <div className="w-10 h-10 mx-auto -mt-9 mb-2 rounded-full gradient-primary flex items-center justify-center shadow-elegant relative z-10">
                     <facility.icon className="h-5 w-5 text-primary-foreground" />
                   </div>
@@ -414,7 +414,7 @@ export default function Home() {
                 </div>
               </div>
               <CardContent className="p-6 flex-1 flex items-center">
-                <p className="text-muted-foreground leading-relaxed">
+                <p className="leading-relaxed" style={{color: '#555'}}>
                   Menjadi lembaga sosial keummatan berbasis Masjid terbaik di Indonesia yang 
                   <span className="text-primary font-semibold"> amanah, profesional dan transparan </span>
                   berbasis ketaqwaan dan keberjama'ahan.
@@ -435,7 +435,7 @@ export default function Home() {
               <CardContent className="p-6 space-y-4 flex-1 flex flex-col justify-center">
                 {["Menghadirkan semangat kebersamaan, kepedulian, kasih sayang untuk memuliakan, melayani, membahagiakan sahabat yatim, penghafal Al-Qur'an, mustahiq dan fii sabilillah.", "Melaksanakan gerakan dakwah bil hal dengan mengkampanyekan seruan \"Jangan Bosan Jadi Orang Baik\".", "Membentuk, mendidik dan memberdayakan santri PASKAS sebagai jembatan amal sholeh."].map((misi, index) => <div key={index} className="flex gap-3">
                     <CheckCircle className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
-                    <p className="text-sm text-muted-foreground">{misi}</p>
+                    <p className="text-sm" style={{color: '#555'}}>{misi}</p>
                   </div>)}
               </CardContent>
             </Card>
@@ -456,14 +456,14 @@ export default function Home() {
             <div className="inline-block px-4 py-2 bg-white/20 text-white text-sm font-semibold rounded mb-6">
               KENAPA WAKAF
             </div>
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight max-w-2xl">
+            <h2 className="text-4xl md:text-5xl lg:text-7xl font-bold text-white leading-tight max-w-3xl" style={{textShadow: '2px 2px 8px rgba(0,0,0,0.5)'}}>
               Wakaf di Baitul Wakaf Munzalan, Kebaikan Berkelanjutan
             </h2>
           </div>
 
           {/* Cards */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-8">
-            {wakafReasons.map((reason, index) => <div key={index} className="relative p-6 pt-8 rounded-2xl bg-primary-dark/60 backdrop-blur-sm border-2 border-white/20 hover:bg-primary-dark/80 hover:border-white/40 transition-all duration-300 animate-fade-in shadow-lg hover:shadow-2xl" style={{
+            {wakafReasons.map((reason, index) => <div key={index} className="relative p-6 pt-8 rounded-2xl bg-primary-dark/60 backdrop-blur-sm border-2 border-white/30 hover:bg-primary-dark/80 hover:border-white/50 transition-all duration-300 animate-fade-in shadow-lg hover:shadow-2xl hover:-translate-y-1" style={{
             animationDelay: `${index * 100}ms`
           }}>
                 {/* Number Badge */}
@@ -496,7 +496,7 @@ export default function Home() {
 
           <div className="max-w-7xl mx-auto">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {pengumumanTerbaru.map((item, index) => <Card key={item.id} className="group bg-card border-0 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 rounded-xl overflow-hidden cursor-pointer animate-fade-in" style={{
+              {pengumumanTerbaru.map((item, index) => <Card key={item.id} className="group bg-card border-0 shadow-[0_2px_8px_rgba(0,0,0,0.08)] hover:shadow-[0_12px_32px_rgba(0,0,0,0.15)] transition-all duration-300 hover:-translate-y-3 rounded-xl overflow-hidden cursor-pointer animate-fade-in" style={{
               animationDelay: `${index * 100}ms`
             }} onClick={() => setSelectedArtikel(item)}>
                   {/* Image */}
