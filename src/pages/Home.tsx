@@ -134,69 +134,62 @@ const Home = () => {
   return <div className="min-h-screen flex flex-col bg-background">
       <Navbar />
 
-      {/* Hero Section - Split Screen Design */}
-      <section className="relative min-h-[90vh] flex items-center overflow-hidden">
-        {/* Left Side - Content with Gradient Background */}
-        <div className="w-full lg:w-1/2 min-h-[90vh] flex items-center bg-gradient-to-br from-[#7A1F86] via-[#8B1D8F] to-[#1a0a2e] relative">
-          {/* Subtle Pattern Overlay */}
-          <div className="absolute inset-0 islamic-pattern opacity-5" />
-          
-          <div className="container mx-auto px-6 md:px-12 py-16 relative z-10">
-            <div className="max-w-2xl animate-fade-in">
-              {/* Badge */}
-              <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full mb-6 border border-white/20">
-                <Sparkles className="w-4 h-4 text-white" />
-                <span className="text-white text-sm font-medium">Kawasan Wakaf Produktif</span>
-              </div>
-              
-              {/* Main Heading */}
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-white">
-                BAITUL WAQOF
-                <br />
-                <span className="text-purple-200">MUNZALAN</span>
-                <br />
-                <span className="text-3xl lg:text-4xl text-purple-100">INDONESIA</span>
-              </h1>
-              
-              {/* Tagline */}
-              <p className="text-xl md:text-2xl text-purple-100 font-medium mb-6 italic">
-                "Jembatan Amal Sholeh dari Orang Baik untuk Orang Baik"
-              </p>
-              
-              {/* Description */}
-              <p className="text-white/90 text-lg mb-8 leading-relaxed">
-                Kawasan Wakaf Produktif (KWP) adalah sebuah area yang dikelola secara amanah dan profesional 
-                untuk menghadirkan manfaat berkelanjutan bagi masjid, jamaah, dan masyarakat.
-              </p>
-              
-              {/* CTA Buttons */}
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Link to="/profil">
-                  <Button size="lg" className="w-full sm:w-auto bg-white text-primary hover:bg-white/90 shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 font-semibold">
-                    <Sparkles className="mr-2 h-5 w-5" />
-                    Jelajahi KWP
-                    <ArrowRight className="ml-2 h-5 w-5" />
-                  </Button>
-                </Link>
-                <Link to="/kontak">
-                  <Button size="lg" variant="outline" className="w-full sm:w-auto border-2 border-white text-white hover:bg-white hover:text-primary shadow-lg hover:shadow-2xl transition-all duration-300 font-semibold">
-                    Hubungi Kami
-                  </Button>
-                </Link>
-              </div>
+      {/* Hero Section - Minimalist Centered Design */}
+      <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden bg-gradient-to-br from-[#7A1F86] via-[#8B1D8F] to-[#1a0a2e]">
+        {/* Subtle Pattern Overlay */}
+        <div className="absolute inset-0 islamic-pattern opacity-8" />
+        
+        {/* Content - Centered */}
+        <div className="container mx-auto px-6 md:px-12 py-16 relative z-10">
+          <div className="max-w-4xl mx-auto text-center animate-fade-in">
+            {/* Badge */}
+            <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-5 py-2.5 rounded-full mb-8 border border-white/20">
+              <Sparkles className="w-4 h-4 text-white" />
+              <span className="text-white text-sm font-medium tracking-wide">Kawasan Wakaf Produktif</span>
+            </div>
+            
+            {/* Main Heading with Drop Shadow */}
+            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-6 leading-tight text-white" style={{
+              textShadow: '2px 2px 12px rgba(0,0,0,0.5), 0 0 30px rgba(0,0,0,0.3)'
+            }}>
+              BAITUL WAQOF
+              <br />
+              <span className="text-purple-200">MUNZALAN</span>
+              <br />
+              <span className="text-4xl lg:text-5xl text-purple-100">INDONESIA</span>
+            </h1>
+            
+            {/* Tagline with Drop Shadow */}
+            <p className="text-2xl md:text-3xl text-purple-100 font-medium mb-8 italic" style={{
+              textShadow: '1px 1px 8px rgba(0,0,0,0.5)'
+            }}>
+              "Jembatan Amal Sholeh dari Orang Baik untuk Orang Baik"
+            </p>
+            
+            {/* Description with Drop Shadow */}
+            <p className="text-white/95 text-lg md:text-xl mb-10 leading-relaxed max-w-3xl mx-auto" style={{
+              textShadow: '1px 1px 6px rgba(0,0,0,0.4)'
+            }}>
+              Kawasan Wakaf Produktif (KWP) adalah sebuah area yang dikelola secara amanah dan profesional 
+              untuk menghadirkan manfaat berkelanjutan bagi masjid, jamaah, dan masyarakat.
+            </p>
+            
+            {/* CTA Buttons */}
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link to="/profil">
+                <Button size="lg" className="w-full sm:w-auto bg-white text-primary hover:bg-white/90 shadow-2xl hover:shadow-3xl hover:scale-105 transition-all duration-300 font-semibold px-8 py-6 text-lg">
+                  <Sparkles className="mr-2 h-5 w-5" />
+                  Jelajahi KWP
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Button>
+              </Link>
+              <Link to="/kontak">
+                <Button size="lg" variant="outline" className="w-full sm:w-auto border-2 border-white text-white hover:bg-white hover:text-primary shadow-xl hover:shadow-2xl transition-all duration-300 font-semibold px-8 py-6 text-lg">
+                  Hubungi Kami
+                </Button>
+              </Link>
             </div>
           </div>
-        </div>
-
-        {/* Right Side - Hero Image */}
-        <div className="hidden lg:block lg:w-1/2 min-h-[90vh] relative overflow-hidden">
-          <img 
-            src={hero1} 
-            alt="KWP Munzalan" 
-            className="absolute inset-0 w-full h-full object-cover"
-          />
-          {/* Gradient Overlay untuk blend dengan left side */}
-          <div className="absolute inset-0 bg-gradient-to-r from-[#1a0a2e]/30 to-transparent" />
         </div>
       </section>
 
