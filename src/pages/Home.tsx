@@ -270,7 +270,7 @@ export default function Home() {
                   </Button>
                 </Link>
                 <Link to="/kontak">
-                  <Button size="lg" variant="outline" className="w-full sm:w-auto border-2 border-primary text-primary hover:bg-primary hover:text-primary-foreground">
+                  <Button size="lg" variant="outline" className="w-full sm:w-auto border-2 border-white text-white hover:bg-white hover:text-primary shadow-lg hover:shadow-2xl transition-all duration-300">
                     Hubungi Kami
                   </Button>
                 </Link>
@@ -296,7 +296,7 @@ export default function Home() {
       </section>
 
       {/* CTA Banner */}
-      <section className="py-8 bg-gradient-to-r from-[#4a1d5f] via-[#7b2d8e] to-[#c2469d] relative overflow-hidden">
+      <section className="py-12 mb-8 bg-gradient-to-r from-[#4a1d5f] via-[#7b2d8e] to-[#c2469d] relative overflow-hidden">
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-0 left-1/4 w-40 h-40 bg-white rounded-full blur-3xl" />
           <div className="absolute bottom-0 right-1/4 w-60 h-60 bg-white rounded-full blur-3xl" />
@@ -307,7 +307,7 @@ export default function Home() {
           </h2>
           <p className="text-primary-foreground/80 mb-4">Jangan bosan jadi orang baik</p>
           <Link to="/kontak">
-            <Button size="lg" variant="secondary" className="shadow-elegant hover:scale-105 transition-all duration-300">
+            <Button size="lg" variant="secondary" className="shadow-elegant hover:scale-110 transition-all duration-300 px-8 py-6 text-lg">
               Bergabung Sekarang
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
@@ -331,11 +331,11 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
             {programs.map((program, index) => {
             const IconComponent = iconMap[program.icon_name] || Heart;
             const colorClass = colorClasses[index % colorClasses.length];
-            return <Card key={program.id} className="group card-hover border-0 shadow-card bg-card animate-fade-in overflow-hidden" style={{
+            return <Card key={program.id} className="group card-hover border-0 shadow-lg hover:shadow-2xl bg-card animate-fade-in overflow-hidden transition-all duration-300 hover:-translate-y-1" style={{
               animationDelay: `${index * 100}ms`
             }}>
                   <CardContent className="p-6 text-center">
@@ -370,11 +370,11 @@ export default function Home() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {facilities.map((facility, index) => <Card key={facility.title} className="group card-hover border-0 shadow-card overflow-hidden animate-fade-in" style={{
+            {facilities.map((facility, index) => <Card key={facility.title} className="group card-hover border-0 shadow-lg hover:shadow-2xl overflow-hidden animate-fade-in transition-all duration-300 hover:-translate-y-2" style={{
             animationDelay: `${index * 100}ms`
           }}>
                 <div className="aspect-square overflow-hidden">
-                  <img src={facility.image} alt={facility.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                  <img src={facility.image} alt={facility.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                 </div>
                 <CardContent className="p-4 text-center">
                   <div className="w-10 h-10 mx-auto -mt-9 mb-2 rounded-full gradient-primary flex items-center justify-center shadow-elegant relative z-10">
@@ -456,14 +456,14 @@ export default function Home() {
             <div className="inline-block px-4 py-2 bg-white/20 text-white text-sm font-semibold rounded mb-6">
               KENAPA WAKAF
             </div>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight max-w-xl">
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight max-w-2xl">
               Wakaf di Baitul Wakaf Munzalan, Kebaikan Berkelanjutan
             </h2>
           </div>
 
           {/* Cards */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-8">
-            {wakafReasons.map((reason, index) => <div key={index} className="relative p-6 pt-8 rounded-2xl bg-primary-dark/60 backdrop-blur-sm border border-white/10 hover:bg-primary-dark/80 transition-all duration-300 animate-fade-in" style={{
+            {wakafReasons.map((reason, index) => <div key={index} className="relative p-6 pt-8 rounded-2xl bg-primary-dark/60 backdrop-blur-sm border-2 border-white/20 hover:bg-primary-dark/80 hover:border-white/40 transition-all duration-300 animate-fade-in shadow-lg hover:shadow-2xl" style={{
             animationDelay: `${index * 100}ms`
           }}>
                 {/* Number Badge */}
@@ -496,7 +496,7 @@ export default function Home() {
 
           <div className="max-w-7xl mx-auto">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {pengumumanTerbaru.map((item, index) => <Card key={item.id} className="group bg-card border-0 shadow-sm hover:shadow-elegant transition-all duration-300 hover:-translate-y-1 rounded-xl overflow-hidden cursor-pointer animate-fade-in" style={{
+              {pengumumanTerbaru.map((item, index) => <Card key={item.id} className="group bg-card border-0 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 rounded-xl overflow-hidden cursor-pointer animate-fade-in" style={{
               animationDelay: `${index * 100}ms`
             }} onClick={() => setSelectedArtikel(item)}>
                   {/* Image */}
