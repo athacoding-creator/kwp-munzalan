@@ -41,7 +41,7 @@ const iconMap: Record<string, any> = {
   Users,
   Moon
 };
-const colorClasses = ["bg-primary", "bg-primary-light", "bg-accent"];
+const colorClasses = ["gradient-primary", "gradient-primary", "gradient-primary"];
 
 // Facilities data matching the brochure
 const facilities = [{
@@ -270,7 +270,7 @@ export default function Home() {
                   </Button>
                 </Link>
                 <Link to="/kontak">
-                  <Button size="lg" variant="outline" className="w-full sm:w-auto border-2 border-white text-white hover:bg-white hover:text-primary shadow-lg hover:shadow-2xl transition-all duration-300">
+                  <Button size="lg" className="w-full sm:w-auto bg-white text-primary hover:opacity-90 shadow-lg hover:shadow-2xl transition-all duration-300">
                     Hubungi Kami
                   </Button>
                 </Link>
@@ -307,7 +307,7 @@ export default function Home() {
           </h2>
           <p className="text-primary-foreground/80 mb-4">Jangan bosan jadi orang baik</p>
           <Link to="/kontak">
-            <Button size="lg" variant="secondary" className="shadow-elegant hover:scale-110 transition-all duration-300 px-8 py-6 text-lg">
+            <Button size="lg" className="shadow-elegant hover:scale-110 transition-all duration-300 px-8 py-6 text-lg bg-white text-primary hover:opacity-90">
               Bergabung Sekarang
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
