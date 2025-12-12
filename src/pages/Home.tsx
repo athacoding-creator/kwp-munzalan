@@ -9,7 +9,7 @@ import { Footer } from "@/components/Footer";
 import { WaveDivider, WaveDividerSimple } from "@/components/WaveDivider";
 import { Input } from "@/components/ui/input";
 import { CircleImage } from "@/components/CircleImage";
-
+import ShaderBackground from "@/components/ui/shader-background";
 
 // Import images
 import hero1 from "@/assets/hero-1.jpg";
@@ -204,7 +204,8 @@ export default function Home() {
 
       {/* Hero Section - Matching Brochure Style */}
       <section className="relative min-h-[90vh] flex items-center overflow-hidden bg-gradient-to-br from-primary/5 via-background to-primary-light/5">
-
+        {/* Shader Background */}
+        <ShaderBackground />
         {/* Dark overlay for better text contrast */}
         <div className="absolute inset-0 bg-black/40" style={{
         zIndex: 1
@@ -223,9 +224,9 @@ export default function Home() {
       }} />
         
         <div className="w-full px-4 md:px-8 lg:px-12 relative z-10">
-          <div className="max-w-4xl mx-auto">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
             {/* Left Content */}
-            <div className="text-center animate-fade-in px-4 lg:px-6">
+            <div className="text-center lg:text-left animate-fade-in px-4 lg:px-6">
               
               <div className="badge-primary mb-6" style={{
               textShadow: '1px 1px 4px rgba(0,0,0,0.8)'
@@ -260,7 +261,7 @@ export default function Home() {
               
               
               
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                 <Link to="/profil">
                   <Button size="lg" className="w-full sm:w-auto gradient-primary text-primary-foreground shadow-elegant hover:shadow-2xl hover:scale-105 transition-all duration-300">
                     <Sparkles className="mr-2 h-5 w-5" />
@@ -269,13 +270,25 @@ export default function Home() {
                   </Button>
                 </Link>
                 <Link to="/kontak">
-                  <Button size="lg" className="w-full sm:w-auto gradient-primary text-primary-foreground shadow-elegant hover:shadow-2xl hover:scale-105 transition-all duration-300">
+                  <Button size="lg" variant="outline" className="w-full sm:w-auto border-2 border-white text-white hover:bg-white hover:text-primary shadow-lg hover:shadow-2xl transition-all duration-300 px-6">
                     Hubungi Kami
                   </Button>
                 </Link>
               </div>
             </div>
-
+            
+            {/* Right Content - Circular Images */}
+            <div className="hidden lg:block relative animate-scale-in">
+              <div className="relative w-full h-[500px]">
+                {/* Main large circle */}
+                <CircleImage src={hero1} alt="Kegiatan KWP" size="xl" className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20" />
+                {/* Smaller circles around */}
+                <CircleImage src={hero2} alt="Kegiatan 2" size="lg" borderColor="accent" className="absolute top-0 left-0 z-10" />
+                <CircleImage src={hero3} alt="Kegiatan 3" size="md" className="absolute top-10 right-10 z-10" />
+                <CircleImage src={hero4} alt="Kegiatan 4" size="lg" borderColor="accent" className="absolute bottom-0 right-0 z-10" />
+                <CircleImage src={hero5} alt="Kegiatan 5" size="md" className="absolute bottom-10 left-10 z-10" />
+              </div>
+            </div>
           </div>
         </div>
         
@@ -294,7 +307,7 @@ export default function Home() {
           </h2>
           <p className="text-primary-foreground/80 mb-4">Jangan bosan jadi orang baik</p>
           <Link to="/kontak">
-            <Button size="lg" className="shadow-elegant hover:scale-110 transition-all duration-300 px-10 py-7 text-xl font-semibold gradient-primary text-white hover:opacity-90">
+            <Button size="lg" className="shadow-elegant hover:scale-110 transition-all duration-300 px-10 py-7 text-xl font-semibold bg-white text-primary hover:opacity-90">
               Bergabung Sekarang
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
