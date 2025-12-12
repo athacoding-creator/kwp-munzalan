@@ -48,11 +48,11 @@
     
     /* Custom design tokens */
     --gradient-primary: linear-gradient(135deg, #7A1F86, #8B1D8F, #000000);
-    --gradient-accent: linear-gradient(135deg, hsl(300 40% 65%), hsl(300 35% 72%));
+    --gradient-accent: linear-gradient(135deg, #7A1F86, #8B1D8F, #000000);
     --gradient-hero: linear-gradient(180deg, hsl(300 45% 50% / 0.08), hsl(300 40% 60% / 0));
-    --gradient-dark: linear-gradient(135deg, hsl(300 60% 28%), hsl(300 50% 40%));
-    --gradient-dramatic: linear-gradient(135deg, hsl(300 65% 22%), hsl(300 55% 38%), hsl(300 45% 50%));
-    --gradient-royal: linear-gradient(180deg, hsl(300 60% 28%), hsl(300 50% 42%));
+    --gradient-dark: linear-gradient(135deg, #7A1F86, #8B1D8F, #000000);
+    --gradient-dramatic: linear-gradient(135deg, #7A1F86, #8B1D8F, #000000);
+    --gradient-royal: linear-gradient(135deg, #7A1F86, #8B1D8F, #000000);
     
     --shadow-elegant: 0 10px 40px -10px hsl(300 45% 50% / 0.3);
     --shadow-soft: 0 4px 20px -4px hsl(300 25% 25% / 0.12);
@@ -136,7 +136,13 @@
   }
   
   .gradient-accent {
-    background: var(--gradient-accent);
+    background: linear-gradient(135deg, #7A1F86, #8B1D8F, #000000);
+    box-shadow: 0 4px 12px rgba(122, 31, 134, 0.3);
+  }
+  
+  .gradient-accent:hover {
+    box-shadow: 0 6px 16px rgba(122, 31, 134, 0.4);
+    transform: scale(1.02);
   }
   
   .gradient-hero {
@@ -144,15 +150,33 @@
   }
   
   .gradient-dark {
-    background: var(--gradient-dark);
+    background: linear-gradient(135deg, #7A1F86, #8B1D8F, #000000);
+    box-shadow: 0 4px 12px rgba(122, 31, 134, 0.3);
+  }
+  
+  .gradient-dark:hover {
+    box-shadow: 0 6px 16px rgba(122, 31, 134, 0.4);
+    transform: scale(1.02);
   }
   
   .gradient-dramatic {
-    background: var(--gradient-dramatic);
+    background: linear-gradient(135deg, #7A1F86, #8B1D8F, #000000);
+    box-shadow: 0 4px 12px rgba(122, 31, 134, 0.3);
+  }
+  
+  .gradient-dramatic:hover {
+    box-shadow: 0 6px 16px rgba(122, 31, 134, 0.4);
+    transform: scale(1.02);
   }
   
   .gradient-royal {
-    background: var(--gradient-royal);
+    background: linear-gradient(135deg, #7A1F86, #8B1D8F, #000000);
+    box-shadow: 0 4px 12px rgba(122, 31, 134, 0.3);
+  }
+  
+  .gradient-royal:hover {
+    box-shadow: 0 6px 16px rgba(122, 31, 134, 0.4);
+    transform: scale(1.02);
   }
   
   .shadow-dramatic {
