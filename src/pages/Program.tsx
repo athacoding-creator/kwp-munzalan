@@ -104,7 +104,7 @@ export default function Program() {
                     className="group border-0 shadow-elegant overflow-hidden hover:shadow-2xl transition-all duration-500 hover:-translate-y-2"
                     style={{ animationDelay: `${index * 100}ms` }}
                   >
-                    <div className="bg-gradient-to-r from-primary to-primary-light p-6">
+                    <div className="gradient-primary p-6">
                       <div className="w-14 h-14 mb-4 rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center">
                         <IconComponent className="h-7 w-7 text-white" />
                       </div>
