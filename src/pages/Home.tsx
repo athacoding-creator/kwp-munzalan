@@ -228,9 +228,9 @@ export default function Home() {
                 "Jembatan Amal Sholeh dari Orang Baik untuk Orang Baik"
               </p>
               
-              {/* Description - Hidden on mobile, shown on md+ */}
-              <p className="hidden md:block text-gray-600 text-lg mb-8 leading-relaxed">
-                Kawasan Wakaf Produktif (KWP) adalah sebuah area yang dikelola secara amanah dan profesional 
+              {/* Description - Short version on mobile, full on desktop */}
+              <p className="text-xs sm:text-sm md:text-lg text-gray-600 mb-3 md:mb-8 leading-relaxed">
+                Kawasan Wakaf Produktif (KWP) adalah area yang dikelola secara amanah dan profesional 
                 untuk menghadirkan manfaat berkelanjutan bagi masjid, jamaah, dan masyarakat.
               </p>
               
@@ -253,9 +253,10 @@ export default function Home() {
 
             {/* Mobile: Image First (order-1), Desktop: Image Second (lg:order-2) */}
             <div className="order-1 lg:order-2 relative animate-scale-in">
-              <div className="relative w-full aspect-square max-w-[280px] sm:max-w-sm md:max-w-md lg:max-w-lg mx-auto">
-                {/* Main circular image with border */}
-                <div className="absolute inset-0 rounded-full border-4 md:border-8 border-primary/30 overflow-hidden shadow-2xl">
+              {/* Mobile: Rounded rectangle, Desktop: Circular */}
+              <div className="relative w-full max-w-[320px] sm:max-w-sm md:max-w-md lg:max-w-lg mx-auto">
+                {/* Mobile: aspect-video (16:9), Desktop: aspect-square */}
+                <div className="aspect-video lg:aspect-square rounded-2xl lg:rounded-full border-4 md:border-8 border-primary/30 overflow-hidden shadow-2xl">
                   <img 
                     src={hero1} 
                     alt="KWP Munzalan" 
