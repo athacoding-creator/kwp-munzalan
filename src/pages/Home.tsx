@@ -202,91 +202,70 @@ export default function Home() {
   return <div className="min-h-screen flex flex-col bg-background">
       <Navbar />
 
-      {/* Hero Section - Matching Brochure Style */}
-      <section className="relative min-h-[90vh] flex items-center overflow-hidden bg-gradient-to-br from-primary/5 via-background to-primary-light/5">
-        {/* Shader Background */}
-        <ShaderBackground />
-        {/* Dark overlay for better text contrast */}
-        <div className="absolute inset-0 bg-black/40" style={{
-        zIndex: 1
-      }} />
-        {/* Background Pattern */}
-        <div className="absolute inset-0 islamic-pattern opacity-20" style={{
-        zIndex: 2
-      }} />
-        
-        {/* Decorative circles */}
-        <div className="absolute top-10 right-10 w-40 h-40 bg-primary/10 rounded-full blur-3xl" style={{
-        zIndex: 1
-      }} />
-        <div className="absolute bottom-20 left-10 w-60 h-60 bg-accent/10 rounded-full blur-3xl" style={{
-        zIndex: 1
-      }} />
-        
-        <div className="w-full px-4 md:px-8 lg:px-12 relative z-10">
+      {/* Hero Section - Split with Circular Image */}
+      <section className="relative min-h-[90vh] flex items-center overflow-hidden bg-gradient-to-br from-purple-50 to-white">
+        <div className="container mx-auto px-6 md:px-12 py-16">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             {/* Left Content */}
-            <div className="text-center lg:text-left animate-fade-in px-4 lg:px-6">
-              
-              <div className="badge-primary mb-6" style={{
-              textShadow: '1px 1px 4px rgba(0,0,0,0.8)'
-            }}>
-                <Sparkles className="w-4 h-4" />
-                <span>Kawasan Wakaf Produktif</span>
+            <div className="animate-fade-in">
+              {/* Badge */}
+              <div className="inline-flex items-center gap-2 bg-primary/10 px-4 py-2 rounded-lg mb-6">
+                <Sparkles className="w-4 h-4 text-primary" />
+                <span className="text-primary text-sm font-medium tracking-wide uppercase">Kawasan Wakaf Produktif</span>
               </div>
               
-              <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 leading-tight" style={{
-              textShadow: '2px 2px 8px rgba(0,0,0,0.8), 0 0 20px rgba(0,0,0,0.5)'
-            }}>
-                <span className="text-gradient">BAITUL WAQOF</span>
+              {/* Main Heading */}
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-gray-900">
+                BAITUL WAQOF
                 <br />
-                <span className="text-gradient">MUNZALAN</span>
+                <span className="text-primary">MUNZALAN</span>
                 <br />
-                <span className="text-primary-light text-3xl md:text-4xl">INDONESIA</span>
+                <span className="text-3xl lg:text-4xl text-gray-700">INDONESIA</span>
               </h1>
               
-              <p className="text-xl md:text-2xl text-primary font-medium mb-4 italic" style={{
-              textShadow: '1px 1px 6px rgba(0,0,0,0.8), 0 0 15px rgba(0,0,0,0.6)'
-            }}>
+              {/* Tagline */}
+              <p className="text-xl md:text-2xl text-primary font-medium mb-6 italic">
                 "Jembatan Amal Sholeh dari Orang Baik untuk Orang Baik"
               </p>
               
-              <p className="text-muted-foreground mb-4 max-w-xl mx-auto lg:mx-0" style={{
-              textShadow: '1px 1px 4px rgba(0,0,0,0.9), 0 0 10px rgba(0,0,0,0.7)',
-              color: 'rgba(255, 255, 255, 0.9)'
-            }}>
+              {/* Description */}
+              <p className="text-gray-600 text-lg mb-8 leading-relaxed">
                 Kawasan Wakaf Produktif (KWP) adalah sebuah area yang dikelola secara amanah dan profesional 
                 untuk menghadirkan manfaat berkelanjutan bagi masjid, jamaah, dan masyarakat.
               </p>
               
-              
-              
-              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+              {/* CTA Buttons */}
+              <div className="flex flex-col sm:flex-row gap-4">
                 <Link to="/profil">
-                  <Button size="lg" className="w-full sm:w-auto gradient-primary text-primary-foreground shadow-elegant hover:shadow-2xl hover:scale-105 transition-all duration-300">
+                  <Button size="lg" className="w-full sm:w-auto gradient-primary text-white shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 font-semibold">
                     <Sparkles className="mr-2 h-5 w-5" />
                     Jelajahi KWP
                     <ArrowRight className="ml-2 h-5 w-5" />
                   </Button>
                 </Link>
                 <Link to="/kontak">
-                  <Button size="lg" variant="outline" className="w-full sm:w-auto border-2 border-white text-white hover:bg-white hover:text-primary shadow-lg hover:shadow-2xl transition-all duration-300 px-6">
+                  <Button size="lg" variant="outline" className="w-full sm:w-auto border-2 border-primary text-primary hover:bg-primary hover:text-white shadow-lg hover:shadow-xl transition-all duration-300 font-semibold">
                     Hubungi Kami
                   </Button>
                 </Link>
               </div>
             </div>
-            
-            {/* Right Content - Circular Images */}
-            <div className="hidden lg:block relative animate-scale-in">
-              <div className="relative w-full h-[500px]">
-                {/* Main large circle */}
-                <CircleImage src={hero1} alt="Kegiatan KWP" size="xl" className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20" />
-                {/* Smaller circles around */}
-                <CircleImage src={hero2} alt="Kegiatan 2" size="lg" borderColor="accent" className="absolute top-0 left-0 z-10" />
-                <CircleImage src={hero3} alt="Kegiatan 3" size="md" className="absolute top-10 right-10 z-10" />
-                <CircleImage src={hero4} alt="Kegiatan 4" size="lg" borderColor="accent" className="absolute bottom-0 right-0 z-10" />
-                <CircleImage src={hero5} alt="Kegiatan 5" size="md" className="absolute bottom-10 left-10 z-10" />
+
+            {/* Right Content - Circular Image */}
+            <div className="relative animate-scale-in">
+              <div className="relative w-full aspect-square max-w-lg mx-auto">
+                {/* Main circular image with border */}
+                <div className="absolute inset-0 rounded-full border-8 border-primary/30 overflow-hidden shadow-2xl">
+                  <img 
+                    src={hero1} 
+                    alt="KWP Munzalan" 
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                
+                {/* Decorative elements */}
+                <div className="absolute -bottom-4 -left-4 w-24 h-24 bg-primary/20 rounded-full blur-2xl" />
+                <div className="absolute -top-4 -right-4 w-32 h-32 bg-accent/20 rounded-full blur-2xl" />
               </div>
             </div>
           </div>
