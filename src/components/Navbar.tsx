@@ -94,13 +94,13 @@ export const Navbar = () => {
 
         {/* Mobile Navigation */}
         {isOpen && <div className="lg:hidden py-4 space-y-2 border-t border-border/50 animate-fade-in">
-            <Link to="/" onClick={() => setIsOpen(false)} className={`block px-4 py-3 rounded-lg transition-smooth ${isActive("/") ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground hover:bg-muted"}`}>
+            <Link to="/" onClick={() => setIsOpen(false)} className={`block px-4 py-3 rounded-lg transition-smooth ${isActive("/") ? "gradient-primary text-white shadow-lg" : "text-muted-foreground hover:text-foreground hover:bg-muted"}`}>
               Beranda
             </Link>
 
             {/* Mobile About Us Accordion */}
             <div>
-              <button onClick={() => setAboutOpen(!aboutOpen)} className={`w-full flex items-center justify-between px-4 py-3 rounded-lg transition-smooth ${isAboutActive ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground hover:bg-muted"}`}>
+              <button onClick={() => setAboutOpen(!aboutOpen)} className={`w-full flex items-center justify-between px-4 py-3 rounded-lg transition-smooth ${isAboutActive ? "gradient-primary text-white shadow-lg" : "text-muted-foreground hover:text-foreground hover:bg-muted"}`}>
                 About Us
                 <ChevronDown className={`h-4 w-4 transition-transform ${aboutOpen ? "rotate-180" : ""}`} />
               </button>
@@ -111,10 +111,10 @@ export const Navbar = () => {
                 </div>}
             </div>
 
-            <Link to="/artikel" onClick={() => setIsOpen(false)} className={`block px-4 py-3 rounded-lg transition-smooth ${isActive("/artikel") ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground hover:bg-muted"}`}>
+            <Link to="/artikel" onClick={() => setIsOpen(false)} className={`block px-4 py-3 rounded-lg transition-smooth ${isActive("/artikel") ? "gradient-primary text-white shadow-lg" : "text-muted-foreground hover:text-foreground hover:bg-muted"}`}>
               Artikel
             </Link>
-            <Link to="/kontak" onClick={() => setIsOpen(false)} className={`block px-4 py-3 rounded-lg transition-smooth ${isActive("/kontak") ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground hover:bg-muted"}`}>
+            <Link to="/kontak" onClick={() => setIsOpen(false)} className={`block px-4 py-3 rounded-lg transition-smooth ${isActive("/kontak") ? "gradient-primary text-white shadow-lg" : "text-muted-foreground hover:text-foreground hover:bg-muted"}`}>
               Kontak
             </Link>
 

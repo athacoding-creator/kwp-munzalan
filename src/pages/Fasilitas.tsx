@@ -143,7 +143,7 @@ export default function Fasilitas() {
               </p>
               <a
                 href="/kontak"
-                className="inline-flex items-center gap-2 px-8 py-4 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-all duration-300 shadow-elegant hover:shadow-2xl"
+                className="inline-flex items-center gap-2 px-8 py-4 gradient-primary text-white rounded-lg font-semibold hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl"
               >
                 Hubungi Kami
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

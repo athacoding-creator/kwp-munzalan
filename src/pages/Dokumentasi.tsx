@@ -103,7 +103,7 @@ export default function Dokumentasi() {
                   variant={mediaFilter === "semua" ? "default" : "outline"}
                   className={`cursor-pointer px-6 py-2.5 transition-all duration-300 hover:scale-105 ${
                     mediaFilter === "semua" 
-                      ? "bg-gradient-to-r from-primary to-primary-light text-white shadow-elegant" 
+                      ? "gradient-primary text-white shadow-lg" 
                       : "hover:bg-primary/10 hover:border-primary/50"
                   }`}
                   onClick={() => setMediaFilter("semua")}
@@ -115,7 +115,7 @@ export default function Dokumentasi() {
                   variant={mediaFilter === "foto" ? "default" : "outline"}
                   className={`cursor-pointer px-6 py-2.5 transition-all duration-300 hover:scale-105 ${
                     mediaFilter === "foto" 
-                      ? "bg-gradient-to-r from-primary to-primary-light text-white shadow-elegant" 
+                      ? "gradient-primary text-white shadow-lg" 
                       : "hover:bg-primary/10 hover:border-primary/50"
                   }`}
                   onClick={() => setMediaFilter("foto")}
@@ -127,7 +127,7 @@ export default function Dokumentasi() {
                   variant={mediaFilter === "video" ? "default" : "outline"}
                   className={`cursor-pointer px-6 py-2.5 transition-all duration-300 hover:scale-105 ${
                     mediaFilter === "video" 
-                      ? "bg-gradient-to-r from-primary to-primary-light text-white shadow-elegant" 
+                      ? "gradient-primary text-white shadow-lg" 
                       : "hover:bg-primary/10 hover:border-primary/50"
                   }`}
                   onClick={() => setMediaFilter("video")}
@@ -147,7 +147,7 @@ export default function Dokumentasi() {
                     variant={kegiatanFilter === "semua" ? "default" : "outline"}
                     className={`cursor-pointer px-6 py-2.5 transition-all duration-300 hover:scale-105 ${
                       kegiatanFilter === "semua" 
-                        ? "bg-gradient-to-r from-accent to-primary-light text-white shadow-elegant" 
+                        ? "gradient-primary text-white shadow-lg" 
                         : "hover:bg-accent/10 hover:border-accent/50"
                     }`}
                     onClick={() => setKegiatanFilter("semua")}
@@ -160,7 +160,7 @@ export default function Dokumentasi() {
                       variant={kegiatanFilter === k.id ? "default" : "outline"}
                       className={`cursor-pointer px-6 py-2.5 transition-all duration-300 hover:scale-105 ${
                         kegiatanFilter === k.id 
-                          ? "bg-gradient-to-r from-accent to-primary-light text-white shadow-elegant" 
+                          ? "gradient-primary text-white shadow-lg" 
                           : "hover:bg-accent/10 hover:border-accent/50"
                       }`}
                       onClick={() => setKegiatanFilter(k.id)}
