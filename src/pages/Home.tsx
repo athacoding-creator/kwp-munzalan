@@ -203,28 +203,28 @@ export default function Home() {
       <Navbar />
 
       {/* Hero Section - Split with Circular Image */}
-      <section className="relative min-h-[90vh] flex items-center overflow-hidden bg-gradient-to-br from-purple-50 to-white">
-        <div className="container mx-auto px-6 md:px-12 py-16">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
+      <section className="relative min-h-screen md:min-h-[90vh] flex items-center overflow-hidden bg-gradient-to-br from-purple-50 to-white">
+        <div className="container mx-auto px-4 md:px-6 lg:px-12 py-8 md:py-16">
+          <div className="grid lg:grid-cols-2 gap-6 md:gap-12 items-center">
             {/* Mobile: Image First (order-1), Desktop: Content First (lg:order-1) */}
             <div className="order-2 lg:order-1 animate-fade-in">
               {/* Badge */}
-              <div className="inline-flex items-center gap-2 bg-primary/10 px-3 py-1.5 rounded-lg mb-4">
+              <div className="inline-flex items-center gap-1.5 bg-primary/10 px-2.5 py-1 rounded-lg mb-3">
                 <Sparkles className="w-3 h-3 md:w-4 md:h-4 text-primary" />
-                <span className="text-primary text-xs md:text-sm font-medium tracking-wide uppercase">Kawasan Wakaf Produktif</span>
+                <span className="text-primary text-[10px] md:text-sm font-medium tracking-wide uppercase">Kawasan Wakaf Produktif</span>
               </div>
               
-              {/* Main Heading - Smaller on mobile */}
-              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 md:mb-6 leading-tight text-gray-900">
+              {/* Main Heading - Compact on mobile */}
+              <h1 className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-bold mb-2 md:mb-6 leading-tight text-gray-900">
                 BAITUL WAQOF
                 <br />
                 <span className="text-primary">MUNZALAN</span>
                 <br />
-                <span className="text-2xl sm:text-3xl lg:text-4xl text-gray-700">INDONESIA</span>
+                <span className="text-xl sm:text-2xl md:text-3xl lg:text-4xl text-gray-700">INDONESIA</span>
               </h1>
               
-              {/* Tagline - Smaller on mobile */}
-              <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-primary font-medium mb-4 md:mb-6 italic">
+              {/* Tagline - Compact on mobile */}
+              <p className="text-sm sm:text-base md:text-xl lg:text-2xl text-primary font-medium mb-3 md:mb-6 italic">
                 "Jembatan Amal Sholeh dari Orang Baik untuk Orang Baik"
               </p>
               
@@ -234,17 +234,17 @@ export default function Home() {
                 untuk menghadirkan manfaat berkelanjutan bagi masjid, jamaah, dan masyarakat.
               </p>
               
-              {/* CTA Buttons */}
-              <div className="flex flex-col sm:flex-row gap-3 md:gap-4">
+              {/* CTA Buttons - Compact on mobile */}
+              <div className="flex flex-col sm:flex-row gap-2 md:gap-4">
                 <Link to="/profil">
-                  <Button size="lg" className="w-full sm:w-auto gradient-primary text-white shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 font-semibold">
-                    <Sparkles className="mr-2 h-4 w-4 md:h-5 md:w-5" />
+                  <Button size="sm" className="w-full sm:w-auto md:text-base gradient-primary text-white shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 font-semibold">
+                    <Sparkles className="mr-1.5 h-3.5 w-3.5 md:h-5 md:w-5" />
                     Jelajahi KWP
-                    <ArrowRight className="ml-2 h-4 w-4 md:h-5 md:w-5" />
+                    <ArrowRight className="ml-1.5 h-3.5 w-3.5 md:h-5 md:w-5" />
                   </Button>
                 </Link>
                 <Link to="/kontak">
-                  <Button size="lg" className="w-full sm:w-auto gradient-primary text-white shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 font-semibold">
+                  <Button size="sm" className="w-full sm:w-auto md:text-base gradient-primary text-white shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 font-semibold">
                     Hubungi Kami
                   </Button>
                 </Link>
@@ -253,7 +253,7 @@ export default function Home() {
 
             {/* Mobile: Image First (order-1), Desktop: Image Second (lg:order-2) */}
             <div className="order-1 lg:order-2 relative animate-scale-in">
-              <div className="relative w-full aspect-square max-w-md lg:max-w-lg mx-auto">
+              <div className="relative w-full aspect-square max-w-[280px] sm:max-w-sm md:max-w-md lg:max-w-lg mx-auto">
                 {/* Main circular image with border */}
                 <div className="absolute inset-0 rounded-full border-4 md:border-8 border-primary/30 overflow-hidden shadow-2xl">
                   <img 
@@ -263,9 +263,9 @@ export default function Home() {
                   />
                 </div>
                 
-                {/* Decorative elements */}
-                <div className="absolute -bottom-4 -left-4 w-24 h-24 bg-primary/20 rounded-full blur-2xl" />
-                <div className="absolute -top-4 -right-4 w-32 h-32 bg-accent/20 rounded-full blur-2xl" />
+                {/* Decorative elements - smaller on mobile */}
+                <div className="absolute -bottom-2 -left-2 md:-bottom-4 md:-left-4 w-16 h-16 md:w-24 md:h-24 bg-primary/20 rounded-full blur-2xl" />
+                <div className="absolute -top-2 -right-2 md:-top-4 md:-right-4 w-20 h-20 md:w-32 md:h-32 bg-accent/20 rounded-full blur-2xl" />
               </div>
             </div>
           </div>
