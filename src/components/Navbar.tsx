@@ -122,12 +122,6 @@ export const Navbar = () => {
             <a href="https://munzalan.id" target="_blank" rel="noopener noreferrer" className="block px-4 py-3 rounded-lg transition-smooth text-muted-foreground hover:text-foreground hover:bg-muted" onClick={() => setIsOpen(false)}>
               Munzalan.id
             </a>
-
-            <Link to="/admin" onClick={() => setIsOpen(false)}>
-              <Button variant="outline" size="sm" className="w-full mt-2 border-primary/30 text-primary hover:bg-primary hover:text-primary-foreground">
-                Admin
-              </Button>
-            </Link>
           </div>}
       </div>
     </nav>;
