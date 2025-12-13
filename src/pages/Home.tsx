@@ -286,7 +286,7 @@ export default function Home() {
           </h2>
           <p className="text-primary-foreground/80 mb-4">Jangan bosan jadi orang baik</p>
           <Link to="/kontak">
-            <Button size="lg" className="shadow-elegant hover:scale-110 transition-all duration-300 px-10 py-7 text-xl font-semibold bg-white text-primary hover:opacity-90">
+            <Button size="lg" className="gradient-primary text-white shadow-elegant hover:scale-110 transition-all duration-300 px-10 py-7 text-xl font-semibold hover:opacity-90">
               Bergabung Sekarang
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
