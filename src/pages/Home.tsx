@@ -206,41 +206,41 @@ export default function Home() {
       <section className="relative min-h-[90vh] flex items-center overflow-hidden bg-gradient-to-br from-purple-50 to-white">
         <div className="container mx-auto px-6 md:px-12 py-16">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
-            {/* Left Content */}
-            <div className="animate-fade-in">
+            {/* Mobile: Image First (order-1), Desktop: Content First (lg:order-1) */}
+            <div className="order-2 lg:order-1 animate-fade-in">
               {/* Badge */}
-              <div className="inline-flex items-center gap-2 bg-primary/10 px-4 py-2 rounded-lg mb-6">
-                <Sparkles className="w-4 h-4 text-primary" />
-                <span className="text-primary text-sm font-medium tracking-wide uppercase">Kawasan Wakaf Produktif</span>
+              <div className="inline-flex items-center gap-2 bg-primary/10 px-3 py-1.5 rounded-lg mb-4">
+                <Sparkles className="w-3 h-3 md:w-4 md:h-4 text-primary" />
+                <span className="text-primary text-xs md:text-sm font-medium tracking-wide uppercase">Kawasan Wakaf Produktif</span>
               </div>
               
-              {/* Main Heading */}
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-gray-900">
+              {/* Main Heading - Smaller on mobile */}
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 md:mb-6 leading-tight text-gray-900">
                 BAITUL WAQOF
                 <br />
                 <span className="text-primary">MUNZALAN</span>
                 <br />
-                <span className="text-3xl lg:text-4xl text-gray-700">INDONESIA</span>
+                <span className="text-2xl sm:text-3xl lg:text-4xl text-gray-700">INDONESIA</span>
               </h1>
               
-              {/* Tagline */}
-              <p className="text-xl md:text-2xl text-primary font-medium mb-6 italic">
+              {/* Tagline - Smaller on mobile */}
+              <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-primary font-medium mb-4 md:mb-6 italic">
                 "Jembatan Amal Sholeh dari Orang Baik untuk Orang Baik"
               </p>
               
-              {/* Description */}
-              <p className="text-gray-600 text-lg mb-8 leading-relaxed">
+              {/* Description - Hidden on mobile, shown on md+ */}
+              <p className="hidden md:block text-gray-600 text-lg mb-8 leading-relaxed">
                 Kawasan Wakaf Produktif (KWP) adalah sebuah area yang dikelola secara amanah dan profesional 
                 untuk menghadirkan manfaat berkelanjutan bagi masjid, jamaah, dan masyarakat.
               </p>
               
               {/* CTA Buttons */}
-              <div className="flex flex-col sm:flex-row gap-4">
+              <div className="flex flex-col sm:flex-row gap-3 md:gap-4">
                 <Link to="/profil">
                   <Button size="lg" className="w-full sm:w-auto gradient-primary text-white shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 font-semibold">
-                    <Sparkles className="mr-2 h-5 w-5" />
+                    <Sparkles className="mr-2 h-4 w-4 md:h-5 md:w-5" />
                     Jelajahi KWP
-                    <ArrowRight className="ml-2 h-5 w-5" />
+                    <ArrowRight className="ml-2 h-4 w-4 md:h-5 md:w-5" />
                   </Button>
                 </Link>
                 <Link to="/kontak">
@@ -251,11 +251,11 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Right Content - Circular Image */}
-            <div className="relative animate-scale-in">
-              <div className="relative w-full aspect-square max-w-lg mx-auto">
+            {/* Mobile: Image First (order-1), Desktop: Image Second (lg:order-2) */}
+            <div className="order-1 lg:order-2 relative animate-scale-in">
+              <div className="relative w-full aspect-square max-w-md lg:max-w-lg mx-auto">
                 {/* Main circular image with border */}
-                <div className="absolute inset-0 rounded-full border-8 border-primary/30 overflow-hidden shadow-2xl">
+                <div className="absolute inset-0 rounded-full border-4 md:border-8 border-primary/30 overflow-hidden shadow-2xl">
                   <img 
                     src={hero1} 
                     alt="KWP Munzalan" 
