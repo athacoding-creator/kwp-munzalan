@@ -367,7 +367,7 @@ export default function Home() {
 
           <div className="text-center mt-12">
             <Link to="/fasilitas">
-              <Button variant="outline" className="border-2 border-primary text-primary hover:bg-primary hover:text-primary-foreground">
+              <Button className="gradient-primary text-white shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 font-semibold">
                 Lihat Semua Fasilitas
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
@@ -514,7 +514,7 @@ export default function Home() {
 
           <div className="text-center mt-12 animate-fade-in delay-500">
             <Link to="/artikel">
-              <Button size="lg" variant="outline" className="border-2 border-primary text-primary hover:bg-primary hover:text-primary-foreground">
+              <Button size="lg" className="gradient-primary text-white shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 font-semibold">
                 Lihat Semua Artikel
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>

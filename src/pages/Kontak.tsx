@@ -111,7 +111,7 @@ export default function Kontak() {
               <div className="absolute bottom-4 left-4 right-4 md:left-auto md:right-4 md:w-auto">
                 <Button
                   asChild
-                  className="w-full md:w-auto gradient-primary text-primary-foreground shadow-elegant gap-2"
+                  className="w-full md:w-auto gradient-primary text-white shadow-elegant gap-2 hover:shadow-xl hover:scale-105 transition-all duration-300 font-semibold"
                 >
                   <a href={googleMapsUrl} target="_blank" rel="noopener noreferrer">
                     <ExternalLink className="h-4 w-4" />
@@ -217,7 +217,7 @@ export default function Kontak() {
                       </div>
                       <Button 
                         type="submit" 
-                        className="w-full gradient-primary text-primary-foreground shadow-elegant gap-2"
+                        className="w-full gradient-primary text-white shadow-elegant gap-2 hover:shadow-xl hover:scale-105 transition-all duration-300 font-semibold"
                         disabled={isSubmitting}
                       >
                         {isSubmitting ? (
@@ -277,8 +277,7 @@ export default function Kontak() {
                     </p>
                     <Button
                       asChild
-                      variant="secondary"
-                      className="w-full"
+                      className="w-full gradient-primary text-white shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 font-semibold"
                     >
                       <a 
                         href="https://wa.me/628112999211" 

@@ -61,7 +61,7 @@ export const Navbar = () => {
               </DropdownMenuTrigger>
               <DropdownMenuContent align="center" className="w-48">
                 {aboutLinks.map(link => <DropdownMenuItem key={link.to} asChild>
-                    <Link to={link.to} className={`w-full cursor-pointer ${isActive(link.to) ? "bg-primary/10 text-primary font-medium" : ""}`}>
+                    <Link to={link.to} className={`w-full cursor-pointer ${isActive(link.to) ? "gradient-primary text-white font-medium" : ""}`}>
                       {link.label}
                     </Link>
                   </DropdownMenuItem>)}
