@@ -40,7 +40,6 @@ export default function Dashboard() {
   };
 
   const menuItems = [
-    { title: "Profil", icon: FileText, link: "/admin/profil", color: "from-primary to-primary-light", desc: "Kelola informasi profil pesantren" },
     { title: "Program Unggulan", icon: Heart, link: "/admin/program-unggulan", color: "from-accent to-primary", desc: "Kelola 8 program unggulan di homepage" },
     { title: "Fasilitas", icon: Image, link: "/admin/fasilitas", color: "from-primary-light to-accent", desc: "Kelola data fasilitas pesantren" },
     { title: "Jadwal Kegiatan", icon: Calendar, link: "/admin/program", color: "from-primary to-accent", desc: "Kelola jadwal kegiatan/program" },
