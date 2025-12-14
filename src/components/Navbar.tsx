@@ -23,9 +23,6 @@ export const Navbar = () => {
     label: "Munzalan.id"
   }];
   const aboutLinks = [{
-    to: "/profil",
-    label: "Profil"
-  }, {
     to: "/fasilitas",
     label: "Fasilitas"
   }, {
