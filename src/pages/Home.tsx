@@ -69,15 +69,18 @@ const facilities = [{
 // Why Wakaf reasons
 const wakafReasons = [{
   icon: Heart,
-  text: "Mendukung Gerakan Dakwah Kemasjidan"
+  text: "Wakaf Dikelola Secara Produktif"
 }, {
   icon: Sparkles,
+  text: "Mendukung Gerakan Dakwah Kemasjidan"
+}, {
+  icon: Target,
   text: "Dampak Berkelanjutan (Sadaqah Jariyah)"
 }, {
   icon: Users,
   text: "Menguatkan Ekosistem Peradaban"
 }, {
-  icon: Target,
+  icon: BookOpen,
   text: "Diniatkan untuk Menghidupkan Masjid & Umat"
 }];
 export default function Home() {
@@ -434,12 +437,12 @@ export default function Home() {
               KENAPA WAKAF
             </div>
             <h2 className="text-4xl md:text-5xl lg:text-7xl font-bold text-white leading-tight max-w-3xl" style={{textShadow: '2px 2px 8px rgba(0,0,0,0.5)'}}>
-              Wakaf di Baitul Wakaf Munzalan, Kebaikan Berkelanjutan
+              Kenapa Harus Wakaf di Baitul Wakaf Munzalan Indonesia?
             </h2>
           </div>
 
           {/* Cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 mt-8">
             {wakafReasons.map((reason, index) => <div key={index} className="relative p-6 pt-8 rounded-2xl bg-primary-dark/60 backdrop-blur-sm border-2 border-white/30 hover:bg-primary-dark/80 hover:border-white/50 transition-all duration-300 animate-fade-in shadow-lg hover:shadow-2xl hover:-translate-y-1" style={{
             animationDelay: `${index * 100}ms`
           }}>
