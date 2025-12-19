@@ -451,8 +451,7 @@ export default function Home() {
                   {String(index + 1).padStart(2, '0')}
                 </div>
                 
-                <h3 className="text-white font-bold text-lg mb-3">{reason.text.split(' ').slice(0, 3).join(' ')}</h3>
-                <p className="text-white/70 text-sm leading-relaxed">{reason.text}</p>
+                <h3 className="text-white font-bold text-base leading-snug">{reason.text}</h3>
               </div>)}
           </div>
         </div>
