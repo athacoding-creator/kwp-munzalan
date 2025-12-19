@@ -31,11 +31,11 @@ export default function Profil() {
   const visiMisi = {
     visi: "Menjadi lembaga sosial keummatan berbasis Masjid terbaik di Indonesia yang amanah, profesional dan transparan berbasis ketaqwaan dan keberjama'ahan.",
     misi: [
-      "Mengelola aset wakaf secara profesional, transparan, dan amanah",
-      "Mengembangkan program-program produktif yang berkelanjutan",
-      "Memberikan pendidikan Al-Qur'an berkualitas untuk semua kalangan",
-      "Membangun fasilitas yang mendukung kegiatan dakwah dan pendidikan",
-      "Memberdayakan masyarakat melalui program-program sosial dan ekonomi",
+      "Menghadirkan semangat kebersamaan, kepedulian, kasih sayang untuk memuliakan, melayani, membahagiakan sahabat yatim, penghafal Al-Qur'an, mustahiq dan fii sabilillah agar semakin dekat dengan Allah dan Rasul-Nya.",
+      "Melaksanakan gerakan dakwah bil hal dengan mengkampanyekan seruan \"Jangan Bosan Jadi Orang Baik\" dengan metode kreatif, inovatif dan edukatif.",
+      "Membentuk, mendidik dan memberdayakan santri PASKAS (Pasukan Amal Sholeh) sebagai jembatan amal sholeh yang mempertemukan orang baik dengan orang perlu.",
+      "Dengan terbentuknya santri PASKAS, BMI menjalankan fungsinya sebagai jembatan amal sholeh dan melakukan prinsip dasar dalam proses pendistribusian yaitu konsep \"Terima Kasih\" yaitu mengantarkan amanah terbaik dari orang baik untuk orang baik.",
+      "Bersama-sama berusaha, berdoa untuk terwujudnya kemandirian, kesejahteraan, kepedulian orang-orang baik (Muzakki, Munfiq, Wakif) dan penerima manfaat (sahabat yatim, penghafal Qur'an, mustahiq dan fii sabilillah) melalui program ZISWAF agar semakin dekat dan taat kepada Allah dan Rasul-Nya",
     ],
   };
 
