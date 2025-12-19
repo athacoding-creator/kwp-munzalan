@@ -29,7 +29,7 @@ export default function Profil() {
   };
 
   const visiMisi = {
-    visi: "Menjadi lembaga wakaf produktif yang unggul dalam pengelolaan aset wakaf untuk kesejahteraan umat dan pengembangan pendidikan Islam yang berkualitas.",
+    visi: "Menjadi lembaga sosial keummatan berbasis Masjid terbaik di Indonesia yang amanah, profesional dan transparan berbasis ketaqwaan dan keberjama'ahan.",
     misi: [
       "Mengelola aset wakaf secara profesional, transparan, dan amanah",
       "Mengembangkan program-program produktif yang berkelanjutan",

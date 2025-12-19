@@ -394,9 +394,7 @@ export default function Home() {
               </div>
               <CardContent className="p-6 flex-1 flex items-center">
                 <p className="leading-relaxed" style={{color: '#555'}}>
-                  Menjadi lembaga sosial keummatan berbasis Masjid terbaik di Indonesia yang 
-                  <span className="text-primary font-semibold"> amanah, profesional dan transparan </span>
-                  berbasis ketaqwaan dan keberjama'ahan.
+                  Menjadi lembaga sosial keummatan berbasis Masjid terbaik di Indonesia yang amanah, profesional dan transparan berbasis ketaqwaan dan keberjama'ahan.
                 </p>
               </CardContent>
             </Card>
