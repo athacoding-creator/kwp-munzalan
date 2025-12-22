@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
@@ -6,10 +6,9 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
 import { useToast } from "@/hooks/use-toast";
-import { ArrowLeft, Plus, Pencil, Trash2, Home, Heart, BookOpen, Users, Moon, GripVertical } from "lucide-react";
+import { ArrowLeft, Plus, Pencil, Trash2, Upload, X } from "lucide-react";
 import { logAdminActivity } from "@/lib/adminLogger";
 
 interface ProgramUnggulan {
@@ -17,22 +16,10 @@ interface ProgramUnggulan {
   nama: string;
   subtitle: string;
   deskripsi: string | null;
-  icon_name: string;
+  image_url: string | null;
   urutan: number;
   is_active: boolean;
 }
-
-const iconOptions = [
-  { value: "Heart", label: "Heart", icon: Heart },
-  { value: "BookOpen", label: "Book", icon: BookOpen },
-  { value: "Users", label: "Users", icon: Users },
-  { value: "Moon", label: "Moon", icon: Moon },
-];
-
-const getIconComponent = (iconName: string) => {
-  const found = iconOptions.find(opt => opt.value === iconName);
-  return found ? found.icon : Heart;
-};
 
 export default function ProgramUnggulanAdmin() {
   const navigate = useNavigate();
@@ -40,11 +27,14 @@ export default function ProgramUnggulanAdmin() {
   const [programs, setPrograms] = useState<ProgramUnggulan[]>([]);
   const [isEditing, setIsEditing] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
+  const [uploading, setUploading] = useState(false);
+  const [imageFile, setImageFile] = useState<File | null>(null);
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [formData, setFormData] = useState({
     nama: "",
     subtitle: "",
     deskripsi: "",
-    icon_name: "Heart",
+    image_url: "",
     urutan: 0,
     is_active: true,
   });
@@ -67,14 +57,62 @@ export default function ProgramUnggulanAdmin() {
     if (data) setPrograms(data);
   };
 
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setImageFile(file);
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImagePreview(reader.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const uploadImage = async (): Promise<string | null> => {
+    if (!imageFile) return formData.image_url || null;
+
+    setUploading(true);
+    try {
+      const fileExt = imageFile.name.split('.').pop();
+      const fileName = `${Math.random().toString(36).substring(2)}-${Date.now()}.${fileExt}`;
+      const filePath = `program-images/${fileName}`;
+
+      const { error: uploadError } = await supabase.storage
+        .from('public-images')
+        .upload(filePath, imageFile);
+
+      if (uploadError) throw uploadError;
+
+      const { data: { publicUrl } } = supabase.storage
+        .from('public-images')
+        .getPublicUrl(filePath);
+
+      return publicUrl;
+    } catch (error) {
+      console.error('Error uploading image:', error);
+      toast({
+        title: "Error",
+        description: "Gagal mengupload gambar",
+        variant: "destructive",
+      });
+      return null;
+    } finally {
+      setUploading(false);
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
+      const imageUrl = await uploadImage();
+      const submitData = { ...formData, image_url: imageUrl };
+
       if (editingId) {
         const oldData = programs.find(p => p.id === editingId);
         const { error } = await supabase
           .from("programs")
-          .update(formData)
+          .update(submitData)
           .eq("id", editingId);
         if (error) throw error;
         
@@ -83,7 +121,7 @@ export default function ProgramUnggulanAdmin() {
           tableName: "programs",
           recordId: editingId,
           oldData,
-          newData: formData,
+          newData: submitData,
           description: `Update program unggulan: ${formData.nama}`,
         });
         
@@ -91,50 +129,52 @@ export default function ProgramUnggulanAdmin() {
       } else {
         const { data, error } = await supabase
           .from("programs")
-          .insert([{ ...formData, urutan: programs.length + 1 }])
+          .insert([{ ...submitData, urutan: programs.length + 1 }])
           .select();
         if (error) throw error;
         
         await logAdminActivity({
           action: "CREATE",
           tableName: "programs",
-          recordId: data?.[0]?.id,
-          newData: formData,
-          description: `Tambah program unggulan baru: ${formData.nama}`,
+          recordId: data[0].id,
+          newData: submitData,
+          description: `Tambah program unggulan: ${formData.nama}`,
         });
         
         toast({ title: "Program berhasil ditambahkan!" });
       }
+      
       resetForm();
       fetchPrograms();
-    } catch (error: any) {
-      toast({ title: "Error", description: error.message, variant: "destructive" });
+    } catch (error) {
+      console.error('Error:', error);
+      toast({
+        title: "Error",
+        description: "Terjadi kesalahan saat menyimpan data",
+        variant: "destructive",
+      });
     }
   };
 
-  const resetForm = () => {
-    setFormData({ nama: "", subtitle: "", deskripsi: "", icon_name: "Heart", urutan: 0, is_active: true });
-    setIsEditing(false);
-    setEditingId(null);
-  };
-
-  const handleEdit = (item: ProgramUnggulan) => {
-    setFormData({
-      nama: item.nama,
-      subtitle: item.subtitle,
-      deskripsi: item.deskripsi || "",
-      icon_name: item.icon_name,
-      urutan: item.urutan,
-      is_active: item.is_active,
-    });
-    setEditingId(item.id);
+  const handleEdit = (program: ProgramUnggulan) => {
     setIsEditing(true);
+    setEditingId(program.id);
+    setFormData({
+      nama: program.nama,
+      subtitle: program.subtitle,
+      deskripsi: program.deskripsi || "",
+      image_url: program.image_url || "",
+      urutan: program.urutan,
+      is_active: program.is_active,
+    });
+    setImagePreview(program.image_url);
   };
 
   const handleDelete = async (id: string) => {
     if (!confirm("Yakin ingin menghapus program ini?")) return;
+    
     try {
-      const deletedItem = programs.find(p => p.id === id);
+      const program = programs.find(p => p.id === id);
       const { error } = await supabase.from("programs").delete().eq("id", id);
       if (error) throw error;
       
@@ -142,70 +182,62 @@ export default function ProgramUnggulanAdmin() {
         action: "DELETE",
         tableName: "programs",
         recordId: id,
-        oldData: deletedItem,
-        description: `Hapus program unggulan: ${deletedItem?.nama}`,
+        oldData: program,
+        description: `Hapus program unggulan: ${program?.nama}`,
       });
       
       toast({ title: "Program berhasil dihapus!" });
       fetchPrograms();
-    } catch (error: any) {
-      toast({ title: "Error", description: error.message, variant: "destructive" });
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Gagal menghapus program",
+        variant: "destructive",
+      });
     }
   };
 
-  const toggleActive = async (id: string, currentStatus: boolean) => {
-    try {
-      const { error } = await supabase
-        .from("programs")
-        .update({ is_active: !currentStatus })
-        .eq("id", id);
-      if (error) throw error;
-      
-      await logAdminActivity({
-        action: "UPDATE",
-        tableName: "programs",
-        recordId: id,
-        description: `Toggle status program: ${!currentStatus ? 'Aktif' : 'Nonaktif'}`,
-      });
-      
-      fetchPrograms();
-      toast({ title: `Program ${!currentStatus ? 'diaktifkan' : 'dinonaktifkan'}` });
-    } catch (error: any) {
-      toast({ title: "Error", description: error.message, variant: "destructive" });
-    }
+  const resetForm = () => {
+    setFormData({
+      nama: "",
+      subtitle: "",
+      deskripsi: "",
+      image_url: "",
+      urutan: 0,
+      is_active: true,
+    });
+    setIsEditing(false);
+    setEditingId(null);
+    setImageFile(null);
+    setImagePreview(null);
+  };
+
+  const removeImage = () => {
+    setImageFile(null);
+    setImagePreview(null);
+    setFormData({ ...formData, image_url: "" });
   };
 
   return (
-    <div className="min-h-screen bg-muted/30 overflow-x-hidden">
-      <nav className="bg-card border-b border-border shadow-soft sticky top-0 z-50">
-        <div className="w-full max-w-7xl mx-auto px-3 sm:px-4 py-3 sm:py-4">
-          <div className="flex items-center justify-between gap-2">
-            <div className="flex items-center gap-2 sm:gap-4 min-w-0 flex-1">
-              <Button variant="ghost" size="sm" onClick={() => navigate("/admin/dashboard")} className="h-8 sm:h-9 px-2 sm:px-3 flex-shrink-0">
-                <ArrowLeft className="h-3.5 w-3.5 sm:h-4 sm:w-4 sm:mr-2" />
-                <span className="hidden sm:inline">Kembali</span>
-              </Button>
-              <h1 className="text-base sm:text-lg md:text-2xl font-bold truncate">Kelola Program Unggulan</h1>
-            </div>
-            <Button variant="outline" size="sm" onClick={() => navigate("/")} className="h-8 sm:h-9 px-2 sm:px-3 flex-shrink-0">
-              <Home className="h-3.5 w-3.5 sm:h-4 sm:w-4 sm:mr-2" />
-              <span className="hidden sm:inline">Website</span>
-            </Button>
-          </div>
+    <div className="min-h-screen bg-gradient-to-br from-purple-50 to-pink-50 p-4 md:p-8">
+      <div className="max-w-7xl mx-auto">
+        <div className="mb-6 flex items-center gap-4">
+          <Button
+            variant="outline"
+            onClick={() => navigate("/admin/dashboard")}
+            className="gap-2"
+          >
+            <ArrowLeft className="w-4 h-4" />
+            Kembali
+          </Button>
+          <h1 className="text-3xl font-bold text-gray-900">Kelola Program Unggulan</h1>
         </div>
-      </nav>
 
-      <div className="w-full max-w-7xl mx-auto px-3 sm:px-4 py-4 sm:py-6 md:py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 md:gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Form */}
-          <Card className="shadow-soft border-0 h-fit">
-            <CardHeader className="pb-3 sm:pb-6">
-              <CardTitle className="text-base sm:text-lg flex items-center gap-2">
-                <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary to-primary-light flex items-center justify-center">
-                  <Plus className="h-4 w-4 text-white" />
-                </div>
-                {isEditing ? "Edit Program Unggulan" : "Tambah Program Unggulan"}
-              </CardTitle>
+          <Card>
+            <CardHeader>
+              <CardTitle>{isEditing ? "Edit Program" : "Tambah Program Baru"}</CardTitle>
             </CardHeader>
             <CardContent>
               <form onSubmit={handleSubmit} className="space-y-4">
@@ -215,65 +247,81 @@ export default function ProgramUnggulanAdmin() {
                     id="nama"
                     value={formData.nama}
                     onChange={(e) => setFormData({ ...formData, nama: e.target.value })}
-                    placeholder="Contoh: MMP, Tahsin Warga"
                     required
                   />
                 </div>
+
                 <div>
                   <Label htmlFor="subtitle">Subtitle</Label>
                   <Input
                     id="subtitle"
                     value={formData.subtitle}
                     onChange={(e) => setFormData({ ...formData, subtitle: e.target.value })}
-                    placeholder="Deskripsi singkat program"
                     required
                   />
                 </div>
+
                 <div>
-                  <Label htmlFor="icon_name">Icon</Label>
-                  <Select
-                    value={formData.icon_name}
-                    onValueChange={(value) => setFormData({ ...formData, icon_name: value })}
-                  >
-                    <SelectTrigger>
-                      <SelectValue placeholder="Pilih icon" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {iconOptions.map((opt) => (
-                        <SelectItem key={opt.value} value={opt.value}>
-                          <div className="flex items-center gap-2">
-                            <opt.icon className="h-4 w-4" />
-                            {opt.label}
-                          </div>
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-                <div>
-                  <Label htmlFor="deskripsi">Deskripsi (Opsional)</Label>
+                  <Label htmlFor="deskripsi">Deskripsi</Label>
                   <Textarea
                     id="deskripsi"
                     value={formData.deskripsi}
                     onChange={(e) => setFormData({ ...formData, deskripsi: e.target.value })}
-                    placeholder="Penjelasan lengkap tentang program"
-                    rows={4}
+                    rows={3}
                   />
                 </div>
-                <div className="flex items-center gap-2">
+
+                <div>
+                  <Label htmlFor="image">Gambar Program</Label>
+                  <div className="mt-2 space-y-4">
+                    {imagePreview && (
+                      <div className="relative">
+                        <img
+                          src={imagePreview}
+                          alt="Preview"
+                          className="w-full h-48 object-cover rounded-lg"
+                        />
+                        <Button
+                          type="button"
+                          variant="destructive"
+                          size="sm"
+                          className="absolute top-2 right-2"
+                          onClick={removeImage}
+                        >
+                          <X className="w-4 h-4" />
+                        </Button>
+                      </div>
+                    )}
+                    <div className="flex items-center gap-2">
+                      <Input
+                        id="image"
+                        type="file"
+                        accept="image/*"
+                        onChange={handleImageChange}
+                        className="flex-1"
+                      />
+                      <Upload className="w-5 h-5 text-gray-400" />
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex items-center justify-between">
+                  <Label htmlFor="is_active">Aktif</Label>
                   <Switch
+                    id="is_active"
                     checked={formData.is_active}
-                    onCheckedChange={(checked) => setFormData({ ...formData, is_active: checked })}
+                    onCheckedChange={(checked) =>
+                      setFormData({ ...formData, is_active: checked })
+                    }
                   />
-                  <Label>Tampilkan di website</Label>
                 </div>
-                <div className="flex flex-col sm:flex-row gap-2">
-                  <Button type="submit" className="gradient-primary text-primary-foreground w-full sm:w-auto">
-                    <Plus className="h-4 w-4 mr-2" />
-                    {isEditing ? "Update" : "Tambah"}
+
+                <div className="flex gap-2">
+                  <Button type="submit" className="flex-1" disabled={uploading}>
+                    {uploading ? "Mengupload..." : isEditing ? "Update" : "Tambah"}
                   </Button>
                   {isEditing && (
-                    <Button type="button" variant="outline" className="w-full sm:w-auto" onClick={resetForm}>
+                    <Button type="button" variant="outline" onClick={resetForm}>
                       Batal
                     </Button>
                   )}
@@ -283,64 +331,68 @@ export default function ProgramUnggulanAdmin() {
           </Card>
 
           {/* List */}
-          <div className="space-y-3 sm:space-y-4">
-            <h3 className="text-lg font-semibold text-foreground">Daftar Program Unggulan ({programs.length})</h3>
-            {programs.length === 0 ? (
-              <Card className="shadow-soft border-0">
-                <CardContent className="p-8 text-center">
-                  <div className="w-12 h-12 mx-auto mb-4 rounded-full bg-muted flex items-center justify-center">
-                    <Heart className="h-6 w-6 text-muted-foreground" />
-                  </div>
-                  <p className="text-muted-foreground">Belum ada program unggulan</p>
-                </CardContent>
-              </Card>
-            ) : (
-              programs.map((item) => {
-                const IconComponent = getIconComponent(item.icon_name);
-                return (
-                  <Card key={item.id} className={`shadow-soft border-0 overflow-hidden ${!item.is_active ? 'opacity-60' : ''}`}>
-                    <div className="h-1 bg-gradient-to-r from-primary to-accent" />
-                    <CardContent className="p-3 sm:p-4 md:p-6">
-                      <div className="flex items-start gap-3">
-                        <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary to-primary-light flex items-center justify-center flex-shrink-0">
-                          <IconComponent className="h-5 w-5 text-white" />
-                        </div>
-                        <div className="flex-1 min-w-0">
-                          <div className="flex items-center gap-2 mb-1">
-                            <h3 className="font-semibold text-base sm:text-lg text-foreground truncate">{item.nama}</h3>
-                            {!item.is_active && (
-                              <span className="text-xs px-2 py-0.5 rounded bg-muted text-muted-foreground">Nonaktif</span>
+          <div className="space-y-4">
+            <Card>
+              <CardHeader>
+                <CardTitle>Daftar Program ({programs.length})</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-3">
+                {programs.map((program) => (
+                  <Card key={program.id} className="overflow-hidden">
+                    <div className="flex gap-4 p-4">
+                      {program.image_url && (
+                        <img
+                          src={program.image_url}
+                          alt={program.nama}
+                          className="w-24 h-24 object-cover rounded-lg"
+                        />
+                      )}
+                      <div className="flex-1">
+                        <div className="flex items-start justify-between">
+                          <div>
+                            <h3 className="font-bold text-lg">{program.nama}</h3>
+                            <p className="text-sm text-gray-600">{program.subtitle}</p>
+                            {program.deskripsi && (
+                              <p className="text-sm text-gray-500 mt-1 line-clamp-2">
+                                {program.deskripsi}
+                              </p>
                             )}
+                            <div className="flex items-center gap-2 mt-2">
+                              <span className="text-xs text-gray-500">Urutan: {program.urutan}</span>
+                              <span
+                                className={`text-xs px-2 py-1 rounded ${
+                                  program.is_active
+                                    ? "bg-green-100 text-green-700"
+                                    : "bg-gray-100 text-gray-700"
+                                }`}
+                              >
+                                {program.is_active ? "Aktif" : "Nonaktif"}
+                              </span>
+                            </div>
                           </div>
-                          <p className="text-sm text-primary mb-1">{item.subtitle}</p>
-                          {item.deskripsi && (
-                            <p className="text-xs sm:text-sm text-muted-foreground line-clamp-2">{item.deskripsi}</p>
-                          )}
+                          <div className="flex gap-2">
+                            <Button
+                              size="sm"
+                              variant="outline"
+                              onClick={() => handleEdit(program)}
+                            >
+                              <Pencil className="w-4 h-4" />
+                            </Button>
+                            <Button
+                              size="sm"
+                              variant="destructive"
+                              onClick={() => handleDelete(program.id)}
+                            >
+                              <Trash2 className="w-4 h-4" />
+                            </Button>
+                          </div>
                         </div>
                       </div>
-                      <div className="flex flex-col sm:flex-row gap-2 mt-4">
-                        <Button size="sm" variant="outline" onClick={() => handleEdit(item)} className="w-full sm:w-auto">
-                          <Pencil className="h-3.5 w-3.5 sm:mr-2" />
-                          <span className="sm:inline">Edit</span>
-                        </Button>
-                        <Button 
-                          size="sm" 
-                          variant="outline" 
-                          onClick={() => toggleActive(item.id, item.is_active)}
-                          className="w-full sm:w-auto"
-                        >
-                          {item.is_active ? 'Nonaktifkan' : 'Aktifkan'}
-                        </Button>
-                        <Button size="sm" variant="destructive" onClick={() => handleDelete(item.id)} className="w-full sm:w-auto">
-                          <Trash2 className="h-3.5 w-3.5 sm:mr-2" />
-                          <span className="sm:inline">Hapus</span>
-                        </Button>
-                      </div>
-                    </CardContent>
+                    </div>
                   </Card>
-                );
-              })
-            )}
+                ))}
+              </CardContent>
+            </Card>
           </div>
         </div>
       </div>
