@@ -219,9 +219,9 @@ export default function Home() {
               
               {/* Main Heading - Compact on mobile */}
               <h1 className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-bold mb-2 md:mb-6 leading-tight text-gray-900">
-                BAITUL WAQOF
+                KAWASAN WAKAF
                 <br />
-                <span className="text-primary">MUNZALAN</span>
+                <span className="text-primary">PRODUKTIF</span>
                 <br />
                 <span className="text-xl sm:text-2xl md:text-3xl lg:text-4xl text-gray-700">INDONESIA</span>
               </h1>
