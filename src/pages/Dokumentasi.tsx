@@ -3,7 +3,7 @@ import { Badge } from "@/components/ui/badge";
 import { supabase } from "@/integrations/supabase/client";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
-import { Image as ImageIcon, Video, Layers, Camera } from "lucide-react";
+import { Image as ImageIcon, Layers, Camera } from "lucide-react";
 import { MasonryGallery } from "@/components/MasonryGallery";
 import { Skeleton } from "@/components/ui/skeleton";
 import { WaveDivider } from "@/components/WaveDivider";
@@ -27,7 +27,7 @@ interface KegiatanData {
 export default function Dokumentasi() {
   const [dokumentasi, setDokumentasi] = useState<DokumentasiData[]>([]);
   const [kegiatan, setKegiatan] = useState<KegiatanData[]>([]);
-  const [mediaFilter, setMediaFilter] = useState<"semua" | "foto" | "video">("semua");
+  const [mediaFilter, setMediaFilter] = useState<"semua" | "foto">("semua");
   const [kegiatanFilter, setKegiatanFilter] = useState<string>("semua");
   const [isLoading, setIsLoading] = useState(true);
 
@@ -123,18 +123,7 @@ export default function Dokumentasi() {
                   <ImageIcon className="h-4 w-4 mr-2" />
                   Foto
                 </Badge>
-                <Badge
-                  variant={mediaFilter === "video" ? "default" : "outline"}
-                  className={`cursor-pointer px-6 py-2.5 transition-all duration-300 hover:scale-105 ${
-                    mediaFilter === "video" 
-                      ? "gradient-primary text-white shadow-lg" 
-                      : "hover:bg-primary/10 hover:border-primary/50"
-                  }`}
-                  onClick={() => setMediaFilter("video")}
-                >
-                  <Video className="h-4 w-4 mr-2" />
-                  Video
-                </Badge>
+
               </div>
             </div>
 

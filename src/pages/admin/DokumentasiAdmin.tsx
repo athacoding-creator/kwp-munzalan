@@ -172,21 +172,7 @@ export default function DokumentasiAdmin() {
             </CardHeader>
             <CardContent>
               <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4">
-                <div>
-                  <Label htmlFor="jenis_media">Jenis Media</Label>
-                  <Select
-                    value={formData.jenis_media}
-                    onValueChange={(value) => setFormData({ ...formData, jenis_media: value })}
-                  >
-                    <SelectTrigger>
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="foto">Foto</SelectItem>
-                      <SelectItem value="video">Video</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
+                <input type="hidden" name="jenis_media" value="foto" />
                 <div>
                   <Label htmlFor="kegiatan_id">Kegiatan (Opsional)</Label>
                   <Select
