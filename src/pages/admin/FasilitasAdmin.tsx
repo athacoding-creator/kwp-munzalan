@@ -7,7 +7,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
-import { ArrowLeft, Plus, Pencil, Trash2, Home } from "lucide-react";
+import { ArrowLeft, Plus, Pencil, Trash2, Home, ArrowUp, ArrowDown } from "lucide-react";
 import { FileUpload } from "@/components/FileUpload";
 import { logAdminActivity } from "@/lib/adminLogger";
 
@@ -16,6 +16,7 @@ interface FasilitasData {
   nama: string;
   deskripsi: string;
   foto_url: string | null;
+  urutan: number;
 }
 
 export default function FasilitasAdmin() {
@@ -28,6 +29,7 @@ export default function FasilitasAdmin() {
     nama: "",
     deskripsi: "",
     foto_url: "",
+    urutan: 0,
   });
 
   useEffect(() => {
@@ -41,7 +43,10 @@ export default function FasilitasAdmin() {
   };
 
   const fetchFasilitas = async () => {
-    const { data } = await supabase.from("fasilitas").select("*");
+    const { data } = await supabase
+      .from("fasilitas")
+      .select("*")
+      .order("urutan", { ascending: true });
     if (data) setFasilitas(data);
   };
 
@@ -67,20 +72,22 @@ export default function FasilitasAdmin() {
         
         toast({ title: "Fasilitas berhasil diupdate!" });
       } else {
-        const { data, error } = await supabase.from("fasilitas").insert([formData]).select();
+        const nextUrutan = fasilitas.length > 0 ? Math.max(...fasilitas.map(f => f.urutan)) + 1 : 1;
+        const newData = { ...formData, urutan: nextUrutan };
+        const { data, error } = await supabase.from("fasilitas").insert([newData]).select();
         if (error) throw error;
         
         await logAdminActivity({
           action: "CREATE",
           tableName: "fasilitas",
           recordId: data?.[0]?.id,
-          newData: formData,
+          newData: newData,
           description: `Tambah fasilitas baru: ${formData.nama}`,
         });
         
         toast({ title: "Fasilitas berhasil ditambahkan!" });
       }
-      setFormData({ nama: "", deskripsi: "", foto_url: "" });
+      setFormData({ nama: "", deskripsi: "", foto_url: "", urutan: 0 });
       setIsEditing(false);
       setEditingId(null);
       fetchFasilitas();
@@ -94,6 +101,7 @@ export default function FasilitasAdmin() {
       nama: item.nama,
       deskripsi: item.deskripsi,
       foto_url: item.foto_url || "",
+      urutan: item.urutan,
     });
     setEditingId(item.id);
     setIsEditing(true);
@@ -115,6 +123,54 @@ export default function FasilitasAdmin() {
       });
       
       toast({ title: "Fasilitas berhasil dihapus!" });
+      fetchFasilitas();
+    } catch (error: any) {
+      toast({ title: "Error", description: error.message, variant: "destructive" });
+    }
+  };
+
+  const moveUp = async (index: number) => {
+    if (index === 0) return;
+    
+    const current = fasilitas[index];
+    const previous = fasilitas[index - 1];
+    
+    try {
+      await supabase
+        .from("fasilitas")
+        .update({ urutan: previous.urutan })
+        .eq("id", current.id);
+      
+      await supabase
+        .from("fasilitas")
+        .update({ urutan: current.urutan })
+        .eq("id", previous.id);
+      
+      toast({ title: "Urutan berhasil diubah!" });
+      fetchFasilitas();
+    } catch (error: any) {
+      toast({ title: "Error", description: error.message, variant: "destructive" });
+    }
+  };
+
+  const moveDown = async (index: number) => {
+    if (index === fasilitas.length - 1) return;
+    
+    const current = fasilitas[index];
+    const next = fasilitas[index + 1];
+    
+    try {
+      await supabase
+        .from("fasilitas")
+        .update({ urutan: next.urutan })
+        .eq("id", current.id);
+      
+      await supabase
+        .from("fasilitas")
+        .update({ urutan: current.urutan })
+        .eq("id", next.id);
+      
+      toast({ title: "Urutan berhasil diubah!" });
       fetchFasilitas();
     } catch (error: any) {
       toast({ title: "Error", description: error.message, variant: "destructive" });
@@ -168,6 +224,18 @@ export default function FasilitasAdmin() {
                     rows={6}
                   />
                 </div>
+                {isEditing && (
+                  <div>
+                    <Label htmlFor="urutan">Urutan</Label>
+                    <Input
+                      id="urutan"
+                      type="number"
+                      value={formData.urutan}
+                      onChange={(e) => setFormData({ ...formData, urutan: parseInt(e.target.value) || 0 })}
+                      min="0"
+                    />
+                  </div>
+                )}
                 <FileUpload
                   label="Foto Fasilitas (Opsional)"
                   currentUrl={formData.foto_url}
@@ -186,7 +254,7 @@ export default function FasilitasAdmin() {
                       onClick={() => {
                         setIsEditing(false);
                         setEditingId(null);
-                        setFormData({ nama: "", deskripsi: "", foto_url: "" });
+                        setFormData({ nama: "", deskripsi: "", foto_url: "", urutan: 0 });
                       }}
                     >
                       Batal
@@ -198,23 +266,53 @@ export default function FasilitasAdmin() {
           </Card>
 
           <div className="space-y-3 sm:space-y-4">
-            {fasilitas.map((item) => (
+            <div className="text-sm text-muted-foreground mb-2">
+              Gunakan tombol panah untuk mengatur urutan tampilan
+            </div>
+            {fasilitas.map((item, index) => (
               <Card key={item.id} className="shadow-soft border hover:shadow-elegant transition-smooth">
                 <CardContent className="p-3 sm:p-4 md:p-6">
-                  {item.foto_url && (
-                    <img src={item.foto_url} alt={item.nama} className="w-full object-contain rounded mb-3 sm:mb-4" />
-                  )}
-                  <h3 className="font-semibold text-base sm:text-lg mb-2">{item.nama}</h3>
-                  <p className="text-xs sm:text-sm text-muted-foreground mb-3 sm:mb-4 line-clamp-3">{item.deskripsi}</p>
-                  <div className="flex flex-col sm:flex-row gap-2">
-                    <Button size="sm" variant="outline" onClick={() => handleEdit(item)} className="w-full sm:w-auto">
-                      <Pencil className="h-3.5 w-3.5 sm:h-4 sm:w-4 sm:mr-2" />
-                      <span>Edit</span>
-                    </Button>
-                    <Button size="sm" variant="destructive" onClick={() => handleDelete(item.id)} className="w-full sm:w-auto">
-                      <Trash2 className="h-3.5 w-3.5 sm:h-4 sm:w-4 sm:mr-2" />
-                      <span>Hapus</span>
-                    </Button>
+                  <div className="flex gap-3">
+                    <div className="flex flex-col gap-1">
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        onClick={() => moveUp(index)}
+                        disabled={index === 0}
+                        className="h-8 w-8 p-0"
+                      >
+                        <ArrowUp className="h-4 w-4" />
+                      </Button>
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        onClick={() => moveDown(index)}
+                        disabled={index === fasilitas.length - 1}
+                        className="h-8 w-8 p-0"
+                      >
+                        <ArrowDown className="h-4 w-4" />
+                      </Button>
+                      <div className="text-xs text-center text-muted-foreground mt-1">
+                        #{item.urutan}
+                      </div>
+                    </div>
+                    <div className="flex-1">
+                      {item.foto_url && (
+                        <img src={item.foto_url} alt={item.nama} className="w-full object-contain rounded mb-3 sm:mb-4" />
+                      )}
+                      <h3 className="font-semibold text-base sm:text-lg mb-2">{item.nama}</h3>
+                      <p className="text-xs sm:text-sm text-muted-foreground mb-3 sm:mb-4 line-clamp-3">{item.deskripsi}</p>
+                      <div className="flex flex-col sm:flex-row gap-2">
+                        <Button size="sm" variant="outline" onClick={() => handleEdit(item)} className="w-full sm:w-auto">
+                          <Pencil className="h-3.5 w-3.5 sm:h-4 sm:w-4 sm:mr-2" />
+                          <span>Edit</span>
+                        </Button>
+                        <Button size="sm" variant="destructive" onClick={() => handleDelete(item.id)} className="w-full sm:w-auto">
+                          <Trash2 className="h-3.5 w-3.5 sm:h-4 sm:w-4 sm:mr-2" />
+                          <span>Hapus</span>
+                        </Button>
+                      </div>
+                    </div>
                   </div>
                 </CardContent>
               </Card>

@@ -29,7 +29,7 @@ export default function Fasilitas() {
   }, []);
 
   const fetchFasilitas = async () => {
-    const { data } = await supabase.from("fasilitas").select("*").order("created_at", { ascending: false });
+    const { data } = await supabase.from("fasilitas").select("*").order("urutan", { ascending: true });
     if (data) setFasilitas(data);
     setLoading(false);
   };
