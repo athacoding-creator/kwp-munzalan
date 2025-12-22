@@ -40,13 +40,8 @@ export const Navbar = () => {
   return <nav className="sticky top-0 z-50 bg-background/95 backdrop-blur-md border-b border-border/50 shadow-soft">
       <div className="w-full px-4 md:px-8 lg:px-12">
         <div className="flex justify-between items-center py-3">
-          <Link to="/" className="flex items-center gap-3 group">
-            <img src={logoKwp} alt="Logo KWP Munzalan" className="h-10 md:h-12 w-auto object-contain group-hover:scale-105 transition-transform" />
-            <div className="flex flex-col">
-              <span className="text-sm md:text-base font-bold text-primary leading-tight">MASJID KAPAL</span>
-              <span className="text-sm md:text-base font-bold text-primary leading-tight">MUNZALAN</span>
-              <span className="text-[10px] md:text-xs font-semibold text-white bg-primary px-2 py-0.5 rounded mt-0.5">YOGYAKARTA</span>
-            </div>
+          <Link to="/" className="flex items-center group">
+            <img src={logoKwp} alt="Logo KWP Munzalan" className="h-12 md:h-14 w-auto max-w-full object-contain group-hover:scale-105 transition-transform" />
           </Link>
 
           {/* Desktop Navigation */}
