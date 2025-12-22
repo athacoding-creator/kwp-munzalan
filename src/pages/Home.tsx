@@ -30,6 +30,7 @@ interface ProgramUnggulan {
   subtitle: string;
   deskripsi: string | null;
   icon_name: string;
+  image_url: string | null;
   urutan: number;
   is_active: boolean;
 }
