@@ -27,7 +27,7 @@ interface KegiatanData {
 export default function Dokumentasi() {
   const [dokumentasi, setDokumentasi] = useState<DokumentasiData[]>([]);
   const [kegiatan, setKegiatan] = useState<KegiatanData[]>([]);
-  const [mediaFilter, setMediaFilter] = useState<"semua" | "foto">("semua");
+
   const [kegiatanFilter, setKegiatanFilter] = useState<string>("semua");
   const [isLoading, setIsLoading] = useState(true);
 
@@ -59,9 +59,6 @@ export default function Dokumentasi() {
   };
 
   const filteredData = dokumentasi.filter((item) => {
-    if (mediaFilter !== "semua" && item.jenis_media !== mediaFilter) {
-      return false;
-    }
     if (kegiatanFilter !== "semua" && item.kegiatan_id !== kegiatanFilter) {
       return false;
     }
@@ -95,38 +92,6 @@ export default function Dokumentasi() {
       <section className="py-8 border-y border-border/50 bg-card/50 backdrop-blur-sm">
         <div className="w-full px-4 md:px-8 lg:px-12">
           <div className="space-y-6">
-            {/* Media Type Filter */}
-            <div>
-              <h3 className="text-sm font-semibold mb-3 text-foreground">Tipe Media</h3>
-              <div className="flex flex-wrap gap-3">
-                <Badge
-                  variant={mediaFilter === "semua" ? "default" : "outline"}
-                  className={`cursor-pointer px-6 py-2.5 transition-all duration-300 hover:scale-105 ${
-                    mediaFilter === "semua" 
-                      ? "gradient-primary text-white shadow-lg" 
-                      : "hover:bg-primary/10 hover:border-primary/50"
-                  }`}
-                  onClick={() => setMediaFilter("semua")}
-                >
-                  <Layers className="h-4 w-4 mr-2" />
-                  Semua
-                </Badge>
-                <Badge
-                  variant={mediaFilter === "foto" ? "default" : "outline"}
-                  className={`cursor-pointer px-6 py-2.5 transition-all duration-300 hover:scale-105 ${
-                    mediaFilter === "foto" 
-                      ? "gradient-primary text-white shadow-lg" 
-                      : "hover:bg-primary/10 hover:border-primary/50"
-                  }`}
-                  onClick={() => setMediaFilter("foto")}
-                >
-                  <ImageIcon className="h-4 w-4 mr-2" />
-                  Foto
-                </Badge>
-
-              </div>
-            </div>
-
             {/* Kegiatan Filter */}
             {kegiatan.length > 0 && (
               <div>
