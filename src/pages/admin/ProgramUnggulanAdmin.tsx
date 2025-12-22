@@ -8,7 +8,8 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Switch } from "@/components/ui/switch";
 import { useToast } from "@/hooks/use-toast";
-import { ArrowLeft, Plus, Pencil, Trash2, Upload, X } from "lucide-react";
+import { ArrowLeft, Plus, Pencil, Trash2 } from "lucide-react";
+import { FileUpload } from "@/components/FileUpload";
 import { logAdminActivity } from "@/lib/adminLogger";
 
 interface ProgramUnggulan {
@@ -27,9 +28,6 @@ export default function ProgramUnggulanAdmin() {
   const [programs, setPrograms] = useState<ProgramUnggulan[]>([]);
   const [isEditing, setIsEditing] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
-  const [uploading, setUploading] = useState(false);
-  const [imageFile, setImageFile] = useState<File | null>(null);
-  const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [formData, setFormData] = useState({
     nama: "",
     subtitle: "",
@@ -57,62 +55,14 @@ export default function ProgramUnggulanAdmin() {
     if (data) setPrograms(data);
   };
 
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      setImageFile(file);
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setImagePreview(reader.result as string);
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-
-  const uploadImage = async (): Promise<string | null> => {
-    if (!imageFile) return formData.image_url || null;
-
-    setUploading(true);
-    try {
-      const fileExt = imageFile.name.split('.').pop();
-      const fileName = `${Math.random().toString(36).substring(2)}-${Date.now()}.${fileExt}`;
-      const filePath = `program-images/${fileName}`;
-
-      const { error: uploadError } = await supabase.storage
-        .from('public-images')
-        .upload(filePath, imageFile);
-
-      if (uploadError) throw uploadError;
-
-      const { data: { publicUrl } } = supabase.storage
-        .from('public-images')
-        .getPublicUrl(filePath);
-
-      return publicUrl;
-    } catch (error) {
-      console.error('Error uploading image:', error);
-      toast({
-        title: "Error",
-        description: "Gagal mengupload gambar",
-        variant: "destructive",
-      });
-      return null;
-    } finally {
-      setUploading(false);
-    }
-  };
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const imageUrl = await uploadImage();
-      const submitData = { ...formData, image_url: imageUrl };
-
       if (editingId) {
         const oldData = programs.find(p => p.id === editingId);
         const { error } = await supabase
           .from("programs")
-          .update(submitData)
+          .update(formData)
           .eq("id", editingId);
         if (error) throw error;
         
@@ -121,7 +71,7 @@ export default function ProgramUnggulanAdmin() {
           tableName: "programs",
           recordId: editingId,
           oldData,
-          newData: submitData,
+          newData: formData,
           description: `Update program unggulan: ${formData.nama}`,
         });
         
@@ -129,7 +79,7 @@ export default function ProgramUnggulanAdmin() {
       } else {
         const { data, error } = await supabase
           .from("programs")
-          .insert([{ ...submitData, urutan: programs.length + 1 }])
+          .insert([{ ...formData, urutan: programs.length + 1 }])
           .select();
         if (error) throw error;
         
@@ -137,7 +87,7 @@ export default function ProgramUnggulanAdmin() {
           action: "CREATE",
           tableName: "programs",
           recordId: data[0].id,
-          newData: submitData,
+          newData: formData,
           description: `Tambah program unggulan: ${formData.nama}`,
         });
         
@@ -167,7 +117,6 @@ export default function ProgramUnggulanAdmin() {
       urutan: program.urutan,
       is_active: program.is_active,
     });
-    setImagePreview(program.image_url);
   };
 
   const handleDelete = async (id: string) => {
@@ -208,14 +157,6 @@ export default function ProgramUnggulanAdmin() {
     });
     setIsEditing(false);
     setEditingId(null);
-    setImageFile(null);
-    setImagePreview(null);
-  };
-
-  const removeImage = () => {
-    setImageFile(null);
-    setImagePreview(null);
-    setFormData({ ...formData, image_url: "" });
   };
 
   return (
@@ -271,39 +212,11 @@ export default function ProgramUnggulanAdmin() {
                   />
                 </div>
 
-                <div>
-                  <Label htmlFor="image">Gambar Program</Label>
-                  <div className="mt-2 space-y-4">
-                    {imagePreview && (
-                      <div className="relative">
-                        <img
-                          src={imagePreview}
-                          alt="Preview"
-                          className="w-full h-48 object-cover rounded-lg"
-                        />
-                        <Button
-                          type="button"
-                          variant="destructive"
-                          size="sm"
-                          className="absolute top-2 right-2"
-                          onClick={removeImage}
-                        >
-                          <X className="w-4 h-4" />
-                        </Button>
-                      </div>
-                    )}
-                    <div className="flex items-center gap-2">
-                      <Input
-                        id="image"
-                        type="file"
-                        accept="image/*"
-                        onChange={handleImageChange}
-                        className="flex-1"
-                      />
-                      <Upload className="w-5 h-5 text-gray-400" />
-                    </div>
-                  </div>
-                </div>
+                <FileUpload
+                  label="Gambar Program"
+                  currentUrl={formData.image_url}
+                  onUploadComplete={(url) => setFormData({ ...formData, image_url: url })}
+                />
 
                 <div className="flex items-center justify-between">
                   <Label htmlFor="is_active">Aktif</Label>
@@ -317,8 +230,8 @@ export default function ProgramUnggulanAdmin() {
                 </div>
 
                 <div className="flex gap-2">
-                  <Button type="submit" className="flex-1" disabled={uploading}>
-                    {uploading ? "Mengupload..." : isEditing ? "Update" : "Tambah"}
+                  <Button type="submit" className="flex-1">
+                    {isEditing ? "Update" : "Tambah"}
                   </Button>
                   {isEditing && (
                     <Button type="button" variant="outline" onClick={resetForm}>
