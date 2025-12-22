@@ -437,7 +437,7 @@ export default function Home() {
               KENAPA WAKAF
             </div>
             <h2 className="text-4xl md:text-5xl lg:text-7xl font-bold text-white leading-tight max-w-3xl" style={{textShadow: '2px 2px 8px rgba(0,0,0,0.5)'}}>
-              Kenapa Harus Wakaf di Baitul Wakaf Munzalan Indonesia?
+              Kenapa Harus Wakaf di Kawasan Wakaf Produktif Munzalan Yogyakarta?
             </h2>
           </div>
 

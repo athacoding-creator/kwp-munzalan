@@ -15,8 +15,8 @@ export const Footer = () => {
                 <span className="text-white font-bold text-xl">K</span>
               </div>
               <div>
-                <h3 className="font-bold text-lg">Baitul Waqof</h3>
-                <p className="text-sm text-background/70">Munzalan Indonesia</p>
+                <h3 className="font-bold text-lg">Kawasan Wakaf Produktif</h3>
+                <p className="text-sm text-background/70">Munzalan Yogyakarta</p>
               </div>
             </div>
             <p className="text-background/70 mb-4 text-sm" style={{lineHeight: '1.8'}}>
@@ -109,7 +109,7 @@ export const Footer = () => {
       <div className="border-t border-background/10">
         <div className="w-full px-4 md:px-8 lg:px-12 py-6">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-background/60 text-sm">&copy; {currentYear} Baitul Waqof Munzalan Indonesia.</p>
+            <p className="text-background/60 text-sm">&copy; {currentYear} Kawasan Wakaf Produktif Munzalan Yogyakarta.</p>
             <p className="text-background/60 text-sm flex items-center gap-1">
               Dibuat dengan <Heart className="w-4 h-4 text-red-500 fill-red-500" /> untuk Umat
             </p>
