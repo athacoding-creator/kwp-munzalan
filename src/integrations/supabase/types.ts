@@ -96,6 +96,7 @@ export type Database = {
           id: string
           nama: string
           updated_at: string
+          urutan: number | null
         }
         Insert: {
           created_at?: string
@@ -104,6 +105,7 @@ export type Database = {
           id?: string
           nama: string
           updated_at?: string
+          urutan?: number | null
         }
         Update: {
           created_at?: string
@@ -112,6 +114,7 @@ export type Database = {
           id?: string
           nama?: string
           updated_at?: string
+          urutan?: number | null
         }
         Relationships: []
       }
@@ -256,6 +259,7 @@ export type Database = {
           deskripsi: string | null
           icon_name: string
           id: string
+          image_url: string | null
           is_active: boolean
           nama: string
           subtitle: string
@@ -267,6 +271,7 @@ export type Database = {
           deskripsi?: string | null
           icon_name?: string
           id?: string
+          image_url?: string | null
           is_active?: boolean
           nama: string
           subtitle: string
@@ -278,6 +283,7 @@ export type Database = {
           deskripsi?: string | null
           icon_name?: string
           id?: string
+          image_url?: string | null
           is_active?: boolean
           nama?: string
           subtitle?: string
